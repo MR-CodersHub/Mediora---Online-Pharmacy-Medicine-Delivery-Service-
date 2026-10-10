@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon - Next-Gen Telehealth &amp; Drone Delivery | Mediora</title>
+  <meta name="description" content="Discover what's coming to Mediora. AI drug interaction screening, sub-30 minute climate-controlled autonomous drone delivery, and 24/7 telehealth consultations.">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function(){
+      try {
+        if(localStorage.getItem('mediora_theme_mode') === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        if(localStorage.getItem('mediora_direction') === 'rtl') {
+          document.documentElement.setAttribute('dir', 'rtl');
+        }
+      } catch(e){}
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-headset"></i>
+          <span>24/7 Clinical Dispensary Help Desk</span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-clock"></i>
+          <span>Average Call Response Time: Under 45 Seconds</span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-phone"></i>
+          <span>Toll-Free Hotline: <strong>(800) 555-0199</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header-sticky-container">
+    <header class="main-header">
+      <div class="container header-inner">
+        <a href="index.html" class="brand-logo" title="Mediora Home">
+          <img src="images/logo.svg" alt="Mediora Logo" class="logo-light">
+          <img src="images/logo-white.svg" alt="Mediora Logo" class="logo-dark">
+        </a>
+
+        <div class="header-search">
+          <form class="search-bar-form" action="products.html" method="GET">
+            <select class="search-category-select" name="cat" aria-label="Select Category">
+              <option value="all">All Categories</option>
+              <option value="prescription">Prescription Rx</option>
+              <option value="otc">Over-the-Counter</option>
+              <option value="vitamins">Vitamins &amp; Supplements</option>
+            </select>
+            <input type="text" class="search-input" name="q" placeholder="Search medicines, active ingredients, vitamins..." aria-label="Search medicines">
+            <button type="submit" class="search-btn" aria-label="Search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span>Search</span>
+            </button>
+          </form>
+        </div>
+
+        <div class="header-actions">
+          <button type="button" class="header-action-btn rtl-toggle-btn" id="rtlToggleBtn" aria-label="Toggle RTL Layout" title="Toggle RTL / LTR layout" onclick="window.PharmaApp.toggleRTL()">
+            <i class="fa-solid fa-right-left"></i>
+            <span class="toggle-text">RTL</span>
+          </button>
+
+          <button type="button" class="header-action-btn theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Dark / Light Theme" title="Toggle Dark / Light Theme" onclick="window.PharmaApp.toggleTheme()">
+            <i class="fa-solid fa-moon theme-icon"></i>
+            <span class="toggle-text">Dark</span>
+          </button>
+
+          <div class="account-wrapper">
+            <button type="button" class="header-action-btn account-icon-btn" id="accountBtn" aria-label="Customer Account" title="Customer Account">
+              <i class="fa-regular fa-user"></i>
+            </button>
+            <div class="account-dropdown-menu" id="accountDropdown">
+              <a href="javascript:void(0)" class="dropdown-item" onclick="window.PharmaApp.openAuthModal('login')">
+                <i class="fa-solid fa-right-to-bracket"></i> Login / Sign Up
+              </a>
+              <a href="admin-dashboard.html" class="dropdown-item">
+                <i class="fa-solid fa-shield-halved"></i> Admin Dashboard
+              </a>
+              <a href="user-dashboard.html" class="dropdown-item">
+                <i class="fa-solid fa-id-card-clip"></i> User Dashboard
+              </a>
+            </div>
+          </div>
+
+          <div class="cart-btn-wrapper">
+            <button type="button" class="cart-icon-btn" onclick="window.PharmaApp.openCartDrawer()" aria-label="Open Shopping Cart">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span>Cart</span>
+              <span class="cart-badge-count" style="display:none;">0</span>
+            </button>
+          </div>
+
+          <button type="button" class="mobile-nav-toggle" aria-label="Toggle Navigation">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- NAVIGATION MENU -->
+    <nav class="nav-bar">
+      <div class="container nav-inner">
+        <div class="mobile-menu-account">
+          <div class="mobile-account-card">
+            <div class="mobile-account-avatar"><i class="fa-regular fa-user"></i></div>
+            <div class="mobile-account-info">
+              <span class="mobile-account-label">Patient Access</span>
+              <h5 class="mobile-account-name">My Account</h5>
+            </div>
+          </div>
+          <div class="mobile-account-links">
+            <a href="javascript:void(0)" class="mobile-account-link" onclick="window.PharmaApp.openAuthModal('login'); document.querySelector('.nav-bar')?.classList.remove('mobile-open');">
+              <i class="fa-solid fa-right-to-bracket"></i>
+              <span>Login / Sign Up</span>
+            </a>
+            <a href="user-dashboard.html" class="mobile-account-link">
+              <i class="fa-solid fa-id-card-clip"></i>
+              <span>User Portal</span>
+            </a>
+            <a href="admin-dashboard.html" class="mobile-account-link">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span>Admin</span>
+            </a>
+          </div>
+        </div>
+
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a></li>
+          <li><a href="home-2.html" class="nav-link"><i class="fa-solid fa-bolt"></i> Home 2</a></li>
+          <li><a href="about.html" class="nav-link"><i class="fa-solid fa-circle-info"></i> About</a></li>
+          <li><a href="products.html" class="nav-link"><i class="fa-solid fa-tablets"></i> Products</a></li>
+          <li><a href="upload-prescription.html" class="nav-link"><i class="fa-solid fa-file-prescription"></i> Prescription</a></li>
+          <li><a href="blog.html" class="nav-link"><i class="fa-solid fa-book-medical"></i> Blog</a></li>
+          <li><a href="contact.html" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+        </ul>
+
+        <div class="mobile-menu-cta-group">
+          <a href="upload-prescription.html" class="btn btn-primary mobile-cta-btn">
+            <i class="fa-solid fa-file-arrow-up"></i> Upload Doctor's Rx Slip
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- MAIN CONTENT: COMING SOON -->
+  <main class="utility-page-section">
+    <div class="container">
+      <div class="utility-content-wrapper">
+
+        <!-- Status Badge -->
+        <div class="utility-badge utility-badge-soon">
+          <i class="fa-solid fa-rocket"></i>
+          <span>Launching Soon • Q4 2026 Innovation</span>
+        </div>
+
+        <!-- Heading & Intro -->
+        <h1 class="utility-title">
+          Next-Gen Telehealth &amp; <span class="utility-title-accent">Autonomous Drone Delivery</span>
+        </h1>
+        <p class="utility-subtitle">
+          We are putting the finishing touches on Mediora's revolutionary pharmacy platform: combining real-time AI drug interaction screening, 24/7 video PharmD consultations, and sub-30 minute climate-controlled drone dispatch.
+        </p>
+
+        <!-- Live Countdown Timer -->
+        <div class="countdown-grid" id="countdownGrid" aria-label="Launch Countdown">
+          <div class="countdown-card">
+            <span class="countdown-num" id="cdDays">18</span>
+            <span class="countdown-label">Days</span>
+          </div>
+          <div class="countdown-card">
+            <span class="countdown-num" id="cdHours">07</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-card">
+            <span class="countdown-num" id="cdMinutes">42</span>
+            <span class="countdown-label">Minutes</span>
+          </div>
+          <div class="countdown-card">
+            <span class="countdown-num" id="cdSeconds">19</span>
+            <span class="countdown-label">Seconds</span>
+          </div>
+        </div>
+
+        <!-- Notify & VIP Beta Application Card -->
+        <div class="notify-subscribe-box">
+          <div style="width:48px; height:48px; border-radius:50%; background:var(--soft-medical-green); color:var(--primary-green); display:inline-flex; align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:12px;">
+            <i class="fa-regular fa-bell"></i>
+          </div>
+          <h3>Be the First to Experience the Future</h3>
+          <p>Sign up to receive an exclusive early invite and get <strong>free priority drone delivery for 6 months</strong>.</p>
+
+          <form id="notifyForm" onsubmit="handleNotifySubmit(event)">
+            <div class="notify-form-flex">
+              <input type="email" id="notifyEmailInput" placeholder="Enter your email address..." required aria-label="Email Address">
+              <button type="submit" class="btn btn-primary" id="notifySubmitBtn">
+                <i class="fa-solid fa-paper-plane"></i> Notify Me
+              </button>
+            </div>
+            <div style="text-align:left; margin-bottom:12px;">
+              <label style="display:flex; align-items:center; gap:8px; font-size:0.82rem; color:var(--text-secondary); cursor:pointer;">
+                <input type="checkbox" checked accent-color="var(--primary-green)" id="betaTesterCheck">
+                <span>Enroll me as a Beta Pilot Tester for priority drone delivery dispatch</span>
+              </label>
+            </div>
+            <div class="notify-gdpr-note">
+              <i class="fa-solid fa-lock"></i>
+              <span>HIPAA Compliant &amp; Zero Spam Policy. Unsubscribe anytime with 1 click.</span>
+            </div>
+          </form>
+        </div>
+
+        <!-- Milestone Progress Tracker -->
+        <div class="milestone-tracker-card">
+          <div class="milestone-tracker-header">
+            <span class="milestone-tracker-title"><i class="fa-solid fa-list-check" style="color:var(--primary-green);"></i> Clinical &amp; Engineering Readiness</span>
+            <span class="milestone-tracker-percent">88% Ready</span>
+          </div>
+          <div class="milestone-progress-track">
+            <div class="milestone-progress-fill" style="width: 88%;"></div>
+          </div>
+          <div class="milestone-steps-flex">
+            <div class="milestone-step-item done">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>FAA Drone Corridor Approved</span>
+            </div>
+            <div class="milestone-step-item done">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>256-Bit HIPAA Vault Audited</span>
+            </div>
+            <div class="milestone-step-item done">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Cold-Chain IoT Sensor Network</span>
+            </div>
+            <div class="milestone-step-item" style="color:var(--primary-green); font-weight:700;">
+              <i class="fa-solid fa-spinner fa-spin"></i>
+              <span>Clinical Beta Pilot</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Feature Highlight Teaser Cards -->
+        <div class="features-preview-grid">
+          <div class="feature-preview-card">
+            <span class="feature-preview-tag"><i class="fa-solid fa-helicopter"></i> Autonomous Flight</span>
+            <h4>Sub-30 Min Medical Drone Delivery</h4>
+            <p>FAA-certified refrigerated drones carrying vital insulin, cardiac doses, and antibiotics straight to designated landing beacons in under 30 minutes.</p>
+          </div>
+
+          <div class="feature-preview-card">
+            <span class="feature-preview-tag"><i class="fa-solid fa-brain"></i> AI Pharmacist Engine</span>
+            <h4>AI Drug Safety &amp; Allergy Screening</h4>
+            <p>Instant safety cross-checks against 100,000+ clinical interactions, active ingredient allergies, and multi-prescription contraindications.</p>
+          </div>
+
+          <div class="feature-preview-card">
+            <span class="feature-preview-tag"><i class="fa-solid fa-video"></i> On-Demand Care</span>
+            <h4>24/7 Telehealth Clinical Video</h4>
+            <p>Direct face-to-face video consultations with board-certified PharmD doctors to review prescription dosages, side effects, and adjustments.</p>
+          </div>
+        </div>
+
+        <!-- Return / Action Banner -->
+        <div class="utility-emergency-bar">
+          <div class="utility-emergency-left">
+            <div class="utility-emergency-icon">
+              <i class="fa-solid fa-basket-shopping"></i>
+            </div>
+            <div class="utility-emergency-text">
+              <h4>Need Medications Delivered Today?</h4>
+              <p>Our standard express courier service is fully operational with same-day temperature-monitored delivery.</p>
+            </div>
+          </div>
+          <div class="utility-emergency-actions">
+            <a href="products.html" class="btn btn-primary btn-sm">
+              <i class="fa-solid fa-tablets"></i> Shop Catalog
+            </a>
+            <a href="upload-prescription.html" class="btn btn-outline btn-sm" style="color:#FFFFFF; border-color:rgba(255,255,255,0.4);">
+              <i class="fa-solid fa-file-arrow-up"></i> Upload Doctor's Rx
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div class="footer-col footer-col-brand">
+        <a href="index.html" class="brand-logo" title="Mediora Home">
+          <img src="images/logo-white.svg" alt="Mediora Logo" style="height:36px; margin-bottom:14px;">
+        </a>
+        <p class="footer-brand-desc">
+          Mediora is an accredited healthcare and digital dispensary delivery service providing licensed pharmaceuticals, temperature-controlled delivery, and 24/7 clinical pharmacist consultation.
+        </p>
+        <div class="footer-license-badge">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>State Board Pharmacy License #NY-PHARM-88204</span>
+        </div>
+        <div class="footer-social-links">
+          <a href="#" class="social-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-link" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation Links</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home (Main)</a></li>
+          <li><a href="home-2.html"><i class="fa-solid fa-chevron-right"></i> Home 2 (Express)</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Our Pharmacy</a></li>
+          <li><a href="products.html"><i class="fa-solid fa-chevron-right"></i> Browse All Medicines</a></li>
+          <li><a href="upload-prescription.html"><i class="fa-solid fa-chevron-right"></i> Upload Prescription</a></li>
+          <li><a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Health Articles &amp; Blog</a></li>
+          <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Customer Contact &amp; FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Dispensary Portals</h4>
+        <ul class="footer-links-list">
+          <li><a href="products.html?cat=prescription"><i class="fa-solid fa-chevron-right"></i> Prescription Rx</a></li>
+          <li><a href="products.html?cat=otc"><i class="fa-solid fa-chevron-right"></i> Over-the-Counter (OTC)</a></li>
+          <li><a href="products.html?cat=vitamins"><i class="fa-solid fa-chevron-right"></i> Vitamins &amp; Supplements</a></li>
+          <li><a href="user-dashboard.html"><i class="fa-solid fa-chevron-right"></i> Patient Portal</a></li>
+          <li><a href="admin-dashboard.html"><i class="fa-solid fa-chevron-right"></i> Admin Workbench</a></li>
+          <li><a href="coming-soon.html"><i class="fa-solid fa-chevron-right"></i> Coming Soon</a></li>
+          <li><a href="maintenance.html"><i class="fa-solid fa-chevron-right"></i> System Maintenance</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>24/7 Dispensary Support</h4>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>742 Healthway Boulevard, Suite 400<br>New York, NY 10001, USA</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <span>Helpline: (800) 555-0199<br>Direct Rx: (212) 555-0145</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <span>rx-desk@mediora.com<br>support@mediora.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-clock"></i>
+          <span>Dispensary: 24 Hours / 7 Days<br>Clinical Pharmacist on Duty</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-disclaimer-bar">
+      <div class="container">
+        <p class="disclaimer-text">
+          <strong>Mandatory Healthcare Disclaimer:</strong> All medicines requiring prescription are dispensed strictly against an authentic, legible medical prescription from a registered healthcare professional. Content on this website is for educational and informational purposes only and does not constitute clinical diagnosis or substitute for professional medical advice. Always consult your physician before starting any medication regimen.
+        </p>
+        <div class="footer-bottom-flex">
+          <div>
+            &copy; 2026 Mediora Inc. All Rights Reserved. HIPAA Compliant • FAA Certified.
+          </div>
+          <div class="payment-badges" title="Accepted Payment Methods">
+            <i class="fa-brands fa-cc-visa"></i>
+            <i class="fa-brands fa-cc-mastercard"></i>
+            <i class="fa-brands fa-cc-amex"></i>
+            <i class="fa-brands fa-cc-paypal"></i>
+            <i class="fa-brands fa-cc-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER & OVERLAY -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart Drawer">
+    <div class="cart-drawer-header">
+      <h3><i class="fa-solid fa-basket-shopping" style="color:var(--primary-green);"></i> Your Pharmacy Cart</h3>
+      <button class="cart-close-btn" onclick="window.PharmaApp.closeCartDrawer()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="cartRxWarningBox" style="display:none; background:#FEF2F2; border-bottom:1px solid #FECACA; padding:10px 16px; font-size:0.8rem; color:#991B1B;">
+      <i class="fa-solid fa-triangle-exclamation"></i> Contains prescription medicines. You must provide a valid prescription before order dispatch.
+    </div>
+    <div class="cart-drawer-body" id="cartDrawerBody"></div>
+    <div class="cart-drawer-footer">
+      <div class="cart-summary-line"><span>Subtotal</span><strong id="cartSubtotal">$0.00</strong></div>
+      <div class="cart-summary-line"><span>Estimated Delivery Fee</span><strong id="cartShipping">$0.00</strong></div>
+      <div class="cart-total-line"><span>Estimated Total</span><span id="cartTotal" style="color:var(--primary-green);">$0.00</span></div>
+      <button class="btn btn-primary btn-lg" style="width:100%;" id="proceedCheckoutBtn">
+        Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Patient &amp; Staff Portal Access</h3>
+        <button class="modal-close-btn" onclick="window.PharmaApp.closeModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="loginTabBtn" onclick="window.PharmaApp.switchAuthTab('login')">Patient Login</button>
+          <button class="auth-tab-btn" id="registerTabBtn" onclick="window.PharmaApp.switchAuthTab('register')">New Registration</button>
+        </div>
+        <form id="loginForm" onsubmit="event.preventDefault(); window.PharmaApp.showToast('Login successful! Welcome back.', 'success'); window.PharmaApp.closeModal('authModal');">
+          <div class="form-group"><label>Email Address</label><input type="email" class="form-control" required value="demo@patient.com"></div>
+          <div class="form-group"><label>Password</label><input type="password" class="form-control" required value="password123"></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Live Countdown Timer logic
+    (function initCountdown(){
+      // Set target to 18 days, 7 hours, 42 minutes from current time
+      const targetTime = new Date().getTime() + (18 * 24 * 60 * 60 * 1000) + (7 * 60 * 60 * 1000) + (42 * 60 * 1000);
+      
+      function updateTimer(){
+        const now = new Date().getTime();
+        const diff = Math.max(0, targetTime - now);
+        
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        const dEl = document.getElementById('cdDays');
+        const hEl = document.getElementById('cdHours');
+        const mEl = document.getElementById('cdMinutes');
+        const sEl = document.getElementById('cdSeconds');
+
+        if(dEl) dEl.textContent = String(days).padStart(2, '0');
+        if(hEl) hEl.textContent = String(hours).padStart(2, '0');
+        if(mEl) mEl.textContent = String(minutes).padStart(2, '0');
+        if(sEl) sEl.textContent = String(seconds).padStart(2, '0');
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    })();
+
+    // Handle Notify / Beta Form Submit
+    function handleNotifySubmit(e) {
+      e.preventDefault();
+      const emailInput = document.getElementById('notifyEmailInput');
+      const isBeta = document.getElementById('betaTesterCheck')?.checked;
+      const email = emailInput?.value?.trim();
+
+      if(!email) return;
+
+      const msg = isBeta 
+        ? `VIP Beta confirmed for ${email}! You're on the priority drone delivery invite list.`
+        : `Thank you! We will notify ${email} the moment we launch.`;
+
+      if(window.PharmaApp && window.PharmaApp.showToast) {
+        window.PharmaApp.showToast(msg, 'success');
+      } else {
+        alert(msg);
+      }
+
+      emailInput.value = '';
+    }
+  </script>
+</body>
+</html>

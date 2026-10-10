@@ -56,33 +56,13 @@
         <img src="images/logo-white.svg" alt="Mediora Logo" class="logo-dark">
       </a>
 
-      <!-- Sidebar Toggle Hamburger Button -->
-      <button type="button" class="dash-sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation Sidebar" title="Collapse / Expand Sidebar">
-        <i class="fa-solid fa-bars-staggered"></i>
-      </button>
-
       <!-- Patient Portal Badge -->
       <span class="dash-console-badge">
         <i class="fa-solid fa-heart-pulse"></i> Patient Portal
       </span>
-
-      <!-- Breadcrumbs -->
-      <div class="dash-breadcrumb">
-        <a href="index.html">Mediora</a>
-        <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
-        <a href="user-dashboard.html">Patient Portal</a>
-        <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
-        <span class="active" id="dashBreadcrumbCurrent">Overview</span>
-      </div>
     </div>
 
     <div class="dash-header-right">
-      <!-- Cold-Chain Telemetry Pill (Auto-hidden on smaller viewports) -->
-      <span class="dash-system-badge" title="Dispensary Cold-Chain Compliance">
-        <i class="fa-solid fa-circle-dot" style="color:#10B981; animation:pulseGreen 1.5s infinite;"></i>
-        <span>Vault: <strong>3.6°C Normal</strong></span>
-      </span>
-
       <!-- RTL Toggle Button -->
       <button type="button" class="dash-icon-btn rtl-toggle-btn" id="rtlToggleBtn" aria-label="Toggle RTL / LTR layout" title="Toggle RTL / LTR layout" onclick="toggleRTL()">
         <i class="fa-solid fa-right-left"></i>
@@ -92,42 +72,6 @@
       <button type="button" class="dash-icon-btn theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Dark / Light theme" title="Toggle Dark / Light theme" onclick="toggleTheme()">
         <i class="fa-solid fa-moon theme-icon"></i>
       </button>
-
-      <!-- Notification Bell with Popover -->
-      <div class="dash-notification-wrapper">
-        <button type="button" class="dash-icon-btn dash-notification-btn" id="dashNotifBtn" onclick="toggleNotifications()" aria-label="View Patient Notifications" title="Notifications">
-          <i class="fa-regular fa-bell"></i>
-          <span class="dash-notification-badge">3</span>
-        </button>
-        
-        <div class="dash-notification-popover" id="dashNotifPopover">
-          <div class="dash-notif-header">
-            <span>Patient Alerts (3)</span>
-            <a href="javascript:void(0)" onclick="clearNotifications()" style="font-size:0.75rem; color:var(--primary-green); font-weight:600;">Mark Read</a>
-          </div>
-          <div class="dash-notif-item" onclick="switchUserTab('tracking')">
-            <div class="dash-notif-icon" style="background:#E0F2FE; color:#0369A1;"><i class="fa-solid fa-truck-fast"></i></div>
-            <div>
-              <strong>Order #MED-94021 Dispatched</strong>
-              <div style="color:var(--text-muted); font-size:0.75rem; margin-top:2px;">Cold-chain van #12 is out for delivery. Est: 4:30 PM.</div>
-            </div>
-          </div>
-          <div class="dash-notif-item" onclick="switchUserTab('prescriptions')">
-            <div class="dash-notif-icon" style="background:#FEF3C7; color:#92400E;"><i class="fa-solid fa-file-prescription"></i></div>
-            <div>
-              <strong>Rx #RX-88201 in Review</strong>
-              <div style="color:var(--text-muted); font-size:0.75rem; margin-top:2px;">Assigned to Dr. Sarah Jenkins, PharmD.</div>
-            </div>
-          </div>
-          <div class="dash-notif-item" onclick="switchUserTab('reminders')">
-            <div class="dash-notif-icon" style="background:#FEE2E2; color:#991B1B;"><i class="fa-solid fa-pills"></i></div>
-            <div>
-              <strong>Refill Alert: Metformin 500mg</strong>
-              <div style="color:var(--text-muted); font-size:0.75rem; margin-top:2px;">5 days supply remaining. Refill recommended.</div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <!-- Unified Interactive User Profile Menu -->
       <div class="dash-profile-wrapper" id="dashProfileWrapper">
@@ -176,10 +120,10 @@
         </div>
       </div>
 
-      <!-- Return to Store Link / Icon -->
-      <a href="index.html" class="dash-icon-btn" title="Return to Store" aria-label="Return to Store">
-        <i class="fa-solid fa-store"></i>
-      </a>
+      <!-- Sidebar Toggle Hamburger Button (Fixed to last position) -->
+      <button type="button" class="dash-sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation Sidebar" title="Collapse / Expand Sidebar">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
     </div>
   </header>
 
@@ -192,12 +136,11 @@
     <!-- LEFT SIDEBAR NAVIGATION -->
     <aside class="dashboard-sidebar" id="dashboardSidebar">
       
-      <!-- Mobile Drawer Top Bar with Brand & Close Button -->
+      <!-- Mobile Drawer Top Bar with Title & Close Button -->
       <div class="dash-sidebar-mobile-bar">
-        <div class="dash-sidebar-brand">
-          <img src="images/logo.svg" alt="Mediora" class="logo-light" style="height:26px;">
-          <img src="images/logo-white.svg" alt="Mediora" class="logo-dark" style="height:26px;">
-          <span class="dash-sidebar-portal-tag">Patient Portal</span>
+        <div class="dash-sidebar-title-badge">
+          <i class="fa-solid fa-heart-pulse"></i>
+          <span>Patient Portal Menu</span>
         </div>
         <button type="button" class="dash-sidebar-close-btn" onclick="toggleSidebar()" aria-label="Close Navigation Sidebar">
           <i class="fa-solid fa-xmark"></i>
@@ -272,10 +215,10 @@
 
       <!-- Sidebar Footer -->
       <div class="dash-sidebar-footer">
-        <div style="background:var(--soft-medical-green); border:1px solid var(--mint-green); border-radius:var(--radius-md); padding:10px 12px; font-size:0.78rem; color:var(--dark-forest); margin-bottom:12px;">
+        <div class="dash-sidebar-info-card">
           <i class="fa-solid fa-snowflake" style="color:var(--primary-green);"></i>
           <strong>Cold-Chain Safe Delivery</strong>
-          <div style="color:var(--text-secondary); margin-top:2px;">Insulated 2°C–8°C packaging on all active orders.</div>
+          <div style="margin-top:2px;">Insulated 2°C–8°C packaging on all active orders.</div>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
           <a href="admin-dashboard.html" class="dash-nav-btn" style="padding:8px 12px; font-size:0.82rem;">
@@ -464,7 +407,7 @@
         </div>
 
         <!-- Quick 2-Column: Recent Prescriptions + Refill Widget -->
-        <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:24px; align-items:start;">
+        <div class="dash-grid-2col">
           
           <!-- Recent Prescriptions Table Snapshot -->
           <div class="dash-card">
@@ -513,23 +456,23 @@
               <button class="btn btn-secondary btn-xs" onclick="switchUserTab('reminders')">+ New Reminder</button>
             </div>
             <div class="dash-card-body" style="padding:16px 20px;">
-              <div style="border-left:3px solid #EF4444; background:#FEF2F2; padding:12px 14px; border-radius:0 var(--radius-sm) var(--radius-sm) 0; margin-bottom:12px;">
+              <div class="refill-alert-box refill-urgent">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <strong style="font-size:0.88rem; color:#991B1B;">Metformin HCl 500mg</strong>
-                  <span style="font-size:0.75rem; color:#B91C1C; font-weight:700;">5 Days Left</span>
+                  <strong>Metformin HCl 500mg</strong>
+                  <span class="refill-alert-tag">5 Days Left</span>
                 </div>
-                <div style="font-size:0.8rem; color:#7F1D1D; margin:4px 0 8px 0;">Due date: Oct 15, 2026 • 60 Tablets</div>
+                <div class="refill-alert-meta">Due date: Oct 15, 2026 • 60 Tablets</div>
                 <button class="btn btn-primary btn-xs" onclick="reorderDemo('Metformin HCl 500mg', 18.50)">
                   <i class="fa-solid fa-cart-plus"></i> Reorder Refill ($18.50)
                 </button>
               </div>
 
-              <div style="border-left:3px solid #F59E0B; background:#FFFBEB; padding:12px 14px; border-radius:0 var(--radius-sm) var(--radius-sm) 0;">
+              <div class="refill-alert-box refill-warning">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <strong style="font-size:0.88rem; color:#92400E;">Lipitor (Atorvastatin) 20mg</strong>
-                  <span style="font-size:0.75rem; color:#B45309; font-weight:700;">14 Days Left</span>
+                  <strong>Lipitor (Atorvastatin) 20mg</strong>
+                  <span class="refill-alert-tag">14 Days Left</span>
                 </div>
-                <div style="font-size:0.8rem; color:#78350F; margin:4px 0 8px 0;">Due date: Oct 24, 2026 • 30 Tablets</div>
+                <div class="refill-alert-meta">Due date: Oct 24, 2026 • 30 Tablets</div>
                 <button class="btn btn-outline btn-xs" onclick="switchUserTab('reminders')">Manage Reminder</button>
               </div>
             </div>
@@ -759,7 +702,7 @@
             </div>
 
             <!-- Cold-Chain IoT Sensor Telemetry & Courier Info -->
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:24px;">
+            <div class="dash-grid-equal" style="margin-top:24px;">
               
               <!-- Sensor Telemetry Box -->
               <div style="background:linear-gradient(135deg, #032A20 0%, #064E3B 100%); color:#FFFFFF; border-radius:var(--radius-lg); padding:24px; box-shadow:var(--shadow-md);">
@@ -1247,7 +1190,7 @@
           </div>
         </div>
 
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+        <div class="dash-grid-equal">
           
           <!-- Form: Personal Contact -->
           <div class="dash-card">
@@ -1361,7 +1304,7 @@
           </div>
         </div>
 
-        <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:24px; align-items:start;">
+        <div class="dash-grid-2col">
           
           <!-- Live Pharmacist Consultation Chat Box -->
           <div class="dash-card">
@@ -1819,6 +1762,7 @@
       if (window.innerWidth <= 1024 && sidebar) {
         sidebar.classList.remove('mobile-open');
         if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
       }
 
       // Smooth scroll to top of main content
@@ -1833,8 +1777,9 @@
 
       if (window.innerWidth <= 1024) {
         // Mobile behavior: drawer
-        sidebar.classList.toggle('mobile-open');
-        if (overlay) overlay.classList.toggle('active');
+        const isOpen = sidebar.classList.toggle('mobile-open');
+        if (overlay) overlay.classList.toggle('active', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
       } else {
         // Desktop behavior: collapse to mini bar
         sidebar.classList.toggle('is-collapsed');
@@ -2071,14 +2016,147 @@
       }
     }
 
-    // Close notifications popover on click outside
+    // Toast System
+    function showDashboardToast(message, type = 'success') {
+      let container = document.getElementById('toastContainer');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'toastContainer';
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+      }
+      const toast = document.createElement('div');
+      toast.className = `toast ${type === 'error' ? 'toast-error' : ''}`;
+      const icon = type === 'error' ? 'fa-circle-exclamation' : (type === 'info' ? 'fa-circle-info' : 'fa-circle-check');
+      toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        if (toast && toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 3200);
+    }
+
+    // Theme & RTL Controls
+    function toggleTheme() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        try { localStorage.setItem('mediora_theme_mode', 'light'); } catch(e){}
+        updateThemeUI(false);
+        showDashboardToast('Switched to Light Mode', 'info');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        try { localStorage.setItem('mediora_theme_mode', 'dark'); } catch(e){}
+        updateThemeUI(true);
+        showDashboardToast('Switched to Dark Mode', 'info');
+      }
+    }
+
+    function updateThemeUI(isDark) {
+      const btn = document.getElementById('themeToggleBtn');
+      if (btn) {
+        const icon = btn.querySelector('.theme-icon') || btn.querySelector('i');
+        if (icon) {
+          icon.className = isDark ? 'fa-solid fa-sun theme-icon' : 'fa-solid fa-moon theme-icon';
+          icon.style.color = isDark ? '#FBBF24' : '';
+        }
+        btn.setAttribute('title', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+      }
+    }
+
+    function toggleRTL() {
+      const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+      if (isRTL) {
+        document.documentElement.setAttribute('dir', 'ltr');
+        try { localStorage.setItem('mediora_direction', 'ltr'); } catch(e){}
+        updateRTLUI(false);
+        showDashboardToast('Switched to LTR Layout', 'info');
+      } else {
+        document.documentElement.setAttribute('dir', 'rtl');
+        try { localStorage.setItem('mediora_direction', 'rtl'); } catch(e){}
+        updateRTLUI(true);
+        showDashboardToast('Switched to RTL Layout', 'info');
+      }
+    }
+
+    function updateRTLUI(isRTL) {
+      const btn = document.getElementById('rtlToggleBtn');
+      if (btn) {
+        btn.classList.toggle('active-rtl', isRTL);
+        btn.setAttribute('title', isRTL ? 'Switch to LTR Layout' : 'Switch to RTL Layout');
+      }
+    }
+
+    // Profile Dropdown Toggle
+    function toggleProfileDropdown(e) {
+      if (e) e.stopPropagation();
+      const wrapper = document.getElementById('dashProfileWrapper');
+      if (wrapper) {
+        wrapper.classList.toggle('active');
+        const isExp = wrapper.classList.contains('active');
+        document.getElementById('dashProfileBtn')?.setAttribute('aria-expanded', isExp ? 'true' : 'false');
+      }
+    }
+
+    function closeProfileDropdown() {
+      const wrapper = document.getElementById('dashProfileWrapper');
+      if (wrapper) {
+        wrapper.classList.remove('active');
+        document.getElementById('dashProfileBtn')?.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function logoutDemo() {
+      closeProfileDropdown();
+      showDashboardToast('Session ended. Redirecting to store...', 'info');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1200);
+    }
+
+    // PharmaApp Safe Shim
+    window.PharmaApp = window.PharmaApp || {
+      showToast: (m, t) => showDashboardToast(m, t),
+      toggleTheme: () => toggleTheme(),
+      toggleRTL: () => toggleRTL(),
+      openCartDrawer: () => showDashboardToast('Patient cart active. No pending dispensary items.', 'info')
+    };
+
+    // Global Click Listener for dropdowns and popovers
     document.addEventListener('click', (e) => {
-      const wrapper = document.querySelector('.dash-notification-wrapper');
+      // Notification Popover
+      const notifWrapper = document.querySelector('.dash-notification-wrapper');
       const popover = document.getElementById('dashNotifPopover');
-      if (wrapper && popover && !wrapper.contains(e.target)) {
+      if (notifWrapper && popover && !notifWrapper.contains(e.target)) {
         popover.classList.remove('active');
       }
+      // Profile Dropdown
+      const profileWrapper = document.getElementById('dashProfileWrapper');
+      if (profileWrapper && !profileWrapper.contains(e.target)) {
+        closeProfileDropdown();
+      }
     });
+
+    // Escape Key Listener
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeProfileDropdown();
+        document.getElementById('dashNotifPopover')?.classList.remove('active');
+        const sidebar = document.getElementById('dashboardSidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        if (sidebar && sidebar.classList.contains('mobile-open')) {
+          sidebar.classList.remove('mobile-open');
+          if (overlay) overlay.classList.remove('active');
+        }
+      }
+    });
+
+    // Synchronize Initial UI States
+    try {
+      const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+      updateThemeUI(currentTheme);
+      const currentRTL = document.documentElement.getAttribute('dir') === 'rtl';
+      updateRTLUI(currentRTL);
+    } catch(e){}
   </script>
 
 </body>

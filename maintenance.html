@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scheduled System Maintenance | Mediora Online Pharmacy</title>
+  <meta name="description" content="Mediora dispensary is undergoing scheduled infrastructure upgrades. Emergency prescription bypass is available 24/7 via phone hotline.">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function(){
+      try {
+        if(localStorage.getItem('mediora_theme_mode') === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        if(localStorage.getItem('mediora_direction') === 'rtl') {
+          document.documentElement.setAttribute('dir', 'rtl');
+        }
+      } catch(e){}
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-headset"></i>
+          <span>24/7 Clinical Dispensary Help Desk</span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>HIPAA Compliance Maintenance Mode</span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-phone"></i>
+          <span>Emergency Desk: <strong>(800) 555-0199</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header-sticky-container">
+    <header class="main-header">
+      <div class="container header-inner">
+        <a href="index.html" class="brand-logo" title="Mediora Home">
+          <img src="images/logo.svg" alt="Mediora Logo" class="logo-light">
+          <img src="images/logo-white.svg" alt="Mediora Logo" class="logo-dark">
+        </a>
+
+        <div style="flex:1; max-width:480px; text-align:center; font-size:0.85rem; color:var(--text-muted);">
+          <span class="badge" style="background:#FEF3C7; color:#92400E; border:1px solid #F59E0B; padding:5px 12px;">
+            <i class="fa-solid fa-gear fa-spin"></i> Scheduled Platform Upgrade Active
+          </span>
+        </div>
+
+        <div class="header-actions">
+          <button type="button" class="header-action-btn rtl-toggle-btn" id="rtlToggleBtn" aria-label="Toggle RTL Layout" title="Toggle RTL / LTR layout" onclick="window.PharmaApp.toggleRTL()">
+            <i class="fa-solid fa-right-left"></i>
+            <span class="toggle-text">RTL</span>
+          </button>
+
+          <button type="button" class="header-action-btn theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Dark / Light Theme" title="Toggle Dark / Light Theme" onclick="window.PharmaApp.toggleTheme()">
+            <i class="fa-solid fa-moon theme-icon"></i>
+            <span class="toggle-text">Dark</span>
+          </button>
+
+          <div class="account-wrapper">
+            <button type="button" class="header-action-btn account-icon-btn" id="accountBtn" aria-label="Customer Account" title="Customer Account">
+              <i class="fa-regular fa-user"></i>
+            </button>
+            <div class="account-dropdown-menu" id="accountDropdown">
+              <a href="javascript:void(0)" class="dropdown-item" onclick="window.PharmaApp.openAuthModal('login')">
+                <i class="fa-solid fa-right-to-bracket"></i> Login / Sign Up
+              </a>
+              <a href="admin-dashboard.html" class="dropdown-item">
+                <i class="fa-solid fa-shield-halved"></i> Admin Dashboard
+              </a>
+              <a href="user-dashboard.html" class="dropdown-item">
+                <i class="fa-solid fa-id-card-clip"></i> User Dashboard
+              </a>
+            </div>
+          </div>
+
+          <a href="tel:8005550199" class="btn btn-primary btn-sm" style="display:inline-flex; align-items:center; gap:6px;">
+            <i class="fa-solid fa-phone"></i> Emergency Rx
+          </a>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <!-- MAIN CONTENT: MAINTENANCE -->
+  <main class="utility-page-section">
+    <div class="container">
+      <div class="utility-content-wrapper">
+
+        <!-- Status Badge -->
+        <div class="utility-badge utility-badge-maint">
+          <i class="fa-solid fa-screwdriver-wrench"></i>
+          <span>Scheduled Clinical Infrastructure Upgrade</span>
+        </div>
+
+        <!-- Heading & Intro -->
+        <h1 class="utility-title">
+          We're Performing Essential <span class="utility-title-accent">Dispensary Maintenance</span>
+        </h1>
+        <p class="utility-subtitle">
+          Our engineering and clinical compliance team is upgrading our 256-bit encrypted HIPAA vault and expanding IoT cold-chain telemetry capacity to give you faster prescription reviews and enhanced order security.
+        </p>
+
+        <!-- CRITICAL HEALTHCARE EMERGENCY REFILL BYPASS NOTICE -->
+        <div class="emergency-refill-bypass-box">
+          <div class="emergency-bypass-content">
+            <h3><i class="fa-solid fa-heart-pulse"></i> Urgent Life-Critical Medication Required?</h3>
+            <p>
+              Patients requiring immediate refills for insulin, cardiac meds, asthma inhalers, or urgent antibiotics can bypass web maintenance. Our on-duty clinical dispensary desk is taking emergency phone orders with immediate priority courier dispatch.
+            </p>
+          </div>
+          <div class="emergency-bypass-actions">
+            <a href="tel:8005550199" class="btn btn-primary">
+              <i class="fa-solid fa-phone"></i> Call (800) 555-0199
+            </a>
+            <button type="button" class="btn btn-outline" onclick="window.PharmaApp.showToast('Connecting to On-Duty Pharmacist WhatsApp Dispatch...', 'info')" style="color:#991B1B; border-color:#FCA5A5; background:#FFFFFF;">
+              <i class="fa-brands fa-whatsapp"></i> WhatsApp Dispatch
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Countdown / Estimated Return -->
+        <div class="countdown-grid" id="maintTimerGrid">
+          <div class="countdown-card">
+            <span class="countdown-num" id="mHours">00</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-card">
+            <span class="countdown-num" id="mMinutes">38</span>
+            <span class="countdown-label">Minutes</span>
+          </div>
+          <div class="countdown-card">
+            <span class="countdown-num" id="mSeconds">45</span>
+            <span class="countdown-label">Seconds</span>
+          </div>
+          <div class="countdown-card">
+            <span class="countdown-num" style="color:var(--primary-green);">78%</span>
+            <span class="countdown-label">Completed</span>
+          </div>
+        </div>
+
+        <!-- System Component Health Grid (3 Cards) -->
+        <div class="maintenance-status-grid">
+          <div class="maintenance-service-card">
+            <div>
+              <div class="service-card-header">
+                <span class="service-card-title"><i class="fa-solid fa-cart-shopping"></i> Web Checkout Engine</span>
+                <span class="service-status-pill service-status-upgrade">
+                  <i class="fa-solid fa-spinner fa-spin"></i> Patching
+                </span>
+              </div>
+              <p class="service-card-desc">
+                Database indexing &amp; payment gateway PCI-DSS updates underway. Online checkout paused temporarily.
+              </p>
+            </div>
+          </div>
+
+          <div class="maintenance-service-card">
+            <div>
+              <div class="service-card-header">
+                <span class="service-card-title"><i class="fa-solid fa-snowflake"></i> IoT Cold-Chain Vault</span>
+                <span class="service-status-pill service-status-operational">
+                  <i class="fa-solid fa-circle-check"></i> 100% Online
+                </span>
+              </div>
+              <p class="service-card-desc">
+                Refrigerated storage units and sensor logs (2°C–8°C) are fully powered and actively monitored.
+              </p>
+            </div>
+          </div>
+
+          <div class="maintenance-service-card">
+            <div>
+              <div class="service-card-header">
+                <span class="service-card-title"><i class="fa-solid fa-user-doctor"></i> Clinical Pharmacists</span>
+                <span class="service-status-pill service-status-operational">
+                  <i class="fa-solid fa-circle-check"></i> On Duty
+                </span>
+              </div>
+              <p class="service-card-desc">
+                Licensed PharmD staff available via direct phone line (800) 555-0199 for consultations and approvals.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notify When Live Box -->
+        <div class="notify-subscribe-box">
+          <div style="width:48px; height:48px; border-radius:50%; background:#FEF3C7; color:#D97706; display:inline-flex; align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:12px;">
+            <i class="fa-solid fa-satellite-dish"></i>
+          </div>
+          <h3>Get Notified When Systems Are Fully Live</h3>
+          <p>Drop your email or phone below. We'll send an automatic notification the second services resume.</p>
+
+          <form id="maintNotifyForm" onsubmit="handleMaintNotifySubmit(event)">
+            <div class="notify-form-flex">
+              <input type="email" id="maintEmailInput" placeholder="Enter your email address..." required aria-label="Email Address">
+              <button type="submit" class="btn btn-primary">
+                <i class="fa-regular fa-bell"></i> Notify Me
+              </button>
+            </div>
+            <div class="notify-gdpr-note">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span>One-time notification only. No marketing or spam.</span>
+            </div>
+          </form>
+
+          <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--border-light);">
+            <button type="button" class="btn btn-outline btn-xs" id="testPingBtn" onclick="testSystemPing()">
+              <i class="fa-solid fa-rotate"></i> Check Current Status Now
+            </button>
+            <div id="pingResultText" style="display:none; font-size:0.82rem; color:var(--primary-green); margin-top:8px; font-weight:600;"></div>
+          </div>
+        </div>
+
+        <!-- Physical Dispensary Address & Location -->
+        <div class="utility-emergency-bar">
+          <div class="utility-emergency-left">
+            <div class="utility-emergency-icon">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div class="utility-emergency-text">
+              <h4>Physical Dispensary Walk-In Hours</h4>
+              <p>742 Healthway Boulevard, Suite 400, New York, NY 10001 • Physical pharmacy counters remain open 24/7.</p>
+            </div>
+          </div>
+          <div class="utility-emergency-actions">
+            <a href="tel:8005550199" class="btn btn-primary btn-sm">
+              <i class="fa-solid fa-phone"></i> Direct Call
+            </a>
+            <a href="index.html" class="btn btn-outline btn-sm" style="color:#FFFFFF; border-color:rgba(255,255,255,0.4);">
+              <i class="fa-solid fa-house"></i> Home
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div class="footer-col footer-col-brand">
+        <a href="index.html" class="brand-logo" title="Mediora Home">
+          <img src="images/logo-white.svg" alt="Mediora Logo" style="height:36px; margin-bottom:14px;">
+        </a>
+        <p class="footer-brand-desc">
+          Mediora is an accredited healthcare and digital dispensary delivery service providing licensed pharmaceuticals, temperature-controlled delivery, and 24/7 clinical pharmacist consultation.
+        </p>
+        <div class="footer-license-badge">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>State Board Pharmacy License #NY-PHARM-88204</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation Links</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home (Main)</a></li>
+          <li><a href="home-2.html"><i class="fa-solid fa-chevron-right"></i> Home 2 (Express)</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Our Pharmacy</a></li>
+          <li><a href="products.html"><i class="fa-solid fa-chevron-right"></i> Browse All Medicines</a></li>
+          <li><a href="upload-prescription.html"><i class="fa-solid fa-chevron-right"></i> Upload Prescription</a></li>
+          <li><a href="coming-soon.html"><i class="fa-solid fa-chevron-right"></i> Coming Soon</a></li>
+          <li><a href="404.html"><i class="fa-solid fa-chevron-right"></i> 404 Error Page</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Emergency Contacts</h4>
+        <ul class="footer-links-list">
+          <li><a href="tel:8005550199"><i class="fa-solid fa-phone"></i> Helpline: (800) 555-0199</a></li>
+          <li><a href="tel:2125550145"><i class="fa-solid fa-phone"></i> Direct Rx: (212) 555-0145</a></li>
+          <li><a href="mailto:rx-desk@mediora.com"><i class="fa-solid fa-envelope"></i> rx-desk@mediora.com</a></li>
+          <li><a href="user-dashboard.html"><i class="fa-solid fa-id-card-clip"></i> Patient Portal</a></li>
+          <li><a href="admin-dashboard.html"><i class="fa-solid fa-shield-halved"></i> Staff Console</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>24/7 Physical Dispensary</h4>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>742 Healthway Boulevard, Suite 400<br>New York, NY 10001, USA</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-clock"></i>
+          <span>Dispensary Counter: 24 Hours / 7 Days<br>Clinical Pharmacist on Duty</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-disclaimer-bar">
+      <div class="container">
+        <p class="disclaimer-text">
+          <strong>Mandatory Healthcare Disclaimer:</strong> All medicines requiring prescription are dispensed strictly against an authentic, legible medical prescription from a registered healthcare professional. Emergency phone ordering during maintenance complies with State Pharmacy Board emergency fulfillment protocols.
+        </p>
+        <div class="footer-bottom-flex">
+          <div>
+            &copy; 2026 Mediora Inc. All Rights Reserved. HIPAA Compliant • FDA Registered Logistics.
+          </div>
+          <div class="payment-badges" title="Accepted Payment Methods">
+            <i class="fa-brands fa-cc-visa"></i>
+            <i class="fa-brands fa-cc-mastercard"></i>
+            <i class="fa-brands fa-cc-amex"></i>
+            <i class="fa-brands fa-cc-paypal"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Patient &amp; Staff Portal Access</h3>
+        <button class="modal-close-btn" onclick="window.PharmaApp.closeModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="loginForm" onsubmit="event.preventDefault(); window.PharmaApp.showToast('Login successful! Welcome back.', 'success'); window.PharmaApp.closeModal('authModal');">
+          <div class="form-group"><label>Email Address</label><input type="email" class="form-control" required value="demo@patient.com"></div>
+          <div class="form-group"><label>Password</label><input type="password" class="form-control" required value="password123"></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Live Countdown Timer for Maintenance
+    (function initMaintenanceCountdown(){
+      const targetTime = new Date().getTime() + (38 * 60 * 1000) + (45 * 1000);
+      
+      function updateTimer(){
+        const now = new Date().getTime();
+        const diff = Math.max(0, targetTime - now);
+        
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        const hEl = document.getElementById('mHours');
+        const mEl = document.getElementById('mMinutes');
+        const sEl = document.getElementById('mSeconds');
+
+        if(hEl) hEl.textContent = String(hours).padStart(2, '0');
+        if(mEl) mEl.textContent = String(minutes).padStart(2, '0');
+        if(sEl) sEl.textContent = String(seconds).padStart(2, '0');
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    })();
+
+    // Handle Notify Form
+    function handleMaintNotifySubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('maintEmailInput');
+      const email = input?.value?.trim();
+      if(!email) return;
+
+      if(window.PharmaApp && window.PharmaApp.showToast) {
+        window.PharmaApp.showToast(`Subscribed! We will alert ${email} the moment web checkout resumes.`, 'success');
+      } else {
+        alert(`Subscribed! We will alert ${email} when services resume.`);
+      }
+      input.value = '';
+    }
+
+    // Interactive Ping Test
+    function testSystemPing() {
+      const btn = document.getElementById('testPingBtn');
+      const result = document.getElementById('pingResultText');
+      if(!btn || !result) return;
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Querying Server Nodes...';
+      result.style.display = 'none';
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-rotate"></i> Check Current Status Now';
+        result.style.display = 'block';
+        result.innerHTML = '<i class="fa-solid fa-circle-check"></i> Server Ping: 18ms latency • Database migration 78% complete. Finalizing HIPAA encryption indexes.';
+      }, 900);
+    }
+  </script>
+</body>
+</html>

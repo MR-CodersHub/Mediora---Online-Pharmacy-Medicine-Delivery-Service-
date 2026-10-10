@@ -56,111 +56,75 @@
         <img src="images/logo-white.svg" alt="Mediora Logo" class="logo-dark">
       </a>
 
-      <!-- Sidebar Toggle Hamburger Button -->
-      <button type="button" class="dash-sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation Sidebar" title="Collapse / Expand Sidebar">
-        <i class="fa-solid fa-bars-staggered"></i>
-      </button>
-
       <!-- Staff Console Badge -->
       <span class="dash-console-badge">
         <i class="fa-solid fa-shield-halved"></i> Staff Dispensary Console
       </span>
-
-      <!-- Breadcrumbs -->
-      <div class="dash-breadcrumb">
-        <a href="index.html">Mediora</a>
-        <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
-        <a href="admin-dashboard.html">Staff Console</a>
-        <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
-        <span class="active" id="adminBreadcrumbCurrent">Dispensary Overview</span>
-      </div>
     </div>
 
     <div class="dash-header-right">
-      <!-- Cold-Chain Telemetry Pill -->
-      <span class="dash-system-badge">
-        <i class="fa-solid fa-circle-dot" style="color:#10B981; animation:pulseGreen 1.5s infinite;"></i>
-        <span>Vault: <strong>3.6°C Compliant</strong></span>
-      </span>
 
-      <!-- RTL & Theme Controls -->
-      <button type="button" class="header-action-btn rtl-toggle-btn" id="rtlToggleBtn" aria-label="Toggle RTL Layout" title="Toggle RTL / LTR layout" onclick="window.PharmaApp.toggleRTL()">
+      <!-- RTL Toggle Button -->
+      <button type="button" class="dash-icon-btn rtl-toggle-btn" id="rtlToggleBtn" aria-label="Toggle RTL / LTR layout" title="Toggle RTL / LTR layout" onclick="toggleRTL()">
         <i class="fa-solid fa-right-left"></i>
-        <span class="toggle-text">RTL</span>
       </button>
 
-      <button type="button" class="header-action-btn theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Dark / Light Theme" title="Toggle Dark / Light Theme" onclick="window.PharmaApp.toggleTheme()">
+      <!-- Theme Toggle Button -->
+      <button type="button" class="dash-icon-btn theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Dark / Light theme" title="Toggle Dark / Light theme" onclick="toggleTheme()">
         <i class="fa-solid fa-moon theme-icon"></i>
-        <span class="toggle-text">Dark</span>
       </button>
 
-      <!-- Notification Bell with Popover -->
-      <div class="dash-notification-wrapper">
-        <button type="button" class="dash-notification-btn" id="dashNotifBtn" onclick="toggleNotifications()" aria-label="View Operational Alerts">
-          <i class="fa-regular fa-bell"></i>
-          <span class="dash-notification-badge">5</span>
+      <!-- Unified Interactive Admin Profile Menu -->
+      <div class="dash-profile-wrapper" id="dashProfileWrapper">
+        <button type="button" class="dash-profile-btn" id="dashProfileBtn" onclick="toggleProfileDropdown(event)" aria-label="Staff Account Menu" aria-expanded="false">
+          <div class="dash-profile-avatar" style="background:#053B2D;">
+            SJ
+            <span class="dash-avatar-status-dot"></span>
+          </div>
+          <div class="dash-profile-meta">
+            <span class="dash-profile-name">Dr. Sarah Jenkins</span>
+            <span class="dash-profile-sub">Chief Pharmacist</span>
+          </div>
+          <i class="fa-solid fa-chevron-down dash-profile-caret"></i>
         </button>
-        
-        <div class="dash-notification-popover" id="dashNotifPopover">
-          <div class="dash-notif-header">
-            <span>Dispensary Alerts (5)</span>
-            <a href="javascript:void(0)" onclick="clearAdminNotifications()" style="font-size:0.75rem; color:var(--primary-green); font-weight:600;">Mark Read</a>
-          </div>
-          <div class="dash-notif-item" onclick="switchAdminTab('prescriptions')">
-            <div class="dash-notif-icon" style="background:#FEE2E2; color:#991B1B;"><i class="fa-solid fa-file-medical"></i></div>
-            <div>
-              <strong>7 Pending Prescriptions</strong>
-              <div style="color:var(--text-muted); font-size:0.75rem; margin-top:2px;">Patient scripts awaiting PharmD verification.</div>
-            </div>
-          </div>
-          <div class="dash-notif-item" onclick="switchAdminTab('orders')">
-            <div class="dash-notif-icon" style="background:#FEF3C7; color:#92400E;"><i class="fa-solid fa-box-open"></i></div>
-            <div>
-              <strong>38 New Orders Placed</strong>
-              <div style="color:var(--text-muted); font-size:0.75rem; margin-top:2px;">14 cold-chain insulated packs ready for staging.</div>
-            </div>
-          </div>
-          <div class="dash-notif-item" onclick="switchAdminTab('deliveries')">
-            <div class="dash-notif-icon" style="background:#E0F2FE; color:#0369A1;"><i class="fa-solid fa-truck-fast"></i></div>
-            <div>
-              <strong>Van #NY-MED-04 On Route</strong>
-              <div style="color:var(--text-muted); font-size:0.75rem; margin-top:2px;">Insulated temp 3.4°C — 8 stops remaining.</div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Clean Header Account Section: ONLY user icon button + 3-item dropdown -->
-      <div class="account-wrapper">
-        <button type="button" class="header-action-btn account-icon-btn" id="accountBtn" aria-label="Account Menu" title="Account Menu">
-          <i class="fa-regular fa-user"></i>
-        </button>
-        <div class="account-dropdown-menu" id="accountDropdown">
-          <a href="javascript:void(0)" class="dropdown-item" onclick="window.PharmaApp.openAuthModal('login')">
-            <i class="fa-solid fa-right-to-bracket"></i> Login / Sign Up
+        <div class="dash-profile-dropdown" id="dashProfileDropdown">
+          <div class="dash-profile-dropdown-user">
+            <div class="dash-profile-dropdown-avatar" style="background:#053B2D;">SJ</div>
+            <div class="dash-profile-dropdown-details">
+              <strong>Dr. Sarah Jenkins</strong>
+              <small>Supervising Pharmacist, PharmD</small>
+              <span class="dash-verified-pill"><i class="fa-solid fa-shield-halved"></i> DEA #FB-9402188</span>
+            </div>
+          </div>
+          <div class="dash-dropdown-sep"></div>
+          <a href="javascript:void(0)" class="dash-dropdown-link" onclick="switchAdminTab('overview'); closeProfileDropdown();">
+            <i class="fa-solid fa-gauge-high"></i> Dispensary Overview
           </a>
-          <a href="admin-dashboard.html" class="dropdown-item active">
-            <i class="fa-solid fa-shield-halved"></i> Admin Dashboard
+          <a href="javascript:void(0)" class="dash-dropdown-link" onclick="switchAdminTab('prescriptions'); closeProfileDropdown();">
+            <i class="fa-solid fa-file-medical"></i> Verification Queue
           </a>
-          <a href="user-dashboard.html" class="dropdown-item">
-            <i class="fa-solid fa-id-card-clip"></i> User Dashboard
+          <a href="javascript:void(0)" class="dash-dropdown-link" onclick="switchAdminTab('settings'); closeProfileDropdown();">
+            <i class="fa-solid fa-gears"></i> Dispensary Settings
+          </a>
+          <div class="dash-dropdown-sep"></div>
+          <a href="user-dashboard.html" class="dash-dropdown-link">
+            <i class="fa-solid fa-user"></i> Switch to Patient Portal
+          </a>
+          <a href="index.html" class="dash-dropdown-link">
+            <i class="fa-solid fa-store"></i> Return to Mediora Store
+          </a>
+          <div class="dash-dropdown-sep"></div>
+          <a href="javascript:void(0)" class="dash-dropdown-link dash-logout-link" onclick="logoutDemo();">
+            <i class="fa-solid fa-right-from-bracket"></i> Sign Out
           </a>
         </div>
       </div>
 
-      <!-- Topbar Staff Chip -->
-      <div class="dash-user-chip">
-        <div class="dash-user-chip-avatar" style="background:#053B2D;">SJ</div>
-        <div class="dash-user-chip-info">
-          <div class="dash-user-chip-name">Dr. Sarah Jenkins</div>
-          <div class="dash-user-chip-role">Chief Pharmacist</div>
-        </div>
-      </div>
-
-      <!-- Switch to Patient Portal shortcut -->
-      <a href="user-dashboard.html" class="btn btn-secondary btn-sm" style="display:inline-flex; align-items:center; gap:6px;">
-        <i class="fa-solid fa-user"></i> Patient Portal
-      </a>
+      <!-- Sidebar Toggle Hamburger Button (Fixed to last position) -->
+      <button type="button" class="dash-sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation Sidebar" title="Collapse / Expand Sidebar">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
     </div>
   </header>
 
@@ -173,6 +137,17 @@
     <!-- LEFT ADMIN SIDEBAR NAVIGATION -->
     <aside class="dashboard-sidebar" id="dashboardSidebar">
       
+      <!-- Mobile Drawer Top Bar with Title & Close Button -->
+      <div class="dash-sidebar-mobile-bar">
+        <div class="dash-sidebar-title-badge">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Staff Dispensary Console</span>
+        </div>
+        <button type="button" class="dash-sidebar-close-btn" onclick="toggleSidebar()" aria-label="Close Navigation Sidebar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
       <!-- Staff Profile Card -->
       <div class="dash-sidebar-header">
         <div class="dash-user-card">
@@ -207,13 +182,13 @@
         <button class="dash-nav-btn" id="nav-prescriptions" onclick="switchAdminTab('prescriptions')">
           <i class="fa-solid fa-file-medical"></i>
           <span>Prescription Verification</span>
-          <span class="dash-nav-pill-badge badge-rejected" style="background:#FEE2E2; color:#991B1B;">7 Pending</span>
+          <span class="dash-nav-pill-badge badge-rejected">7 Pending</span>
         </button>
 
         <button class="dash-nav-btn" id="nav-products" onclick="switchAdminTab('products')">
           <i class="fa-solid fa-tablets"></i>
           <span>Products &amp; Categories</span>
-          <span class="dash-nav-pill-badge" style="background:#E0F2FE; color:#0369A1;">540 SKUs</span>
+          <span class="dash-nav-pill-badge badge-coldchain">540 SKUs</span>
         </button>
 
         <div class="dash-nav-category-title" style="margin-top:10px;">Fulfillment &amp; Patients</div>
@@ -250,10 +225,18 @@
 
       <!-- Sidebar Footer -->
       <div class="dash-sidebar-footer">
-        <div style="background:var(--subtle-gray); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:10px 12px; font-size:0.75rem; color:var(--text-secondary);">
-          <div style="font-weight:700; color:var(--dark-forest); margin-bottom:2px;"><i class="fa-solid fa-circle-check" style="color:var(--primary-green);"></i> Shift Status: Active</div>
+        <div class="dash-sidebar-shift-card">
+          <div style="font-weight:700; margin-bottom:2px;"><i class="fa-solid fa-circle-check" style="color:var(--primary-green);"></i> Shift Status: Active</div>
           Dispensary Vault A: 3.6°C Normal<br>
           Next DEA inspection: Q1 2027
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <a href="user-dashboard.html" class="dash-nav-btn" style="padding:8px 12px; font-size:0.82rem;">
+            <i class="fa-solid fa-user"></i> <span>Patient Portal</span>
+          </a>
+          <a href="index.html" class="dash-nav-btn" style="padding:8px 12px; font-size:0.82rem;">
+            <i class="fa-solid fa-store"></i> <span>Return to Store</span>
+          </a>
         </div>
       </div>
     </aside>
@@ -380,7 +363,7 @@
         </div>
 
         <!-- CHARTS SECTION: 2 SVG CHARTS -->
-        <div style="display:grid; grid-template-columns:1.35fr 0.85fr; gap:24px; margin-bottom:28px;">
+        <div class="dash-grid-charts" style="margin-bottom:28px;">
           
           <!-- Chart 1: 7-Day Order Volume Trend (SVG Bar & Spline Chart) -->
           <div class="dash-chart-card">
@@ -1668,6 +1651,7 @@
       if (window.innerWidth <= 1024 && sidebar) {
         sidebar.classList.remove('mobile-open');
         if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1680,8 +1664,9 @@
       if (!sidebar) return;
 
       if (window.innerWidth <= 1024) {
-        sidebar.classList.toggle('mobile-open');
-        if (overlay) overlay.classList.toggle('active');
+        const isOpen = sidebar.classList.toggle('mobile-open');
+        if (overlay) overlay.classList.toggle('active', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
       } else {
         sidebar.classList.toggle('is-collapsed');
       }
@@ -1912,14 +1897,147 @@
       window.PharmaApp.showToast('Dispensary regulatory settings and thresholds saved!', 'success');
     }
 
-    // Close notifications popover on click outside
+    // Toast System
+    function showDashboardToast(message, type = 'success') {
+      let container = document.getElementById('toastContainer');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'toastContainer';
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+      }
+      const toast = document.createElement('div');
+      toast.className = `toast ${type === 'error' ? 'toast-error' : ''}`;
+      const icon = type === 'error' ? 'fa-circle-exclamation' : (type === 'info' ? 'fa-circle-info' : 'fa-circle-check');
+      toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        if (toast && toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 3200);
+    }
+
+    // Theme & RTL Controls
+    function toggleTheme() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        try { localStorage.setItem('mediora_theme_mode', 'light'); } catch(e){}
+        updateThemeUI(false);
+        showDashboardToast('Switched to Light Mode', 'info');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        try { localStorage.setItem('mediora_theme_mode', 'dark'); } catch(e){}
+        updateThemeUI(true);
+        showDashboardToast('Switched to Dark Mode', 'info');
+      }
+    }
+
+    function updateThemeUI(isDark) {
+      const btn = document.getElementById('themeToggleBtn');
+      if (btn) {
+        const icon = btn.querySelector('.theme-icon') || btn.querySelector('i');
+        if (icon) {
+          icon.className = isDark ? 'fa-solid fa-sun theme-icon' : 'fa-solid fa-moon theme-icon';
+          icon.style.color = isDark ? '#FBBF24' : '';
+        }
+        btn.setAttribute('title', isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode');
+      }
+    }
+
+    function toggleRTL() {
+      const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+      if (isRTL) {
+        document.documentElement.setAttribute('dir', 'ltr');
+        try { localStorage.setItem('mediora_direction', 'ltr'); } catch(e){}
+        updateRTLUI(false);
+        showDashboardToast('Switched to LTR Layout', 'info');
+      } else {
+        document.documentElement.setAttribute('dir', 'rtl');
+        try { localStorage.setItem('mediora_direction', 'rtl'); } catch(e){}
+        updateRTLUI(true);
+        showDashboardToast('Switched to RTL Layout', 'info');
+      }
+    }
+
+    function updateRTLUI(isRTL) {
+      const btn = document.getElementById('rtlToggleBtn');
+      if (btn) {
+        btn.classList.toggle('active-rtl', isRTL);
+        btn.setAttribute('title', isRTL ? 'Switch to LTR Layout' : 'Switch to RTL Layout');
+      }
+    }
+
+    // Profile Dropdown Toggle
+    function toggleProfileDropdown(e) {
+      if (e) e.stopPropagation();
+      const wrapper = document.getElementById('dashProfileWrapper');
+      if (wrapper) {
+        wrapper.classList.toggle('active');
+        const isExp = wrapper.classList.contains('active');
+        document.getElementById('dashProfileBtn')?.setAttribute('aria-expanded', isExp ? 'true' : 'false');
+      }
+    }
+
+    function closeProfileDropdown() {
+      const wrapper = document.getElementById('dashProfileWrapper');
+      if (wrapper) {
+        wrapper.classList.remove('active');
+        document.getElementById('dashProfileBtn')?.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function logoutDemo() {
+      closeProfileDropdown();
+      showDashboardToast('Staff session ended. Redirecting to store...', 'info');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1200);
+    }
+
+    // PharmaApp Safe Shim
+    window.PharmaApp = window.PharmaApp || {
+      showToast: (m, t) => showDashboardToast(m, t),
+      toggleTheme: () => toggleTheme(),
+      toggleRTL: () => toggleRTL(),
+      openCartDrawer: () => showDashboardToast('Dispensary vault queue active.', 'info')
+    };
+
+    // Global Click Listener for dropdowns and popovers
     document.addEventListener('click', (e) => {
-      const wrapper = document.querySelector('.dash-notification-wrapper');
+      // Notification Popover
+      const notifWrapper = document.querySelector('.dash-notification-wrapper');
       const popover = document.getElementById('dashNotifPopover');
-      if (wrapper && popover && !wrapper.contains(e.target)) {
+      if (notifWrapper && popover && !notifWrapper.contains(e.target)) {
         popover.classList.remove('active');
       }
+      // Profile Dropdown
+      const profileWrapper = document.getElementById('dashProfileWrapper');
+      if (profileWrapper && !profileWrapper.contains(e.target)) {
+        closeProfileDropdown();
+      }
     });
+
+    // Escape Key Listener
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeProfileDropdown();
+        document.getElementById('dashNotifPopover')?.classList.remove('active');
+        const sidebar = document.getElementById('dashboardSidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        if (sidebar && sidebar.classList.contains('mobile-open')) {
+          sidebar.classList.remove('mobile-open');
+          if (overlay) overlay.classList.remove('active');
+        }
+      }
+    });
+
+    // Synchronize Initial UI States
+    try {
+      const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+      updateThemeUI(currentTheme);
+      const currentRTL = document.documentElement.getAttribute('dir') === 'rtl';
+      updateRTLUI(currentRTL);
+    } catch(e){}
   </script>
 
 </body>
