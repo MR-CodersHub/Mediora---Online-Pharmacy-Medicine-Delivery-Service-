@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health &amp; Medicine Educational Blog | Mediora</title>
+  <meta name="description" content="Clinical pharmacist guidance, medicine storage tips, pediatric wellness, chronic disease advice, and authentic healthcare articles vetted by licensed professionals.">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function(){
+      try {
+        if(localStorage.getItem('mediora_theme_mode') === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        if(localStorage.getItem('mediora_direction') === 'rtl') {
+          document.documentElement.setAttribute('dir', 'rtl');
+        }
+      } catch(e){}
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Mediora Clinical Knowledge Center</span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-user-doctor"></i>
+          <span>Articles Authored &amp; Vetted by Licensed PharmD Specialists</span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-headset"></i>
+          <span>Pharmacist Hotline: <strong>(800) 555-0199</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-sticky-container">
+    <header class="main-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" title="Mediora Home">
+        <img src="images/logo.svg" alt="Mediora Logo" class="logo-light">
+        <img src="images/logo-white.svg" alt="Mediora Logo" class="logo-dark">
+      </a>
+
+      <div class="header-search">
+        <form class="search-bar-form" action="products.html" method="GET">
+          <select class="search-category-select" name="cat" aria-label="Select Category">
+            <option value="all">All Categories</option>
+            <option value="prescription">Prescription Rx</option>
+            <option value="otc">Over-the-Counter</option>
+            <option value="vitamins">Vitamins &amp; Supplements</option>
+          </select>
+          <input type="text" class="search-input" name="q" placeholder="Search medicines, active ingredients, vitamins..." aria-label="Search medicines">
+          <button type="submit" class="search-btn" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Search</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="header-actions">
+        <!-- RTL & Theme Controls -->
+        <button type="button" class="header-action-btn rtl-toggle-btn" id="rtlToggleBtn" aria-label="Toggle RTL Layout" title="Toggle RTL / LTR layout" onclick="window.PharmaApp.toggleRTL()">
+          <i class="fa-solid fa-right-left"></i>
+          <span class="toggle-text">RTL</span>
+        </button>
+
+        <button type="button" class="header-action-btn theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Dark / Light Theme" title="Toggle Dark / Light Theme" onclick="window.PharmaApp.toggleTheme()">
+          <i class="fa-solid fa-moon theme-icon"></i>
+          <span class="toggle-text">Dark</span>
+        </button>
+
+        <div class="account-wrapper">
+          <button type="button" class="header-action-btn account-icon-btn" id="accountBtn" aria-label="Customer Account" title="Customer Account">
+            <i class="fa-regular fa-user"></i>
+          </button>
+          <div class="account-dropdown-menu" id="accountDropdown">
+            <a href="javascript:void(0)" class="dropdown-item" onclick="window.PharmaApp.openAuthModal('login')">
+              <i class="fa-solid fa-right-to-bracket"></i> Login / Sign Up
+            </a>
+            <a href="admin-dashboard.html" class="dropdown-item">
+              <i class="fa-solid fa-shield-halved"></i> Admin Dashboard
+            </a>
+            <a href="user-dashboard.html" class="dropdown-item">
+              <i class="fa-solid fa-id-card-clip"></i> User Dashboard
+            </a>
+          </div>
+        </div>
+
+        <div class="cart-btn-wrapper">
+          <button type="button" class="cart-icon-btn" onclick="window.PharmaApp.openCartDrawer()" aria-label="Open Shopping Cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Cart</span>
+            <span class="cart-badge-count" style="display:none;">0</span>
+          </button>
+        </div>
+
+        <button type="button" class="mobile-nav-toggle" aria-label="Toggle Navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="nav-bar">
+    <div class="container nav-inner">
+
+      <!-- Mobile View Exclusive: Account Panel -->
+      <div class="mobile-menu-account">
+        <div class="mobile-account-card">
+          <div class="mobile-account-avatar"><i class="fa-regular fa-user"></i></div>
+          <div class="mobile-account-info">
+            <span class="mobile-account-label">Patient Access</span>
+            <h5 class="mobile-account-name">My Account</h5>
+          </div>
+        </div>
+        <div class="mobile-account-links">
+          <a href="javascript:void(0)" class="mobile-account-link" onclick="window.PharmaApp.openAuthModal('login'); document.querySelector('.nav-bar')?.classList.remove('mobile-open');">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>Login / Sign Up</span>
+          </a>
+          <a href="user-dashboard.html" class="mobile-account-link">
+            <i class="fa-solid fa-id-card-clip"></i>
+            <span>User Portal</span>
+          </a>
+          <a href="admin-dashboard.html" class="mobile-account-link">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Admin</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile View Exclusive: Cart CTA Card -->
+      <div class="mobile-menu-cart">
+        <button type="button" class="mobile-menu-cart-btn" onclick="window.PharmaApp.openCartDrawer(); document.querySelector('.nav-bar')?.classList.remove('mobile-open');">
+          <div class="mobile-menu-cart-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-badge-count" style="display:none;">0</span>
+          </div>
+          <div class="mobile-menu-cart-info">
+            <span class="mobile-menu-cart-sub">Order Summary</span>
+            <strong class="mobile-menu-cart-title">View Shopping Cart</strong>
+          </div>
+          <i class="fa-solid fa-chevron-right mobile-menu-cart-arrow"></i>
+        </button>
+      </div>
+
+      <!-- Mobile View Exclusive: Medicine Search -->
+      <div class="mobile-menu-search">
+        <form action="products.html" method="GET">
+          <input type="text" name="q" placeholder="Search medicines, vitamins..." aria-label="Search medicines in menu">
+          <button type="submit" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+      </div>
+
+      <!-- Navigation Links (All 7 Pages) -->
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="home-2.html" class="nav-link"><i class="fa-solid fa-bolt"></i> Home 2</a></li>
+        <li><a href="about.html" class="nav-link"><i class="fa-solid fa-circle-info"></i> About</a></li>
+        <li><a href="products.html" class="nav-link"><i class="fa-solid fa-tablets"></i> Products</a></li>
+        <li><a href="upload-prescription.html" class="nav-link"><i class="fa-solid fa-file-prescription"></i> Prescription</a></li>
+        <li><a href="blog.html" class="nav-link active"><i class="fa-solid fa-book-medical"></i> Blog</a></li>
+        <li><a href="contact.html" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+      </ul>
+
+      <!-- Mobile View Exclusive: CTA Group -->
+      <div class="mobile-menu-cta-group">
+        <a href="upload-prescription.html" class="btn btn-primary mobile-cta-btn">
+          <i class="fa-solid fa-file-arrow-up"></i> Upload Doctor's Rx Slip
+        </a>
+        <a href="tel:8005550199" class="nav-phone-cta">
+          <i class="fa-solid fa-headset"></i>
+          <span>24/7 Hotline: <strong>(800) 555-0199</strong></span>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+  </div>
+
+  <!-- =========================================================================
+       SECTION 1: EDUCATIONAL HEALTHCARE HERO (Unified 520px Height)
+       ========================================================================= -->
+  <section class="hero-unified hero-bg-blog">
+    <div class="container">
+      <div class="hero-unified-grid grid-balanced">
+        <div class="hero-content">
+          <div class="hero-badge-pill">
+            <i class="fa-solid fa-microscope"></i>
+            <span>Evidence-Based Clinical Guidance • Reviewed by Licensed PharmDs</span>
+          </div>
+          <h1 class="hero-headline">
+            Mediora Health &amp; <span>Medical Journal</span>
+          </h1>
+          <p class="hero-subtext">
+            Trustworthy medical articles, safe drug consumption protocols, preventive wellness, and pharmacist insights to help you make informed decisions for your family.
+          </p>
+
+          <!-- Blog Live Search Field -->
+          <div style="max-width:480px; margin-bottom:14px;">
+            <div class="search-bar-form hero-blog-search-bar">
+              <input type="text" id="blogSearchInput" class="search-input" placeholder="Search health topics (e.g. antibiotics, storage)..." oninput="filterBlogArticles()">
+              <button type="button" class="search-btn" onclick="filterBlogArticles()" style="padding:9px 18px;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Topic Pills -->
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:0.8rem; color:var(--text-secondary);">
+            <strong style="color:var(--dark-forest); font-size:0.78rem;">Trending Topics:</strong>
+            <button type="button" class="popular-tag-btn" onclick="quickFilterBlog('Medicine Safety')">Antibiotic Safety</button>
+            <button type="button" class="popular-tag-btn" onclick="quickFilterBlog('Pharmacist Guidance')">Drug Storage</button>
+            <button type="button" class="popular-tag-btn" onclick="quickFilterBlog('Preventive Healthcare')">Immunity &amp; Zinc</button>
+            <button type="button" class="popular-tag-btn" onclick="quickFilterBlog('Family Health')">Pediatric Care</button>
+          </div>
+        </div>
+
+        <div class="hero-unified-media">
+          <!-- Featured Article Hero Showcase Card -->
+          <div class="hero-blog-feature-card" style="width:100%;">
+            <div style="position:relative;">
+              <img src="images/pharmacist-consult.jpg" alt="Understanding Antibiotic Safety" class="hero-blog-feature-img">
+              <span class="badge" style="position:absolute; top:12px; left:12px; background:var(--primary-green); color:#FFFFFF; font-weight:700; box-shadow:var(--shadow-md);">
+                <i class="fa-solid fa-star"></i> Featured Editorial
+              </span>
+            </div>
+            <div class="hero-blog-feature-body">
+              <div style="display:flex; align-items:center; gap:12px; font-size:0.78rem; color:var(--text-muted); margin-bottom:6px;">
+                <span class="badge" style="background:var(--soft-medical-green); color:var(--primary-green); font-weight:700; font-size:0.72rem;">Medicine Safety</span>
+                <span><i class="fa-regular fa-clock"></i> 5 min read</span>
+              </div>
+              <h4 class="hero-blog-feature-title" style="font-size:1.05rem; line-height:1.35; margin-bottom:8px;">
+                Understanding Antibiotic Safety: Why Completing Your Prescribed Course Matters
+              </h4>
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-top:12px; padding-top:10px; border-top:1px solid var(--border-light);">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div style="width:30px; height:30px; border-radius:50%; background:var(--mint-green); display:flex; align-items:center; justify-content:center; color:var(--primary-green); font-weight:700; font-size:0.75rem;">SJ</div>
+                  <span class="hero-blog-author-name" style="font-size:0.8rem; font-weight:700;">Dr. Sarah Jenkins, PharmD</span>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" onclick="openArticleModal(1)" style="font-size:0.78rem; padding:6px 12px;">
+                  Read Article <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="blog-main-content" style="padding:40px 0 80px 0;">
+    <div class="container">
+
+      <!-- =======================================================================
+           SECTION 2: CLINICAL REVIEW BOARD & EDITORIAL INTEGRITY
+           ======================================================================= -->
+      <div class="clinical-standards-banner" style="border:1px solid var(--mint-green); border-radius:var(--radius-lg); padding:20px 24px; margin-bottom:32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div style="width:44px; height:44px; border-radius:50%; background:var(--primary-green); color:#FFFFFF; display:flex; align-items:center; justify-content:center; font-size:1.2rem;">
+            <i class="fa-solid fa-shield-virus"></i>
+          </div>
+          <div>
+            <h4 style="font-size:0.96rem; color:var(--dark-forest); margin-bottom:2px;">Our Clinical Editorial Standard</h4>
+            <p style="font-size:0.8rem; color:var(--text-secondary); margin:0;">Every article is peer-reviewed by board-certified PharmDs to adhere to strict FDA &amp; CDC clinical accuracy standards.</p>
+          </div>
+        </div>
+        <div style="font-size:0.82rem; font-weight:700; color:var(--primary-green);">
+          <i class="fa-solid fa-certificate"></i> Fact-Checked &amp; Peer Reviewed
+        </div>
+      </div>
+
+      <!-- =======================================================================
+           SECTION 3: ARTICLE CATEGORIES NAVIGATION
+           ======================================================================= -->
+      <div class="blog-categories-nav">
+        <button class="blog-filter-btn active" onclick="filterBlogCategory('all', this)">All Topics</button>
+        <button class="blog-filter-btn" onclick="filterBlogCategory('Medicine Safety', this)"><i class="fa-solid fa-shield-halved"></i> Medicine Safety</button>
+        <button class="blog-filter-btn" onclick="filterBlogCategory('Pharmacist Guidance', this)"><i class="fa-solid fa-user-doctor"></i> Pharmacist Guidance</button>
+        <button class="blog-filter-btn" onclick="filterBlogCategory('Preventive Healthcare', this)"><i class="fa-solid fa-heart-pulse"></i> Preventive Healthcare</button>
+        <button class="blog-filter-btn" onclick="filterBlogCategory('Family Health', this)"><i class="fa-solid fa-people-roof"></i> Family Health</button>
+        <button class="blog-filter-btn" onclick="filterBlogCategory('General Wellness', this)"><i class="fa-solid fa-spa"></i> General Wellness</button>
+        <button class="blog-filter-btn" onclick="filterBlogCategory('Nutrition', this)"><i class="fa-solid fa-apple-whole"></i> Nutrition</button>
+      </div>
+
+      <!-- =======================================================================
+           SECTION 4: RESPONSIVE ARTICLE CARD GRID
+           ======================================================================= -->
+      <div class="blog-grid" id="blogGridContainer">
+        <!-- Rendered dynamically via JS from window.PharmaData.blogArticles -->
+      </div>
+
+      <!-- =======================================================================
+           SECTION 5: HEALTH TIPS, SEASONAL WELLNESS & MEDICINE STORAGE GUIDANCE
+           ======================================================================= -->
+      <section style="margin:50px 0;">
+        <div class="text-center">
+          <span class="section-tag"><i class="fa-solid fa-lightbulb"></i> Clinical Health Tips</span>
+          <h2 class="section-title">Essential Home Medicine Best Practices</h2>
+          <p class="section-subtitle">Practical safety guidance curated by our dispensary pharmacists for your home.</p>
+        </div>
+
+        <div class="storage-tips-grid">
+          <div class="storage-tip-card">
+            <h4><i class="fa-solid fa-snowflake" style="color:var(--primary-green);"></i> Proper Temperature Control</h4>
+            <p>
+              Avoid storing medications in steam-filled bathrooms or on sunny window sills. Heat and moisture rapidly degrade active pharmacological compounds. Keep room temperature medicines below 25°C (77°F).
+            </p>
+          </div>
+
+          <div class="storage-tip-card">
+            <h4><i class="fa-solid fa-lock" style="color:var(--primary-green);"></i> Child-Resistant Storage</h4>
+            <p>
+              Always keep prescription and OTC caplets in high, locked cabinets out of reach of curious toddlers. Never refer to medications as "candies" or "sweet treats" to persuade children to take them.
+            </p>
+          </div>
+
+          <div class="storage-tip-card">
+            <h4><i class="fa-solid fa-trash-can" style="color:var(--primary-green);"></i> Safe Disposal of Expired Drugs</h4>
+            <p>
+              Do not flush unused antibiotics or painkillers down the toilet as they contaminate groundwater. Return expired blister packs to our pharmacy drop box for certified ecological medical disposal.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =======================================================================
+           SECTION 6: NEWSLETTER SUBSCRIPTION & HEALTHCARE CALL-TO-ACTION
+           ======================================================================= -->
+      <div class="cta-consult-banner" style="margin:0;">
+        <div class="cta-consult-content">
+          <span class="badge" style="background:rgba(255,255,255,0.15); color:#FFFFFF; margin-bottom:12px;">
+            <i class="fa-solid fa-envelope-open-text"></i> Clinical Digest
+          </span>
+          <h3>Subscribe to the Mediora Healthcare Letter</h3>
+          <p>
+            Receive bi-weekly medication recall notices, seasonal flu prevention advice, and evidence-based nutrition tips straight to your inbox. Written by clinical specialists.
+          </p>
+          <form style="display:flex; gap:10px; max-width:480px; flex-wrap:wrap;" onsubmit="event.preventDefault(); window.PharmaApp.showToast('Subscribed to Mediora Health Digest!', 'success'); this.reset();">
+            <input type="email" placeholder="Your email address" required style="flex:1; padding:12px 18px; border-radius:var(--radius-md); background:#FFFFFF; font-size:0.92rem; color:var(--text-primary);">
+            <button type="submit" class="btn btn-white">Join Digest</button>
+          </form>
+        </div>
+        <div class="cta-stat-box">
+          <div style="font-size:2rem; color:#34D399; margin-bottom:8px;"><i class="fa-solid fa-shield-heart"></i></div>
+          <h4 style="color:#FFFFFF; font-size:1.15rem; margin-bottom:6px;">Have a Medication Question?</h4>
+          <p style="font-size:0.85rem; color:#D1FAE5; margin-bottom:14px;">Consult directly with a licensed dispensary pharmacist on duty.</p>
+          <a href="contact.html" class="btn btn-secondary btn-sm" style="background:#FFFFFF; color:var(--dark-forest);">Contact Clinical Desk</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       ARTICLE READING MODAL
+       ========================================================================= -->
+  <div class="modal-backdrop" id="articleReadModal">
+    <div class="modal-card" style="max-width:720px;">
+      <div class="modal-header">
+        <h3 id="modalArticleTitle" style="font-size:1.25rem;">Health Article</h3>
+        <button class="modal-close-btn" onclick="window.PharmaApp.closeModal('articleReadModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" style="padding:28px;">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px; font-size:0.82rem; color:var(--text-muted);">
+          <span id="modalArticleCat" class="badge" style="background:var(--soft-medical-green); color:var(--primary-green); font-weight:700;">Category</span>
+          <span id="modalArticleAuthor"><i class="fa-solid fa-user-doctor"></i> Author</span>
+          <span id="modalArticleDate"><i class="fa-regular fa-calendar"></i> Date</span>
+        </div>
+        <img id="modalArticleImg" src="images/pharmacist-consult.jpg" alt="Article Header" style="width:100%; max-height:300px; object-fit:cover; border-radius:var(--radius-lg); margin-bottom:20px;">
+        <div id="modalArticleBody" style="font-size:0.95rem; color:var(--text-secondary); line-height:1.75;">
+          <!-- Article full text -->
+        </div>
+        <div style="margin-top:24px; padding:14px; background:#FFFBEB; border:1px solid #FCD34D; border-radius:var(--radius-md); font-size:0.8rem; color:#92400E;">
+          <i class="fa-solid fa-circle-exclamation"></i> <strong>Medical Advice Disclaimer:</strong> This article is published for educational and informational purposes only. It should not be construed as clinical diagnosis or personalized medical advice. Always speak with your doctor or pharmacist about symptoms, treatments, and prescriptions.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GLOBAL FOOTER -->
+  <footer class="global-footer">
+    <div class="container footer-grid">
+      <div class="footer-col-brand">
+        <a href="index.html">
+          <img src="images/logo-white.svg" alt="Mediora" style="height:44px;">
+        </a>
+        <p>
+          Mediora is a certified online pharmacy and healthcare delivery service dedicated to patient safety, authentic pharmaceuticals, and clinical dispensing excellence.
+        </p>
+        <div class="footer-licence-badge">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>State Board Pharmacy License #NY-PHARM-88204</span>
+        </div>
+        <div class="footer-social-links">
+          <a href="#" class="social-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-link" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation Links</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home (Main)</a></li>
+          <li><a href="home-2.html"><i class="fa-solid fa-chevron-right"></i> Home 2 (Express)</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Our Pharmacy</a></li>
+          <li><a href="products.html"><i class="fa-solid fa-chevron-right"></i> Browse All Medicines</a></li>
+          <li><a href="upload-prescription.html"><i class="fa-solid fa-chevron-right"></i> Upload Prescription</a></li>
+          <li><a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Health Articles &amp; Blog</a></li>
+          <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Customer Contact &amp; FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Dispensary Categories</h4>
+        <ul class="footer-links-list">
+          <li><a href="products.html?cat=prescription"><i class="fa-solid fa-chevron-right"></i> Prescription Rx</a></li>
+          <li><a href="products.html?cat=otc"><i class="fa-solid fa-chevron-right"></i> Over-the-Counter (OTC)</a></li>
+          <li><a href="products.html?cat=vitamins"><i class="fa-solid fa-chevron-right"></i> Vitamins &amp; Supplements</a></li>
+          <li><a href="products.html?cat=devices"><i class="fa-solid fa-chevron-right"></i> Medical Equipment</a></li>
+          <li><a href="products.html?cat=baby"><i class="fa-solid fa-chevron-right"></i> Baby &amp; Pediatric Care</a></li>
+          <li><a href="user-dashboard.html"><i class="fa-solid fa-chevron-right"></i> Patient Portal</a></li>
+          <li><a href="admin-dashboard.html"><i class="fa-solid fa-chevron-right"></i> Admin Workbench</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>24/7 Dispensary Support</h4>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>742 Healthway Boulevard, Suite 400<br>New York, NY 10001, USA</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <span>Helpline: (800) 555-0199<br>Direct Rx: (212) 555-0145</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <span>rx-desk@mediora.com<br>support@mediora.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-clock"></i>
+          <span>Dispensary: 24 Hours / 7 Days<br>Clinical Pharmacist on Duty</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-disclaimer-bar">
+      <div class="container">
+        <p class="disclaimer-text">
+          <strong>Mandatory Healthcare Disclaimer:</strong> All medicines requiring prescription are dispensed strictly against an authentic, legible medical prescription from a registered healthcare professional. Content on this website is for educational and informational purposes only and does not constitute clinical diagnosis or substitute for professional medical advice. Always consult your physician before starting any medication regimen.
+        </p>
+        <div class="footer-bottom-flex">
+          <div>
+            &copy; 2026 Mediora Inc. All Rights Reserved. HIPAA Compliant • FDA Registered Logistics.
+          </div>
+          <div class="payment-badges" title="Accepted Payment Methods">
+            <i class="fa-brands fa-cc-visa"></i>
+            <i class="fa-brands fa-cc-mastercard"></i>
+            <i class="fa-brands fa-cc-amex"></i>
+            <i class="fa-brands fa-cc-paypal"></i>
+            <i class="fa-brands fa-cc-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER & OVERLAY -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart Drawer">
+    <div class="cart-drawer-header">
+      <h3><i class="fa-solid fa-basket-shopping" style="color:var(--primary-green);"></i> Your Pharmacy Cart</h3>
+      <button class="cart-close-btn" onclick="window.PharmaApp.closeCartDrawer()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="cartRxWarningBox" style="display:none; background:#FEF2F2; border-bottom:1px solid #FECACA; padding:10px 16px; font-size:0.8rem; color:#991B1B;">
+      <i class="fa-solid fa-triangle-exclamation"></i> Contains prescription medicines. You must provide a valid prescription before order dispatch.
+    </div>
+    <div class="cart-drawer-body" id="cartDrawerBody"></div>
+    <div class="cart-drawer-footer">
+      <div class="cart-summary-line"><span>Subtotal</span><strong id="cartSubtotal">$0.00</strong></div>
+      <div class="cart-summary-line"><span>Estimated Delivery Fee</span><strong id="cartShipping">$0.00</strong></div>
+      <div class="cart-total-line"><span>Estimated Total</span><span id="cartTotal" style="color:var(--primary-green);">$0.00</span></div>
+      <button class="btn btn-primary btn-lg" style="width:100%;" id="proceedCheckoutBtn">
+        Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Patient &amp; Staff Portal Access</h3>
+        <button class="modal-close-btn" onclick="window.PharmaApp.closeModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="loginTabBtn" onclick="window.PharmaApp.switchAuthTab('login')">Patient Login</button>
+          <button class="auth-tab-btn" id="registerTabBtn" onclick="window.PharmaApp.switchAuthTab('register')">New Registration</button>
+        </div>
+        <form id="loginForm" onsubmit="event.preventDefault(); window.PharmaApp.showToast('Login successful! Welcome back.', 'success'); window.PharmaApp.closeModal('authModal');">
+          <div class="form-group"><label>Email Address</label><input type="email" class="form-control" required value="demo@patient.com"></div>
+          <div class="form-group"><label>Password</label><input type="password" class="form-control" required value="password123"></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    let activeBlogCategory = 'all';
+
+    function renderBlogGrid(articles) {
+      const container = document.getElementById('blogGridContainer');
+      if (!container) return;
+
+      if (articles.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align:center; padding:50px; background:#FFFFFF; border-radius:var(--radius-lg); border:1px solid var(--border-color);">
+            <i class="fa-solid fa-newspaper" style="font-size:2.5rem; color:var(--mint-green); margin-bottom:12px; display:block;"></i>
+            <h4>No health articles match your query</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;">Try searching for another symptom or medical condition.</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      articles.forEach(art => {
+        html += `
+          <article class="blog-card">
+            <div class="blog-card-media">
+              <img src="${art.image}" alt="${art.title}">
+            </div>
+            <div class="blog-card-content">
+              <div class="blog-meta-row">
+                <span class="badge" style="background:var(--soft-medical-green); color:var(--primary-green); font-size:0.75rem;">${art.category}</span>
+                <span><i class="fa-regular fa-clock"></i> ${art.readTime}</span>
+              </div>
+              <h3>${art.title}</h3>
+              <p>${art.summary}</p>
+              <div class="blog-card-footer">
+                <span style="font-size:0.8rem; color:var(--text-muted);"><i class="fa-solid fa-user-doctor" style="color:var(--primary-green);"></i> ${art.author}</span>
+                <button class="btn btn-outline btn-sm" onclick="openArticleModal(${art.id})">Read Article</button>
+              </div>
+            </div>
+          </article>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function quickFilterBlog(cat) {
+      const btn = Array.from(document.querySelectorAll('.blog-categories-nav .blog-filter-btn')).find(b => b.textContent.includes(cat));
+      if (btn) {
+        filterBlogCategory(cat, btn);
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function filterBlogCategory(cat, btn) {
+      activeBlogCategory = cat;
+      document.querySelectorAll('.blog-categories-nav .blog-filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      filterBlogArticles();
+    }
+
+    function filterBlogArticles() {
+      const search = document.getElementById('blogSearchInput').value.trim().toLowerCase();
+      let list = [...window.PharmaData.blogArticles];
+
+      if (activeBlogCategory !== 'all') {
+        list = list.filter(a => a.category === activeBlogCategory);
+      }
+
+      if (search) {
+        list = list.filter(a =>
+          a.title.toLowerCase().includes(search) ||
+          a.summary.toLowerCase().includes(search) ||
+          a.category.toLowerCase().includes(search) ||
+          a.tags.some(t => t.toLowerCase().includes(search))
+        );
+      }
+
+      renderBlogGrid(list);
+    }
+
+    function openArticleModal(id) {
+      const art = window.PharmaData.blogArticles.find(a => a.id === Number(id));
+      if (!art) return;
+
+      document.getElementById('modalArticleTitle').textContent = art.title;
+      document.getElementById('modalArticleCat').textContent = art.category;
+      document.getElementById('modalArticleAuthor').innerHTML = `<i class="fa-solid fa-user-doctor"></i> ${art.author}`;
+      document.getElementById('modalArticleDate').innerHTML = `<i class="fa-regular fa-calendar"></i> ${art.date}`;
+      document.getElementById('modalArticleImg').src = art.image;
+      
+      document.getElementById('modalArticleBody').innerHTML = `
+        <p style="font-size:1.05rem; font-weight:600; color:var(--dark-forest); margin-bottom:16px;">
+          ${art.summary}
+        </p>
+        <p style="margin-bottom:14px;">
+          When taking prescription and OTC medications, adhering strictly to licensed healthcare guidelines is essential to prevent complications and maximize efficacy. The pharmaceutical action of active ingredients requires balanced bioavailability, proper storage conditions, and avoiding contraindicated foods or supplements.
+        </p>
+        <p style="margin-bottom:14px;">
+          Our dispensary pharmacists frequently witness patients encountering accidental drug interactions when mixing over-the-counter allergy tablets with hypertension medications, or taking calcium supplements at the same time as specific antibiotics. By consulting directly with your PharmD provider and maintaining an accurate medication log, you can avoid these pitfalls.
+        </p>
+        <div style="background:var(--soft-medical-green); padding:16px; border-radius:var(--radius-md); margin-top:20px;">
+          <h5 style="color:var(--dark-forest); margin-bottom:6px;"><i class="fa-solid fa-circle-check" style="color:var(--primary-green);"></i> Clinical Takeaways</h5>
+          <ul style="padding-left:20px; font-size:0.88rem; color:var(--text-secondary); line-height:1.6;">
+            <li>Always finish the full prescribed dosage even if clinical symptoms abate.</li>
+            <li>Store medications below 25°C away from bathroom moisture and direct sunlight.</li>
+            <li>Keep a written or digital list of all active supplements and prescription drugs.</li>
+          </ul>
+        </div>
+      `;
+
+      document.getElementById('articleReadModal').classList.add('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.PharmaData && window.PharmaData.blogArticles) {
+        renderBlogGrid(window.PharmaData.blogArticles);
+      }
+    });
+  </script>
+</body>
+</html>

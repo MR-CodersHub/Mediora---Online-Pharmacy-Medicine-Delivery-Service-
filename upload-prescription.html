@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Your Prescription, Order with Confidence | Mediora</title>
+  <meta name="description" content="Securely upload your doctor's prescription for rapid pharmacist review, dosage verification, and swift doorstep medicine delivery. State licensed dispensary.">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function(){
+      try {
+        if(localStorage.getItem('mediora_theme_mode') === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        if(localStorage.getItem('mediora_direction') === 'rtl') {
+          document.documentElement.setAttribute('dir', 'rtl');
+        }
+      } catch(e){}
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-lock"></i>
+          <span>Secure Clinical Upload Portal (256-Bit SSL Encrypted)</span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-user-doctor"></i>
+          <span>Licensed Clinical Pharmacists On Duty 24/7</span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-headset"></i>
+          <span>Prescription Help Desk: <strong>(800) 555-0199</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-sticky-container">
+    <header class="main-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" title="Mediora Home">
+        <img src="images/logo.svg" alt="Mediora Logo" class="logo-light">
+        <img src="images/logo-white.svg" alt="Mediora Logo" class="logo-dark">
+      </a>
+
+      <div class="header-search">
+        <form class="search-bar-form" action="products.html" method="GET">
+          <select class="search-category-select" name="cat" aria-label="Select Category">
+            <option value="all">All Categories</option>
+            <option value="prescription">Prescription Rx</option>
+            <option value="otc">Over-the-Counter</option>
+            <option value="vitamins">Vitamins &amp; Supplements</option>
+          </select>
+          <input type="text" class="search-input" name="q" placeholder="Search medicines, active ingredients, vitamins..." aria-label="Search medicines">
+          <button type="submit" class="search-btn" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Search</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="header-actions">
+        <!-- RTL & Theme Controls -->
+        <button type="button" class="header-action-btn rtl-toggle-btn" id="rtlToggleBtn" aria-label="Toggle RTL Layout" title="Toggle RTL / LTR layout" onclick="window.PharmaApp.toggleRTL()">
+          <i class="fa-solid fa-right-left"></i>
+          <span class="toggle-text">RTL</span>
+        </button>
+
+        <button type="button" class="header-action-btn theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Dark / Light Theme" title="Toggle Dark / Light Theme" onclick="window.PharmaApp.toggleTheme()">
+          <i class="fa-solid fa-moon theme-icon"></i>
+          <span class="toggle-text">Dark</span>
+        </button>
+
+        <div class="account-wrapper">
+          <button type="button" class="header-action-btn account-icon-btn" id="accountBtn" aria-label="Customer Account" title="Customer Account">
+            <i class="fa-regular fa-user"></i>
+          </button>
+          <div class="account-dropdown-menu" id="accountDropdown">
+            <a href="javascript:void(0)" class="dropdown-item" onclick="window.PharmaApp.openAuthModal('login')">
+              <i class="fa-solid fa-right-to-bracket"></i> Login / Sign Up
+            </a>
+            <a href="admin-dashboard.html" class="dropdown-item">
+              <i class="fa-solid fa-shield-halved"></i> Admin Dashboard
+            </a>
+            <a href="user-dashboard.html" class="dropdown-item">
+              <i class="fa-solid fa-id-card-clip"></i> User Dashboard
+            </a>
+          </div>
+        </div>
+
+        <div class="cart-btn-wrapper">
+          <button type="button" class="cart-icon-btn" onclick="window.PharmaApp.openCartDrawer()" aria-label="Open Shopping Cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Cart</span>
+            <span class="cart-badge-count" style="display:none;">0</span>
+          </button>
+        </div>
+
+        <button type="button" class="mobile-nav-toggle" aria-label="Toggle Navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="nav-bar">
+    <div class="container nav-inner">
+
+      <!-- Mobile View Exclusive: Account Panel -->
+      <div class="mobile-menu-account">
+        <div class="mobile-account-card">
+          <div class="mobile-account-avatar"><i class="fa-regular fa-user"></i></div>
+          <div class="mobile-account-info">
+            <span class="mobile-account-label">Patient Access</span>
+            <h5 class="mobile-account-name">My Account</h5>
+          </div>
+        </div>
+        <div class="mobile-account-links">
+          <a href="javascript:void(0)" class="mobile-account-link" onclick="window.PharmaApp.openAuthModal('login'); document.querySelector('.nav-bar')?.classList.remove('mobile-open');">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>Login / Sign Up</span>
+          </a>
+          <a href="user-dashboard.html" class="mobile-account-link">
+            <i class="fa-solid fa-id-card-clip"></i>
+            <span>User Portal</span>
+          </a>
+          <a href="admin-dashboard.html" class="mobile-account-link">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Admin</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile View Exclusive: Cart CTA Card -->
+      <div class="mobile-menu-cart">
+        <button type="button" class="mobile-menu-cart-btn" onclick="window.PharmaApp.openCartDrawer(); document.querySelector('.nav-bar')?.classList.remove('mobile-open');">
+          <div class="mobile-menu-cart-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-badge-count" style="display:none;">0</span>
+          </div>
+          <div class="mobile-menu-cart-info">
+            <span class="mobile-menu-cart-sub">Order Summary</span>
+            <strong class="mobile-menu-cart-title">View Shopping Cart</strong>
+          </div>
+          <i class="fa-solid fa-chevron-right mobile-menu-cart-arrow"></i>
+        </button>
+      </div>
+
+      <!-- Mobile View Exclusive: Medicine Search -->
+      <div class="mobile-menu-search">
+        <form action="products.html" method="GET">
+          <input type="text" name="q" placeholder="Search medicines, vitamins..." aria-label="Search medicines in menu">
+          <button type="submit" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+      </div>
+
+      <!-- Navigation Links (All 7 Pages) -->
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="home-2.html" class="nav-link"><i class="fa-solid fa-bolt"></i> Home 2</a></li>
+        <li><a href="about.html" class="nav-link"><i class="fa-solid fa-circle-info"></i> About</a></li>
+        <li><a href="products.html" class="nav-link"><i class="fa-solid fa-tablets"></i> Products</a></li>
+        <li><a href="upload-prescription.html" class="nav-link active"><i class="fa-solid fa-file-prescription"></i> Prescription</a></li>
+        <li><a href="blog.html" class="nav-link"><i class="fa-solid fa-book-medical"></i> Blog</a></li>
+        <li><a href="contact.html" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+      </ul>
+
+      <!-- Mobile View Exclusive: CTA Group -->
+      <div class="mobile-menu-cta-group">
+        <a href="upload-prescription.html" class="btn btn-primary mobile-cta-btn">
+          <i class="fa-solid fa-file-arrow-up"></i> Upload Doctor's Rx Slip
+        </a>
+        <a href="tel:8005550199" class="nav-phone-cta">
+          <i class="fa-solid fa-headset"></i>
+          <span>24/7 Hotline: <strong>(800) 555-0199</strong></span>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+  </div>
+
+  <!-- =========================================================================
+       SECTION 1: HERO - “Upload Your Prescription, Order with Confidence” (Unified 520px)
+       ========================================================================= -->
+  <section class="hero-unified hero-bg-rx">
+    <div class="container">
+      <div class="hero-unified-grid grid-balanced">
+        <div class="hero-content">
+          <div class="hero-badge-pill">
+            <i class="fa-solid fa-file-shield"></i>
+            <span>HIPAA-Compliant &amp; 256-Bit Encrypted Clinical Intake Desk</span>
+          </div>
+          <h1 class="hero-headline">
+            Upload Your Prescription, <span>Order with Confidence</span>
+          </h1>
+          <p class="hero-subtext">
+            Submit a clear photo or digital PDF of your valid doctor's slip. Our licensed PharmD specialists verify active ingredients, check potential drug interactions, and arrange fast tamper-proof dispatch.
+          </p>
+          <div class="hero-btn-group">
+            <a href="#uploadSection" class="btn btn-primary btn-lg">
+              <i class="fa-solid fa-file-arrow-up"></i> Jump to Upload Form
+            </a>
+            <a href="tel:18005550199" class="btn btn-secondary" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:#FFFFFF;">
+              <i class="fa-solid fa-phone"></i> Consult a Pharmacist
+            </a>
+          </div>
+          <div style="display:flex; align-items:center; gap:20px; font-size:0.84rem; color:#D1FAE5; margin-top:16px; flex-wrap:wrap;">
+            <span><i class="fa-solid fa-clock" style="color:#34D399; margin-right:6px;"></i> Average Audit: 10 Mins</span>
+            <span><i class="fa-solid fa-circle-check" style="color:#34D399; margin-right:6px;"></i> Dual Clinical Check</span>
+            <span><i class="fa-solid fa-lock" style="color:#34D399; margin-right:6px;"></i> Encrypted Health Data</span>
+          </div>
+        </div>
+
+        <div class="hero-unified-media">
+          <!-- 4-Step Live Clinical Workflow Card -->
+          <div class="hero-rx-flow-card" style="width:100%;">
+            <div class="rx-flow-header">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div style="width:34px; height:34px; border-radius:50%; background:#34D399; color:var(--dark-forest); display:flex; align-items:center; justify-content:center; font-size:1.1rem; font-weight:800;">
+                  <i class="fa-solid fa-clipboard-check"></i>
+                </div>
+                <div>
+                  <h4 style="font-size:0.96rem; color:#FFFFFF; margin:0; font-weight:700;">Clinical Dispensing Pathway</h4>
+                  <p style="font-size:0.74rem; color:#D1FAE5; margin:0;">Transparent 4-step audit protocol</p>
+                </div>
+              </div>
+              <span class="badge" style="background:rgba(52,211,153,0.2); color:#34D399; border:1px solid #34D399; font-size:0.72rem;">State Regulated</span>
+            </div>
+
+            <div class="rx-flow-list">
+              <div class="rx-flow-step active">
+                <div class="rx-flow-step-num"><i class="fa-solid fa-upload"></i></div>
+                <div class="rx-flow-step-info">
+                  <h5>Step 1: Upload Doctor's Slip</h5>
+                  <p>Photo (JPG/PNG) or PDF under 15MB</p>
+                </div>
+              </div>
+              <div class="rx-flow-step">
+                <div class="rx-flow-step-num">2</div>
+                <div class="rx-flow-step-info">
+                  <h5>Step 2: 10-Min Clinical Audit</h5>
+                  <p>PharmD verifies dosage, license &amp; safety</p>
+                </div>
+              </div>
+              <div class="rx-flow-step">
+                <div class="rx-flow-step-num">3</div>
+                <div class="rx-flow-step-info">
+                  <h5>Step 3: Patient Order Confirmation</h5>
+                  <p>Transparent pricing, generic options &amp; address</p>
+                </div>
+              </div>
+              <div class="rx-flow-step">
+                <div class="rx-flow-step-num">4</div>
+                <div class="rx-flow-step-info">
+                  <h5>Step 4: Tamper-Proof Dispatch</h5>
+                  <p>Cold-chain packaging delivered to your door</p>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:space-between; font-size:0.76rem; color:#D1FAE5;">
+              <span><i class="fa-solid fa-circle-check" style="color:#34D399;"></i> 28,000+ Prescriptions Filled</span>
+              <span>Zero Dispensing Errors</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 2: 4-STEP EXPLANATION OF PRESCRIPTION ORDERING PROCESS (REDESIGNED)
+       ========================================================================= -->
+  <section class="rx-intake-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag"><i class="fa-solid fa-list-check"></i> Regulated Clinical Intake</span>
+        <h2 class="section-title">How Prescription Dispensing Works</h2>
+        <p class="section-subtitle">A transparent, dual-audited clinical pipeline engineered for patient safety and rapid dispatch.</p>
+      </div>
+
+      <div class="rx-intake-grid">
+        <!-- Step 1 -->
+        <div class="rx-intake-card">
+          <div class="rx-intake-top">
+            <span class="rx-intake-step-badge"><i class="fa-solid fa-check"></i> Step 01</span>
+            <span class="rx-intake-time-badge"><i class="fa-solid fa-bolt"></i> Instant</span>
+          </div>
+          <div class="rx-intake-icon-wrap">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+          </div>
+          <h4>Attach Prescription File</h4>
+          <p>Upload a clear photo (JPG, PNG) or digital PDF slip from any registered doctor. Our intake system instantly extracts metadata.</p>
+          <div class="rx-intake-chips">
+            <div class="rx-intake-chip">
+              <i class="fa-solid fa-shield-halved"></i> SSL AES-256 Encrypted Transfer
+            </div>
+            <div class="rx-intake-chip">
+              <i class="fa-solid fa-file-medical"></i> Photo, Scan, or e-Rx Slip
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="rx-intake-card">
+          <div class="rx-intake-top">
+            <span class="rx-intake-step-badge"><i class="fa-solid fa-check"></i> Step 02</span>
+            <span class="rx-intake-time-badge"><i class="fa-regular fa-clock"></i> ~10 Mins</span>
+          </div>
+          <div class="rx-intake-icon-wrap">
+            <i class="fa-solid fa-user-doctor"></i>
+          </div>
+          <h4>Clinical PharmD Audit</h4>
+          <p>Two licensed pharmacists verify physician registry credentials, medication strength, and screen for adverse drug-to-drug interactions.</p>
+          <div class="rx-intake-chips">
+            <div class="rx-intake-chip">
+              <i class="fa-solid fa-user-doctor"></i> Dual Pharmacist Verification
+            </div>
+            <div class="rx-intake-chip">
+              <i class="fa-solid fa-triangle-exclamation"></i> Interaction &amp; Allergy Screening
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="rx-intake-card">
+          <div class="rx-intake-top">
+            <span class="rx-intake-step-badge"><i class="fa-solid fa-check"></i> Step 03</span>
+            <span class="rx-intake-time-badge"><i class="fa-solid fa-comment-sms"></i> Real-Time</span>
+          </div>
+          <div class="rx-intake-icon-wrap">
+            <i class="fa-solid fa-clipboard-check"></i>
+          </div>
+          <h4>Review &amp; Confirmation</h4>
+          <p>You receive an instant SMS or phone consult to confirm verified dosage, cost-saving generic alternatives, copay, and delivery address.</p>
+          <div class="rx-intake-chips">
+            <div class="rx-intake-chip">
+              <i class="fa-solid fa-piggy-bank"></i> Generic Savings Option
+            </div>
+            <div class="rx-intake-chip">
+              <i class="fa-solid fa-receipt"></i> Transparent Copay Breakdown
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="rx-intake-card">
+          <div class="rx-intake-top">
+            <span class="rx-intake-step-badge"><i class="fa-solid fa-check"></i> Step 04</span>
+            <span class="rx-intake-time-badge"><i class="fa-solid fa-truck-fast"></i> Cold-Chain</span>
+          </div>
+          <div class="rx-intake-icon-wrap">
+            <i class="fa-solid fa-temperature-arrow-down"></i>
+          </div>
+          <h4>Cold-Chain Delivery</h4>
+          <p>Medications are sealed in numbered tamper-evident packs and dispatched in 2°C–8°C climate-controlled packs with live GPS tracking.</p>
+          <div class="rx-intake-chips">
+            <div class="rx-intake-chip">
+              <i class="fa-solid fa-stamp"></i> Numbered Security Seal
+            </div>
+            <div class="rx-intake-chip">
+              <i class="fa-solid fa-location-dot"></i> Live GPS Courier Telemetry
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 3 & 4: PRESCRIPTION UPLOAD FORM & PATIENT DETAILS FORM
+       ========================================================================= -->
+  <section class="upload-page-section" id="uploadSection">
+    <div class="container">
+      <div class="upload-grid">
+        <!-- Main Upload & Details Form Card -->
+        <div class="upload-form-card">
+          <h3 style="font-size:1.4rem; margin-bottom:6px; display:flex; align-items:center; gap:10px;">
+            <i class="fa-solid fa-file-arrow-up" style="color:var(--primary-green);"></i>
+            Submit Prescription Details
+          </h3>
+          <p style="color:var(--text-secondary); font-size:0.88rem; margin-bottom:24px;">
+            Please ensure the patient name, doctor's signature, and medication instructions are fully visible in the attached document.
+          </p>
+
+          <form id="rxUploadForm">
+            <!-- SECTION 3: Drag & Drop Dropzone -->
+            <div class="dropzone-box" id="prescriptionDropzone">
+              <input type="file" id="prescriptionFileInput" class="file-input-hidden" accept=".pdf,image/jpeg,image/png,image/webp">
+              <div class="dropzone-icon">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+              </div>
+              <h4 class="dropzone-title">Click to Browse or Drag &amp; Drop Prescription File</h4>
+              <p class="dropzone-hint">Supported formats: PDF, JPG, PNG, WEBP • Maximum file size: 15MB</p>
+            </div>
+
+            <!-- Selected File Preview Chip -->
+            <div class="selected-file-preview" id="filePreviewBox">
+              <div class="preview-left">
+                <i class="fa-solid fa-file-lines"></i>
+                <div class="preview-info">
+                  <h5 id="previewFileName">prescription_document.pdf</h5>
+                  <span id="previewFileSize">1.8 MB • Ready to submit</span>
+                </div>
+              </div>
+              <button type="button" class="remove-file-btn" id="removeFileBtn" title="Remove Attachment">
+                <i class="fa-solid fa-circle-xmark"></i>
+              </button>
+            </div>
+
+            <!-- SECTION 4: Customer Details Form -->
+            <div style="margin-top:28px;">
+              <h4 style="font-size:1.1rem; color:var(--dark-forest); margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid var(--border-light);">
+                Patient &amp; Delivery Information
+              </h4>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="patientName">Patient Full Name *</label>
+                  <input type="text" id="patientName" class="form-control" required placeholder="e.g. Johnathan Smith">
+                </div>
+                <div class="form-group">
+                  <label for="patientDob">Patient Date of Birth *</label>
+                  <input type="date" id="patientDob" class="form-control" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="patientPhone">Contact Phone Number *</label>
+                  <input type="tel" id="patientPhone" class="form-control" required placeholder="(555) 234-5678">
+                </div>
+                <div class="form-group">
+                  <label for="patientEmail">Email Address *</label>
+                  <input type="email" id="patientEmail" class="form-control" required placeholder="patient@example.com">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="deliveryAddress">Delivery Street Address *</label>
+                <input type="text" id="deliveryAddress" class="form-control" required placeholder="Apartment / Suite, Street Address">
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="deliveryCity">City &amp; State *</label>
+                  <input type="text" id="deliveryCity" class="form-control" required placeholder="New York, NY">
+                </div>
+                <div class="form-group">
+                  <label for="deliveryZip">ZIP Code *</label>
+                  <input type="text" id="deliveryZip" class="form-control" required maxlength="5" placeholder="10001">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="doctorName">Prescribing Physician Name (Optional)</label>
+                  <input type="text" id="doctorName" class="form-control" placeholder="Dr. Robert Evans, MD">
+                </div>
+                <div class="form-group">
+                  <label for="refillOption">Order Frequency</label>
+                  <select id="refillOption" class="form-control">
+                    <option value="one-time">One-time Order</option>
+                    <option value="monthly-refill">Auto Monthly Refill (Save 15%)</option>
+                    <option value="90-day-supply">90-Day Maintenance Supply</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="orderNotes">Special Instructions or Dosage Notes (Optional)</label>
+                <textarea id="orderNotes" class="form-control" rows="3" placeholder="Specify preferred generic substitutions, pill cutter request, or any known drug allergies..."></textarea>
+              </div>
+
+              <div style="margin:20px 0 24px 0; font-size:0.82rem; color:var(--text-secondary);">
+                <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer;">
+                  <input type="checkbox" required style="margin-top:3px;" checked>
+                  <span>
+                    I certify that this prescription is authentic, issued to me or my dependent, and I authorize Mediora's licensed pharmacists to contact the prescriber for verification.
+                  </span>
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">
+                <i class="fa-solid fa-paper-plane"></i> Submit Prescription for Verification
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right Side: Prescription Verification Guidelines & Sidebar -->
+        <aside class="upload-guide-card">
+          <h4 style="font-size:1.2rem; margin-bottom:14px; display:flex; align-items:center; gap:8px;">
+            <i class="fa-solid fa-circle-check" style="color:var(--primary-green);"></i>
+            Valid Prescription Checklist
+          </h4>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:20px;">
+            To ensure swift approval without delays, ensure your uploaded prescription contains:
+          </p>
+
+          <div class="guide-step-item">
+            <div class="guide-num"><i class="fa-solid fa-user-doctor"></i></div>
+            <div class="guide-text">
+              <h4>Doctor Credentials</h4>
+              <p>Doctor's full name, medical license / DEA number, clinic address, and handwritten or verifiable e-signature.</p>
+            </div>
+          </div>
+
+          <div class="guide-step-item">
+            <div class="guide-num"><i class="fa-solid fa-user"></i></div>
+            <div class="guide-text">
+              <h4>Patient Identity</h4>
+              <p>Patient name and age/DOB matching the delivery order profile.</p>
+            </div>
+          </div>
+
+          <div class="guide-step-item">
+            <div class="guide-num"><i class="fa-solid fa-pills"></i></div>
+            <div class="guide-text">
+              <h4>Medication &amp; Dosage</h4>
+              <p>Exact medicine name, strength (e.g. 500mg), dosage form, quantity, and daily frequency.</p>
+            </div>
+          </div>
+
+          <div class="guide-step-item">
+            <div class="guide-num"><i class="fa-solid fa-calendar-check"></i></div>
+            <div class="guide-text">
+              <h4>Valid Prescription Date</h4>
+              <p>Written within the valid statutory timeframe (typically within 6 months for standard Rx, 30 days for controlled substances).</p>
+            </div>
+          </div>
+
+          <!-- Prototype Disclaimer Card -->
+          <div class="demo-disclaimer-card">
+            <i class="fa-solid fa-triangle-exclamation" style="font-size:1.2rem; flex-shrink:0;"></i>
+            <div>
+              <strong>Frontend Demonstration Notice:</strong> This page demonstrates frontend file selection, type validation, size checks, and patient form workflows. Real prescription dispensing requires backend HIPAA cloud storage, active pharmacist portal review, and electronic health record (EHR) validation.
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 5: PRESCRIPTION SAFETY, PRIVACY & PHARMACIST VERIFICATION (REDESIGNED)
+       ========================================================================= -->
+  <section class="rx-standards-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag"><i class="fa-solid fa-shield-halved"></i> Safety &amp; Discretion Protocol</span>
+        <h2 class="section-title">Strict Standards for Prescription Medicines</h2>
+        <p class="section-subtitle">We protect your medical confidentiality while adhering strictly to state &amp; federal pharmaceutical compliance.</p>
+      </div>
+
+      <div class="rx-standards-grid">
+        <!-- Card 1: Dual Pharmacist Audit -->
+        <div class="rx-standard-card">
+          <div class="rx-std-stripe emerald"></div>
+          <div class="rx-std-header">
+            <div class="rx-std-icon-box emerald">
+              <i class="fa-solid fa-user-doctor"></i>
+            </div>
+            <span class="rx-std-pill emerald"><i class="fa-solid fa-circle-check"></i> Dual Verification</span>
+          </div>
+          <h4>Dual-Pharmacist Clinical Audit</h4>
+          <p>Every uploaded prescription undergoes independent secondary sign-off by two licensed PharmD practitioners before reaching our robotic dispensing lines.</p>
+          <div class="rx-std-points-list">
+            <div class="rx-std-point-item">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Cross-checked against State Pharmacy Medical Board registry</span>
+            </div>
+            <div class="rx-std-point-item">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Automated contraindication &amp; allergy cross-referencing</span>
+            </div>
+            <div class="rx-std-point-item">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>NDC batch barcode &amp; manufacturer lot matching</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: End-to-End Privacy -->
+        <div class="rx-standard-card">
+          <div class="rx-std-stripe cyan"></div>
+          <div class="rx-std-header">
+            <div class="rx-std-icon-box cyan">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <span class="rx-std-pill cyan"><i class="fa-solid fa-shield-halved"></i> HIPAA Compliant</span>
+          </div>
+          <h4>End-to-End Medical Privacy</h4>
+          <p>Prescriptions, physician clinical notes, and patient records are safeguarded with AES-256 at-rest encryption and strict role-based access tokens.</p>
+          <div class="rx-std-points-list">
+            <div class="rx-std-point-item">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Zero third-party data broker sharing or marketing monetization</span>
+            </div>
+            <div class="rx-std-point-item">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Only your assigned pharmacist views sensitive diagnostic notes</span>
+            </div>
+            <div class="rx-std-point-item">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>100% HIPAA compliant and SOC2 Type II audited architecture</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Discreet Packaging -->
+        <div class="rx-standard-card">
+          <div class="rx-std-stripe purple"></div>
+          <div class="rx-std-header">
+            <div class="rx-std-icon-box purple">
+              <i class="fa-solid fa-box-archive"></i>
+            </div>
+            <span class="rx-std-pill purple"><i class="fa-solid fa-eye-slash"></i> 100% Discreet</span>
+          </div>
+          <h4>Discreet Medical Packaging</h4>
+          <p>Parcels arrive in neutral, unbranded protective thermal packaging with zero medicine names, logos, or condition hints on the exterior shipping carton.</p>
+          <div class="rx-std-points-list">
+            <div class="rx-std-point-item">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Plain exterior cartons with tamper-evident peel-away seals</span>
+            </div>
+            <div class="rx-std-point-item">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Real-time thermal logging strip verifies temperature range</span>
+            </div>
+            <div class="rx-std-point-item">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Direct-to-door handoff with optional secure PIN verification</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 6: FREQUENTLY ASKED QUESTIONS & SUPPORT CALLOUT
+       ========================================================================= -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag"><i class="fa-solid fa-circle-question"></i> Help &amp; FAQs</span>
+        <h2 class="section-title">Prescription Ordering FAQs</h2>
+        <p class="section-subtitle">Common questions regarding doctor slips, e-prescriptions, and insurance coverage.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item active">
+          <div class="faq-question">
+            <span>Can I upload a picture taken from my smartphone?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Yes! Take a well-lit photo of your physical prescription slip with all 4 corners visible. Avoid heavy shadows or blurs. Both JPG and PNG smartphone photos are accepted.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>How long does the pharmacist verification process take?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>During standard hours, our clinical pharmacists review uploaded prescriptions within 10 to 15 minutes. Once approved, you will receive an SMS and email notification with an order confirmation link.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Do you accept insurance or Medicare for prescriptions?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Yes. Our pharmacy accepts most major insurance providers and Medicare Part D plans. After uploading your slip, our billing coordinator will calculate your exact copay amount before dispensing.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can my doctor send the e-prescription directly to Mediora?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Certainly. Your prescribing doctor can route e-prescriptions directly to <strong>Mediora Dispensary (NCPDP ID: 994821)</strong> through any standard EHR software (Epic, Cerner, AthenaHealth).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Support Callout Box -->
+      <div style="text-align:center; margin-top:40px; padding:30px; background:var(--soft-medical-green); border-radius:var(--radius-lg); border:1px solid var(--mint-green);">
+        <h4 style="font-size:1.2rem; margin-bottom:6px;">Need Urgent Assistance with Your Prescription?</h4>
+        <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:16px;">Our dispensary team is standing by to assist with emergency refills or prescriber consultations.</p>
+        <a href="tel:18005550199" class="btn btn-primary">
+          <i class="fa-solid fa-phone"></i> Call Pharmacist Hotline: (800) 555-0199
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SUBMISSION CONFIRMATION MODAL
+       ========================================================================= -->
+  <div class="modal-backdrop" id="rxSuccessModal">
+    <div class="modal-card" style="max-width:520px; text-align:center;">
+      <div class="modal-body" style="padding:36px 28px;">
+        <div style="width:68px; height:68px; border-radius:50%; background:var(--soft-medical-green); color:var(--primary-green); display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 16px auto;">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h3 style="font-size:1.4rem; margin-bottom:8px;">Prescription Submitted for Review!</h3>
+        <p style="font-size:0.92rem; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;">
+          Your prescription document and delivery details have been received under Reference <strong>#RX-SUB-44910</strong>. A licensed pharmacist has been assigned to verify the prescription details.
+        </p>
+        <div style="background:#FFFBEB; border:1px solid #FCD34D; border-radius:var(--radius-md); padding:12px; font-size:0.8rem; color:#92400E; text-align:left; margin-bottom:20px;">
+          <i class="fa-solid fa-circle-info"></i> <strong>Interactive Demo Status:</strong> This is a frontend demonstration simulating prescription file ingestion, validation, and patient data entry. In production, this initiates HIPAA-compliant cloud storage and licensed pharmacist EHR verification.
+        </div>
+        <div style="display:flex; gap:12px; justify-content:center;">
+          <a href="user-dashboard.html" class="btn btn-primary">Track in Patient Portal</a>
+          <button class="btn btn-secondary" onclick="window.PharmaApp.closeModal('rxSuccessModal')">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GLOBAL FOOTER -->
+  <footer class="global-footer">
+    <div class="container footer-grid">
+      <div class="footer-col-brand">
+        <a href="index.html">
+          <img src="images/logo-white.svg" alt="Mediora" style="height:44px;">
+        </a>
+        <p>
+          Mediora is a certified online pharmacy and healthcare delivery service dedicated to patient safety, authentic pharmaceuticals, and clinical dispensing excellence.
+        </p>
+        <div class="footer-licence-badge">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>State Board Pharmacy License #NY-PHARM-88204</span>
+        </div>
+        <div class="footer-social-links">
+          <a href="#" class="social-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-link" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation Links</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home (Main)</a></li>
+          <li><a href="home-2.html"><i class="fa-solid fa-chevron-right"></i> Home 2 (Express)</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Our Pharmacy</a></li>
+          <li><a href="products.html"><i class="fa-solid fa-chevron-right"></i> Browse All Medicines</a></li>
+          <li><a href="upload-prescription.html"><i class="fa-solid fa-chevron-right"></i> Upload Prescription</a></li>
+          <li><a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Health Articles &amp; Blog</a></li>
+          <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Customer Contact &amp; FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Dispensary Categories</h4>
+        <ul class="footer-links-list">
+          <li><a href="products.html?cat=prescription"><i class="fa-solid fa-chevron-right"></i> Prescription Rx</a></li>
+          <li><a href="products.html?cat=otc"><i class="fa-solid fa-chevron-right"></i> Over-the-Counter (OTC)</a></li>
+          <li><a href="products.html?cat=vitamins"><i class="fa-solid fa-chevron-right"></i> Vitamins &amp; Supplements</a></li>
+          <li><a href="products.html?cat=devices"><i class="fa-solid fa-chevron-right"></i> Medical Equipment</a></li>
+          <li><a href="products.html?cat=baby"><i class="fa-solid fa-chevron-right"></i> Baby &amp; Pediatric Care</a></li>
+          <li><a href="user-dashboard.html"><i class="fa-solid fa-chevron-right"></i> Patient Portal</a></li>
+          <li><a href="admin-dashboard.html"><i class="fa-solid fa-chevron-right"></i> Admin Workbench</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>24/7 Dispensary Support</h4>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>742 Healthway Boulevard, Suite 400<br>New York, NY 10001, USA</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <span>Helpline: (800) 555-0199<br>Direct Rx: (212) 555-0145</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <span>rx-desk@mediora.com<br>support@mediora.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-clock"></i>
+          <span>Dispensary: 24 Hours / 7 Days<br>Clinical Pharmacist on Duty</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-disclaimer-bar">
+      <div class="container">
+        <p class="disclaimer-text">
+          <strong>Mandatory Healthcare Disclaimer:</strong> All medicines requiring prescription are dispensed strictly against an authentic, legible medical prescription from a registered healthcare professional. Content on this website is for educational and informational purposes only and does not constitute clinical diagnosis or substitute for professional medical advice. Always consult your physician before starting any medication regimen.
+        </p>
+        <div class="footer-bottom-flex">
+          <div>
+            &copy; 2026 Mediora Inc. All Rights Reserved. HIPAA Compliant • FDA Registered Logistics.
+          </div>
+          <div class="payment-badges" title="Accepted Payment Methods">
+            <i class="fa-brands fa-cc-visa"></i>
+            <i class="fa-brands fa-cc-mastercard"></i>
+            <i class="fa-brands fa-cc-amex"></i>
+            <i class="fa-brands fa-cc-paypal"></i>
+            <i class="fa-brands fa-cc-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER & OVERLAY -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart Drawer">
+    <div class="cart-drawer-header">
+      <h3><i class="fa-solid fa-basket-shopping" style="color:var(--primary-green);"></i> Your Pharmacy Cart</h3>
+      <button class="cart-close-btn" onclick="window.PharmaApp.closeCartDrawer()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="cartRxWarningBox" style="display:none; background:#FEF2F2; border-bottom:1px solid #FECACA; padding:10px 16px; font-size:0.8rem; color:#991B1B;">
+      <i class="fa-solid fa-triangle-exclamation"></i> Contains prescription medicines. You must provide a valid prescription before order dispatch.
+    </div>
+    <div class="cart-drawer-body" id="cartDrawerBody"></div>
+    <div class="cart-drawer-footer">
+      <div class="cart-summary-line"><span>Subtotal</span><strong id="cartSubtotal">$0.00</strong></div>
+      <div class="cart-summary-line"><span>Estimated Delivery Fee</span><strong id="cartShipping">$0.00</strong></div>
+      <div class="cart-total-line"><span>Estimated Total</span><span id="cartTotal" style="color:var(--primary-green);">$0.00</span></div>
+      <button class="btn btn-primary btn-lg" style="width:100%;" id="proceedCheckoutBtn">
+        Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Patient &amp; Staff Portal Access</h3>
+        <button class="modal-close-btn" onclick="window.PharmaApp.closeModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="loginTabBtn" onclick="window.PharmaApp.switchAuthTab('login')">Patient Login</button>
+          <button class="auth-tab-btn" id="registerTabBtn" onclick="window.PharmaApp.switchAuthTab('register')">New Registration</button>
+        </div>
+        <form id="loginForm" onsubmit="event.preventDefault(); window.PharmaApp.showToast('Login successful! Welcome back.', 'success'); window.PharmaApp.closeModal('authModal');">
+          <div class="form-group"><label>Email Address</label><input type="email" class="form-control" required value="demo@patient.com"></div>
+          <div class="form-group"><label>Password</label><input type="password" class="form-control" required value="password123"></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

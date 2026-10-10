@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Pharmacy Products &amp; Medicines Catalog | Mediora</title>
+  <meta name="description" content="Browse prescription medications, over-the-counter pain relief, vitamins, pediatric supplies, and clinical diagnostic devices. Verified pharmacy delivery.">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function(){
+      try {
+        if(localStorage.getItem('mediora_theme_mode') === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        if(localStorage.getItem('mediora_direction') === 'rtl') {
+          document.documentElement.setAttribute('dir', 'rtl');
+        }
+      } catch(e){}
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Deliver to: <strong>New York, NY 10001</strong></span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-truck-fast"></i>
+          <span>Free Express Delivery on orders over <strong>$35</strong></span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>100% Genuine Certified Pharmaceutical Supply</span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-headset"></i>
+          <span>Rx Desk: <strong>(800) 555-0199</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-sticky-container">
+    <header class="main-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" title="Mediora Home">
+        <img src="images/logo.svg" alt="Mediora Logo" class="logo-light">
+        <img src="images/logo-white.svg" alt="Mediora Logo" class="logo-dark">
+      </a>
+
+      <div class="header-search">
+        <form class="search-bar-form" id="headerSearchForm" onsubmit="handleSearchSubmit(event)">
+          <select class="search-category-select" id="headerCategorySelect" aria-label="Select Category">
+            <option value="all">All Categories</option>
+            <option value="prescription">Prescription Rx</option>
+            <option value="otc">Over-the-Counter</option>
+            <option value="vitamins">Vitamins &amp; Supplements</option>
+            <option value="devices">Medical Devices</option>
+            <option value="personal">Personal Care</option>
+            <option value="baby">Baby Care</option>
+            <option value="firstaid">First Aid</option>
+          </select>
+          <input type="text" class="search-input" id="headerSearchInput" placeholder="Search medicines, active ingredients, vitamins..." aria-label="Search medicines">
+          <button type="submit" class="search-btn" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Search</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="header-actions">
+        <!-- RTL & Theme Controls -->
+        <button type="button" class="header-action-btn rtl-toggle-btn" id="rtlToggleBtn" aria-label="Toggle RTL Layout" title="Toggle RTL / LTR layout" onclick="window.PharmaApp.toggleRTL()">
+          <i class="fa-solid fa-right-left"></i>
+          <span class="toggle-text">RTL</span>
+        </button>
+
+        <button type="button" class="header-action-btn theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Dark / Light Theme" title="Toggle Dark / Light Theme" onclick="window.PharmaApp.toggleTheme()">
+          <i class="fa-solid fa-moon theme-icon"></i>
+          <span class="toggle-text">Dark</span>
+        </button>
+
+        <div class="account-wrapper">
+          <button type="button" class="header-action-btn account-icon-btn" id="accountBtn" aria-label="Customer Account" title="Customer Account">
+            <i class="fa-regular fa-user"></i>
+          </button>
+          <div class="account-dropdown-menu" id="accountDropdown">
+            <a href="javascript:void(0)" class="dropdown-item" onclick="window.PharmaApp.openAuthModal('login')">
+              <i class="fa-solid fa-right-to-bracket"></i> Login / Sign Up
+            </a>
+            <a href="admin-dashboard.html" class="dropdown-item">
+              <i class="fa-solid fa-shield-halved"></i> Admin Dashboard
+            </a>
+            <a href="user-dashboard.html" class="dropdown-item">
+              <i class="fa-solid fa-id-card-clip"></i> User Dashboard
+            </a>
+          </div>
+        </div>
+
+        <div class="cart-btn-wrapper">
+          <button type="button" class="cart-icon-btn" onclick="window.PharmaApp.openCartDrawer()" aria-label="Open Shopping Cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Cart</span>
+            <span class="cart-badge-count" style="display:none;">0</span>
+          </button>
+        </div>
+
+        <button type="button" class="mobile-nav-toggle" aria-label="Toggle Navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="nav-bar">
+    <div class="container nav-inner">
+
+      <!-- Mobile View Exclusive: Account Panel -->
+      <div class="mobile-menu-account">
+        <div class="mobile-account-card">
+          <div class="mobile-account-avatar"><i class="fa-regular fa-user"></i></div>
+          <div class="mobile-account-info">
+            <span class="mobile-account-label">Patient Access</span>
+            <h5 class="mobile-account-name">My Account</h5>
+          </div>
+        </div>
+        <div class="mobile-account-links">
+          <a href="javascript:void(0)" class="mobile-account-link" onclick="window.PharmaApp.openAuthModal('login'); document.querySelector('.nav-bar')?.classList.remove('mobile-open');">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>Login / Sign Up</span>
+          </a>
+          <a href="user-dashboard.html" class="mobile-account-link">
+            <i class="fa-solid fa-id-card-clip"></i>
+            <span>User Portal</span>
+          </a>
+          <a href="admin-dashboard.html" class="mobile-account-link">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Admin</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile View Exclusive: Cart CTA Card -->
+      <div class="mobile-menu-cart">
+        <button type="button" class="mobile-menu-cart-btn" onclick="window.PharmaApp.openCartDrawer(); document.querySelector('.nav-bar')?.classList.remove('mobile-open');">
+          <div class="mobile-menu-cart-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-badge-count" style="display:none;">0</span>
+          </div>
+          <div class="mobile-menu-cart-info">
+            <span class="mobile-menu-cart-sub">Order Summary</span>
+            <strong class="mobile-menu-cart-title">View Shopping Cart</strong>
+          </div>
+          <i class="fa-solid fa-chevron-right mobile-menu-cart-arrow"></i>
+        </button>
+      </div>
+
+      <!-- Mobile View Exclusive: Medicine Search -->
+      <div class="mobile-menu-search">
+        <form action="products.html" method="GET">
+          <input type="text" name="q" placeholder="Search medicines, vitamins..." aria-label="Search medicines in menu">
+          <button type="submit" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+      </div>
+
+      <!-- Navigation Links (All 7 Pages) -->
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="home-2.html" class="nav-link"><i class="fa-solid fa-bolt"></i> Home 2</a></li>
+        <li><a href="about.html" class="nav-link"><i class="fa-solid fa-circle-info"></i> About</a></li>
+        <li><a href="products.html" class="nav-link active"><i class="fa-solid fa-tablets"></i> Products</a></li>
+        <li><a href="upload-prescription.html" class="nav-link"><i class="fa-solid fa-file-prescription"></i> Prescription</a></li>
+        <li><a href="blog.html" class="nav-link"><i class="fa-solid fa-book-medical"></i> Blog</a></li>
+        <li><a href="contact.html" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+      </ul>
+
+      <!-- Mobile View Exclusive: CTA Group -->
+      <div class="mobile-menu-cta-group">
+        <a href="upload-prescription.html" class="btn btn-primary mobile-cta-btn">
+          <i class="fa-solid fa-file-arrow-up"></i> Upload Doctor's Rx Slip
+        </a>
+        <a href="tel:8005550199" class="nav-phone-cta">
+          <i class="fa-solid fa-headset"></i>
+          <span>24/7 Hotline: <strong>(800) 555-0199</strong></span>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+  </div>
+
+  <!-- =========================================================================
+       SECTION 1: PAGE HERO WITH MEDICINE SEARCH & BREADCRUMBS (Unified 520px)
+       ========================================================================= -->
+  <section class="hero-unified hero-bg-products">
+    <div class="container">
+      <div class="hero-unified-grid grid-balanced">
+        <div class="hero-content">
+          <div class="breadcrumb-bar" style="margin-bottom:12px;">
+            <a href="index.html">Home</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:0.65rem;"></i>
+            <span>Dispensary</span>
+            <i class="fa-solid fa-chevron-right" style="font-size:0.65rem;"></i>
+            <strong style="color:var(--dark-forest);">Catalog</strong>
+          </div>
+          <div class="hero-badge-pill" style="margin-bottom:12px;">
+            <i class="fa-solid fa-tablets"></i>
+            <span>100% Genuine Certified Catalog • 1,500+ Items</span>
+          </div>
+          <h1 class="hero-headline">
+            Dispensary Products &amp; <span>Certified Medicines</span>
+          </h1>
+          <p class="hero-subtext">
+            Explore our state-board licensed catalog of authentic prescription medicines, OTC daily treatments, vitamins, and medical diagnostic equipment. Monitored cold-chain storage and manufacturer-sealed packaging.
+          </p>
+          <div class="hero-trust-bar" style="border-top:1px solid var(--border-color); padding-top:14px; margin-top:6px;">
+            <div class="trust-item">
+              <div class="trust-item-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <div class="trust-item-content">
+                <h5>100% Authentic</h5>
+                <p>Direct from FDA Labs</p>
+              </div>
+            </div>
+            <div class="trust-item">
+              <div class="trust-item-icon"><i class="fa-solid fa-snowflake"></i></div>
+              <div class="trust-item-content">
+                <h5>Cold-Chain Assured</h5>
+                <p>2°C - 8°C Monitored</p>
+              </div>
+            </div>
+            <div class="trust-item">
+              <div class="trust-item-icon"><i class="fa-solid fa-receipt"></i></div>
+              <div class="trust-item-content">
+                <h5>Dual Review</h5>
+                <p>Doctor &amp; PharmD Check</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-unified-media">
+          <!-- Interactive Quick Finder Card -->
+          <div class="hero-products-card" style="width:100%;">
+            <div class="hero-products-card-header">
+              <div>
+                <h4 style="font-size:1.1rem; color:var(--dark-forest); margin-bottom:2px; display:flex; align-items:center; gap:8px;">
+                  <i class="fa-solid fa-magnifying-glass" style="color:var(--primary-green);"></i> Quick Medicine Finder
+                </h4>
+                <p style="font-size:0.78rem; color:var(--text-muted); margin:0;">Search by chemical name or therapeutic category</p>
+              </div>
+              <span class="badge" style="background:var(--soft-medical-green); color:var(--primary-green); font-weight:700;">Live Catalog</span>
+            </div>
+
+            <!-- In-Card Search Field -->
+            <div class="search-bar-form hero-quick-search-bar" style="margin-bottom:14px;">
+              <input type="text" id="heroProductQuickSearch" placeholder="Search medicines (e.g., Amoxicillin, Paracetamol)..." class="search-input" onkeyup="if(event.key==='Enter'){ searchFromHero(this.value); }">
+              <button type="button" class="search-btn" onclick="searchFromHero(document.getElementById('heroProductQuickSearch').value)" style="padding:8px 16px;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+
+            <!-- Quick Category Jump Tiles -->
+            <div class="hero-products-chips">
+              <a href="javascript:void(0)" onclick="setCategoryFilter('prescription', document.querySelector('.blog-filter-btn:nth-child(2)'))" class="hero-product-chip-btn">
+                <i class="fa-solid fa-file-prescription"></i>
+                <span>Prescription Rx</span>
+              </a>
+              <a href="javascript:void(0)" onclick="setCategoryFilter('otc', document.querySelector('.blog-filter-btn:nth-child(3)'))" class="hero-product-chip-btn">
+                <i class="fa-solid fa-tablets"></i>
+                <span>Over-The-Counter</span>
+              </a>
+              <a href="javascript:void(0)" onclick="setCategoryFilter('vitamins', document.querySelector('.blog-filter-btn:nth-child(4)'))" class="hero-product-chip-btn">
+                <i class="fa-solid fa-capsules"></i>
+                <span>Vitamins &amp; Zinc</span>
+              </a>
+              <a href="javascript:void(0)" onclick="setCategoryFilter('devices', document.querySelector('.blog-filter-btn:nth-child(5)'))" class="hero-product-chip-btn">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <span>Medical Devices</span>
+              </a>
+            </div>
+
+            <!-- Fast Prescription Upload Shortcut -->
+            <div class="hero-products-shortcut-row" style="margin-top:14px; padding-top:12px; border-top:1px dashed var(--border-color); display:flex; align-items:center; justify-content:space-between;">
+              <div style="font-size:0.8rem; color:var(--text-secondary); display:flex; align-items:center; gap:6px;">
+                <i class="fa-solid fa-camera" style="color:var(--primary-green);"></i> Have a doctor's slip?
+              </div>
+              <a href="upload-prescription.html" class="btn btn-outline btn-sm hero-shortcut-btn" style="font-size:0.8rem; padding:6px 12px;">
+                Upload Prescription <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 2: CATEGORY NAVIGATION CHIPS
+       ========================================================================= -->
+  <section class="products-chips-section" style="padding:16px 0; border-bottom:1px solid var(--border-color);">
+    <div class="container">
+      <div style="display:flex; align-items:center; gap:10px; overflow-x:auto; padding-bottom:6px;" id="categoryChipsContainer">
+        <button class="blog-filter-btn active" onclick="setCategoryFilter('all', this)">All Items (12)</button>
+        <button class="blog-filter-btn" onclick="setCategoryFilter('prescription', this)"><i class="fa-solid fa-prescription"></i> Prescription Rx</button>
+        <button class="blog-filter-btn" onclick="setCategoryFilter('otc', this)"><i class="fa-solid fa-tablets"></i> Over-the-Counter</button>
+        <button class="blog-filter-btn" onclick="setCategoryFilter('vitamins', this)"><i class="fa-solid fa-capsules"></i> Vitamins &amp; Supplements</button>
+        <button class="blog-filter-btn" onclick="setCategoryFilter('devices', this)"><i class="fa-solid fa-heart-pulse"></i> Medical Devices</button>
+        <button class="blog-filter-btn" onclick="setCategoryFilter('personal', this)"><i class="fa-solid fa-pump-medical"></i> Personal Care</button>
+        <button class="blog-filter-btn" onclick="setCategoryFilter('baby', this)"><i class="fa-solid fa-baby"></i> Baby Care</button>
+        <button class="blog-filter-btn" onclick="setCategoryFilter('firstaid', this)"><i class="fa-solid fa-kit-medical"></i> First Aid</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 3 & 4: FILTERING, SORTING INTERFACE & PRODUCT LISTING AREA
+       ========================================================================= -->
+  <main class="products-page-layout">
+    <div class="container">
+
+      <!-- Mandatory Prescription Safety Guideline Notice -->
+      <div class="rx-guideline-banner">
+        <i class="fa-solid fa-clipboard-check"></i>
+        <div>
+          <h4>Prescription Medication Dispensing Protocol</h4>
+          <p>Medicines marked with the red <strong>Rx Required</strong> badge will require a valid medical prescription from a licensed physician during checkout or uploaded via our portal before dispatch.</p>
+        </div>
+      </div>
+
+      <div class="products-main-grid">
+        <!-- Filter Sidebar -->
+        <aside class="filter-sidebar">
+          <div class="filter-header">
+            <h3><i class="fa-solid fa-sliders" style="color:var(--primary-green);"></i> Filters</h3>
+            <button class="clear-filter-btn" onclick="resetFilters()">Reset All</button>
+          </div>
+
+          <!-- Filter Group: Category -->
+          <div class="filter-group">
+            <h4 class="filter-title">Medicine Category</h4>
+            <label class="filter-radio-item">
+              <span class="filter-item-left"><input type="radio" name="catFilter" value="all" checked onchange="applyFilters()"> All Categories</span>
+              <span class="filter-count">12</span>
+            </label>
+            <label class="filter-radio-item">
+              <span class="filter-item-left"><input type="radio" name="catFilter" value="prescription" onchange="applyFilters()"> Prescription Rx</span>
+              <span class="filter-count">3</span>
+            </label>
+            <label class="filter-radio-item">
+              <span class="filter-item-left"><input type="radio" name="catFilter" value="otc" onchange="applyFilters()"> Over-the-Counter (OTC)</span>
+              <span class="filter-count">2</span>
+            </label>
+            <label class="filter-radio-item">
+              <span class="filter-item-left"><input type="radio" name="catFilter" value="vitamins" onchange="applyFilters()"> Vitamins &amp; Nutrition</span>
+              <span class="filter-count">2</span>
+            </label>
+            <label class="filter-radio-item">
+              <span class="filter-item-left"><input type="radio" name="catFilter" value="devices" onchange="applyFilters()"> Medical Devices</span>
+              <span class="filter-count">2</span>
+            </label>
+            <label class="filter-radio-item">
+              <span class="filter-item-left"><input type="radio" name="catFilter" value="personal" onchange="applyFilters()"> Personal Care</span>
+              <span class="filter-count">1</span>
+            </label>
+            <label class="filter-radio-item">
+              <span class="filter-item-left"><input type="radio" name="catFilter" value="baby" onchange="applyFilters()"> Baby &amp; Pediatric</span>
+              <span class="filter-count">1</span>
+            </label>
+            <label class="filter-radio-item">
+              <span class="filter-item-left"><input type="radio" name="catFilter" value="firstaid" onchange="applyFilters()"> First Aid &amp; Wound</span>
+              <span class="filter-count">1</span>
+            </label>
+          </div>
+
+          <!-- Filter Group: Prescription Requirement -->
+          <div class="filter-group">
+            <h4 class="filter-title">Prescription Type</h4>
+            <label class="filter-checkbox-item">
+              <span class="filter-item-left"><input type="checkbox" id="filterRxOnly" onchange="applyFilters()"> Rx Required Only</span>
+            </label>
+            <label class="filter-checkbox-item">
+              <span class="filter-item-left"><input type="checkbox" id="filterOtcOnly" onchange="applyFilters()"> Direct Purchase / OTC</span>
+            </label>
+          </div>
+
+          <!-- Filter Group: Price Range -->
+          <div class="filter-group">
+            <h4 class="filter-title">Price Range ($)</h4>
+            <div class="price-range-inputs">
+              <input type="number" id="priceMin" placeholder="Min $0" min="0" oninput="applyFilters()">
+              <span>to</span>
+              <input type="number" id="priceMax" placeholder="Max $100" min="0" oninput="applyFilters()">
+            </div>
+          </div>
+
+          <!-- Filter Group: Stock Status -->
+          <div class="filter-group">
+            <h4 class="filter-title">Availability</h4>
+            <label class="filter-checkbox-item">
+              <span class="filter-item-left"><input type="checkbox" id="filterInStock" checked onchange="applyFilters()"> In-Stock Items Only</span>
+            </label>
+          </div>
+        </aside>
+
+        <!-- Product Listing & Toolbar -->
+        <div>
+          <!-- Products Toolbar -->
+          <div class="products-toolbar">
+            <div class="toolbar-info">
+              Showing <strong id="productCountDisplay">12</strong> products found
+            </div>
+            <div class="toolbar-sort">
+              <label for="sortDropdown">Sort by:</label>
+              <select id="sortDropdown" class="sort-select" onchange="applyFilters()">
+                <option value="popular">Popularity &amp; Ratings</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="alpha">Alphabetical (A - Z)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Active Product Cards Grid (Dynamic JS) -->
+          <div class="product-grid" id="productCatalogGrid">
+            <!-- Rendered by renderProducts() -->
+          </div>
+
+          <div id="noProductsFound" style="display:none; text-align:center; padding:60px 20px; background:#FFFFFF; border-radius:var(--radius-lg); border:1px solid var(--border-color);">
+            <i class="fa-solid fa-magnifying-glass" style="font-size:3rem; color:var(--mint-green); margin-bottom:14px; display:block;"></i>
+            <h3>No Products Match Your Criteria</h3>
+            <p style="color:var(--text-secondary); margin:8px 0 16px 0;">Try clearing your filters or searching for alternative medication generic terms.</p>
+            <button class="btn btn-primary" onclick="resetFilters()">Reset All Filters</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       SECTION 5: FEATURED HEALTHCARE ESSENTIALS & SPECIAL OFFERS BANNER
+       ========================================================================= -->
+  <section class="products-cta-section">
+    <div class="container">
+      <div style="background:linear-gradient(135deg, #075B45 0%, #087653 100%); border-radius:var(--radius-xl); padding:40px; color:#FFFFFF; display:grid; grid-template-columns:1.3fr 0.7fr; align-items:center; gap:30px;" class="cta-consult-banner">
+        <div>
+          <span class="badge" style="background:#FDE68A; color:#92400E; margin-bottom:12px; font-weight:800;">
+            <i class="fa-solid fa-tag"></i> Monthly Patient Bundle Deal
+          </span>
+          <h2 style="color:#FFFFFF; font-size:2rem; margin-bottom:10px;">Family First-Aid &amp; Diagnostic Combo</h2>
+          <p style="color:#D1FAE5; font-size:0.95rem; line-height:1.6; margin-bottom:20px;">
+            Get an Omron Blood Pressure Monitor + 48-Piece Emergency Trauma First-Aid Kit with complimentary express delivery and save $25.
+          </p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <button class="btn btn-white" onclick="window.PharmaApp.addToCart(2); window.PharmaApp.addToCart(12); window.PharmaApp.openCartDrawer();">
+              <i class="fa-solid fa-cart-plus"></i> Add Bundle to Cart ($89.98)
+            </button>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius-lg); padding:24px; text-align:center;">
+          <div style="font-size:2.2rem; font-weight:800; color:#34D399; font-family:var(--font-heading);">$89.98</div>
+          <div style="font-size:0.85rem; text-decoration:line-through; color:#E2E8F0;">Regular Price $111.99</div>
+          <div style="margin-top:12px; font-size:0.8rem; color:#A7F3D0;"><i class="fa-solid fa-check"></i> Free Express Cold Chain Shipping</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 6: PRODUCT SAFETY INFORMATION & CUSTOMER SUPPORT
+       ========================================================================= -->
+  <!-- =========================================================================
+       SECTION 6: REDESIGNED MEDICINE SAFETY & SAFE CONSUMPTION STANDARDS
+       ========================================================================= -->
+  <section class="safety-standards-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag"><i class="fa-solid fa-shield-halved"></i> Patient Clinical Guidance</span>
+        <h2 class="section-title">Medicine Safety &amp; Safe Consumption Standards</h2>
+        <p class="section-subtitle">
+          Essential clinical rules and pharmacokinetic protocols governing responsible prescription medicine handling.
+        </p>
+      </div>
+
+      <div class="safety-cards-grid">
+        <!-- Card 1: Drug Interactions -->
+        <div class="safety-card-modern safety-card-amber">
+          <div class="safety-card-top-stripe"></div>
+          <div class="safety-header-flex">
+            <div class="safety-card-icon">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <span class="safety-badge-pill">
+              <i class="fa-solid fa-shield-virus"></i> Interaction Guard
+            </span>
+          </div>
+          <h3>Drug-to-Drug Interactions</h3>
+          <p>Concurrent medications, OTC supplements, and herbal remedies can dramatically alter drug absorption, metabolism, or efficacy.</p>
+          <ul class="safety-checklist">
+            <li><i class="fa-solid fa-circle-check"></i> Always declare all active vitamins, minerals, &amp; OTC drugs</li>
+            <li><i class="fa-solid fa-circle-check"></i> Disclose food allergies (gluten, lactose, sulfites, dyes)</li>
+            <li><i class="fa-solid fa-circle-check"></i> Dual-PharmD review screens contraindications on every refill</li>
+          </ul>
+          <div class="safety-card-footer-action">
+            <span style="font-size:0.78rem; color:var(--text-muted);">Protocol: Multi-Drug Audit</span>
+            <a href="contact.html" class="safety-footer-link">
+              Audit My Prescriptions <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2: Dosage Adherence -->
+        <div class="safety-card-modern safety-card-emerald">
+          <div class="safety-card-top-stripe"></div>
+          <div class="safety-header-flex">
+            <div class="safety-card-icon">
+              <i class="fa-solid fa-prescription-bottle-medical"></i>
+            </div>
+            <span class="safety-badge-pill">
+              <i class="fa-solid fa-clock"></i> Adherence Protocol
+            </span>
+          </div>
+          <h3>Dosage Adherence &amp; Timing</h3>
+          <p>Proper therapeutic blood concentration requires strict adherence to prescribed intervals, meal requirements, and complete courses.</p>
+          <ul class="safety-checklist">
+            <li><i class="fa-solid fa-circle-check"></i> Never crush, split, or chew extended-release (ER/XR) caplets</li>
+            <li><i class="fa-solid fa-circle-check"></i> Never double a missed dose; take as soon as remembered</li>
+            <li><i class="fa-solid fa-circle-check"></i> Complete full antibiotic regimens even if symptoms subside</li>
+          </ul>
+          <div class="safety-card-footer-action">
+            <span style="font-size:0.78rem; color:var(--text-muted);">Adherence Index: 99.8%</span>
+            <a href="upload-prescription.html" class="safety-footer-link">
+              Schedule Auto-Refill <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3: Proper Storage -->
+        <div class="safety-card-modern safety-card-blue">
+          <div class="safety-card-top-stripe"></div>
+          <div class="safety-header-flex">
+            <div class="safety-card-icon">
+              <i class="fa-solid fa-snowflake"></i>
+            </div>
+            <span class="safety-badge-pill">
+              <i class="fa-solid fa-temperature-arrow-down"></i> 2°C–8°C Thermal Control
+            </span>
+          </div>
+          <h3>Proper Storage &amp; Integrity</h3>
+          <p>Heat, humidity, and direct UV radiation degrade active pharmaceutical ingredients, converting potent treatments into inert or toxic compounds.</p>
+          <ul class="safety-checklist">
+            <li><i class="fa-solid fa-circle-check"></i> Keep insulin, biologics, &amp; eye drops in middle fridge shelf</li>
+            <li><i class="fa-solid fa-circle-check"></i> Store oral tablets in cool, dry bedrooms—never humid bathrooms</li>
+            <li><i class="fa-solid fa-circle-check"></i> Inspect tamper-evident seal and expiry date before opening</li>
+          </ul>
+          <div class="safety-card-footer-action">
+            <span style="font-size:0.78rem; color:var(--text-muted);">Insulated Cold-Chain Standard</span>
+            <a href="contact.html" class="safety-footer-link">
+              Safe Disposal Guide <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 7: BRAND-NEW SECTION - GENERIC BIOEQUIVALENCE & TRANSPARENCY HUB
+       ========================================================================= -->
+  <section class="generic-hub-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag"><i class="fa-solid fa-flask"></i> Clinical Transparency</span>
+        <h2 class="section-title">Generic Bioequivalence &amp; Prescription Intelligence</h2>
+        <p class="section-subtitle">
+          Save up to 80% with FDA-approved bioequivalent generic medications that deliver identical clinical efficacy and safety.
+        </p>
+      </div>
+
+      <div class="generic-hub-grid">
+        <!-- Left: Brand vs Generic Bioequivalence Table -->
+        <div class="generic-table-box">
+          <div class="generic-table-header">
+            <div>
+              <h3>FDA Orange Book Therapeutic Equivalents</h3>
+              <p>Compare brand-name medication prices with verified generic formulations</p>
+            </div>
+            <span class="fda-badge-tag"><i class="fa-solid fa-circle-check"></i> FDA "AB" Rated</span>
+          </div>
+
+          <div class="bio-table-wrapper">
+            <table class="bio-compare-table">
+              <thead>
+                <tr>
+                  <th>Brand Name</th>
+                  <th>Generic Equivalent</th>
+                  <th>Active Ingredient</th>
+                  <th>Bioequivalence</th>
+                  <th>Patient Savings</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Lipitor® 20mg</strong>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">$112.50 / mo</div>
+                  </td>
+                  <td>
+                    <strong style="color:var(--primary-green);">Atorvastatin 20mg</strong>
+                    <div style="font-size:0.75rem; color:var(--text-secondary);">$14.20 / mo</div>
+                  </td>
+                  <td>Atorvastatin Calcium</td>
+                  <td><span class="bio-code-badge">AB Rated (99.8%)</span></td>
+                  <td><span class="savings-pill">Save 87%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Glucophage® ER 500mg</strong>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">$86.00 / mo</div>
+                  </td>
+                  <td>
+                    <strong style="color:var(--primary-green);">Metformin HCl ER 500mg</strong>
+                    <div style="font-size:0.75rem; color:var(--text-secondary);">$12.80 / mo</div>
+                  </td>
+                  <td>Metformin Hydrochloride</td>
+                  <td><span class="bio-code-badge">AB Rated (99.9%)</span></td>
+                  <td><span class="savings-pill">Save 85%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Prinivil® 20mg</strong>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">$74.20 / mo</div>
+                  </td>
+                  <td>
+                    <strong style="color:var(--primary-green);">Lisinopril 20mg</strong>
+                    <div style="font-size:0.75rem; color:var(--text-secondary);">$15.20 / mo</div>
+                  </td>
+                  <td>Lisinopril Dihydrate</td>
+                  <td><span class="bio-code-badge">AB Rated (100%)</span></td>
+                  <td><span class="savings-pill">Save 79%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Zyrtec® 10mg</strong>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">$32.00 / 30ct</div>
+                  </td>
+                  <td>
+                    <strong style="color:var(--primary-green);">AllergyClear Cetirizine 10mg</strong>
+                    <div style="font-size:0.75rem; color:var(--text-secondary);">$11.25 / 30ct</div>
+                  </td>
+                  <td>Cetirizine Hydrochloride</td>
+                  <td><span class="bio-code-badge">AB Rated (99.8%)</span></td>
+                  <td><span class="savings-pill">Save 65%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="padding:16px 24px; background:#F8FAFA; border-top:1px solid var(--border-light); font-size:0.8rem; color:var(--text-secondary); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <span><i class="fa-solid fa-circle-info" style="color:var(--primary-green);"></i> All generic alternatives are bioequivalent in chemical structure, rate of absorption, and clinical outcome.</span>
+            <a href="upload-prescription.html" style="color:var(--primary-green); font-weight:700;">Request Generic Substitution <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Right: Sourcing Transparency & FAQ Accordion -->
+        <div class="sourcing-faq-box">
+          <div class="sourcing-faq-header">
+            <span class="badge" style="background:rgba(255,255,255,0.15); color:#34D399; margin-bottom:12px;">
+              <i class="fa-solid fa-circle-question"></i> Prescription FAQs
+            </span>
+            <h3>Prescription &amp; Medicine Ordering Answers</h3>
+            <p>Direct answers from our registered pharmacy team about ordering, generic substitution, and cold-chain deliveries.</p>
+          </div>
+
+          <div class="faq-accordion-group">
+            <!-- FAQ 1 -->
+            <div class="faq-item-card active" onclick="toggleFaqAccordion(this)">
+              <button type="button" class="faq-question-trigger">
+                <span>How do I know if an Rx is required?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="faq-answer-body">
+                Medicines marked with the red <strong>Rx Required</strong> badge require an authentic prescription slip. You can upload it during checkout or send it after ordering; our clinical team verifies it prior to courier dispatch.
+              </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="faq-item-card" onclick="toggleFaqAccordion(this)">
+              <button type="button" class="faq-question-trigger">
+                <span>Can Mediora substitute a generic medicine?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="faq-answer-body">
+                Yes! By state pharmacy laws, pharmacists can substitute an FDA-approved AB-rated generic unless your prescribing doctor specifically marks "Dispense as Written" (DAW). We always notify you and apply the copay savings.
+              </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="faq-item-card" onclick="toggleFaqAccordion(this)">
+              <button type="button" class="faq-question-trigger">
+                <span>How are temperature-sensitive medicines protected?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="faq-answer-body">
+                Insulin, biologics, and refrigerated suspensions are packed in vacuum-sealed thermal pouches containing pharmaceutical-grade gel ice bricks and an irreversible temperature indicator tag calibrated to 2°C–8°C.
+              </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="faq-item-card" onclick="toggleFaqAccordion(this)">
+              <button type="button" class="faq-question-trigger">
+                <span>Can I transfer refills from another pharmacy?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+              <div class="faq-answer-body">
+                Absolutely. Provide your previous pharmacy name, phone number, and Rx bottle number on our <a href="upload-prescription.html" style="color:#34D399; text-decoration:underline;">Prescription Page</a>, and our staff will handle the transfer within 2 hours.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-desk-cta-row">
+            <div>
+              <div style="font-weight:700; font-size:0.92rem; color:#FFFFFF;">Have a specific medical query?</div>
+              <div style="font-size:0.78rem; color:#A7F3D0;">Registered PharmD specialists on-call 24/7</div>
+            </div>
+            <a href="contact.html" class="btn btn-secondary btn-sm" style="background:#FFFFFF; color:var(--dark-forest);">
+              <i class="fa-solid fa-phone"></i> (800) 555-0199
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLOBAL FOOTER -->
+  <footer class="global-footer">
+    <div class="container footer-grid">
+      <div class="footer-col-brand">
+        <a href="index.html">
+          <img src="images/logo-white.svg" alt="Mediora" style="height:44px;">
+        </a>
+        <p>
+          Mediora is a certified online pharmacy and healthcare delivery service dedicated to patient safety, authentic pharmaceuticals, and clinical dispensing excellence.
+        </p>
+        <div class="footer-licence-badge">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>State Board Pharmacy License #NY-PHARM-88204</span>
+        </div>
+        <div class="footer-social-links">
+          <a href="#" class="social-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-link" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation Links</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home (Main)</a></li>
+          <li><a href="home-2.html"><i class="fa-solid fa-chevron-right"></i> Home 2 (Express)</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Our Pharmacy</a></li>
+          <li><a href="products.html"><i class="fa-solid fa-chevron-right"></i> Browse All Medicines</a></li>
+          <li><a href="upload-prescription.html"><i class="fa-solid fa-chevron-right"></i> Upload Prescription</a></li>
+          <li><a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Health Articles &amp; Blog</a></li>
+          <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Customer Contact &amp; FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Dispensary Categories</h4>
+        <ul class="footer-links-list">
+          <li><a href="products.html?cat=prescription"><i class="fa-solid fa-chevron-right"></i> Prescription Rx</a></li>
+          <li><a href="products.html?cat=otc"><i class="fa-solid fa-chevron-right"></i> Over-the-Counter (OTC)</a></li>
+          <li><a href="products.html?cat=vitamins"><i class="fa-solid fa-chevron-right"></i> Vitamins &amp; Supplements</a></li>
+          <li><a href="products.html?cat=devices"><i class="fa-solid fa-chevron-right"></i> Medical Equipment</a></li>
+          <li><a href="products.html?cat=baby"><i class="fa-solid fa-chevron-right"></i> Baby &amp; Pediatric Care</a></li>
+          <li><a href="user-dashboard.html"><i class="fa-solid fa-chevron-right"></i> Patient Portal</a></li>
+          <li><a href="admin-dashboard.html"><i class="fa-solid fa-chevron-right"></i> Admin Workbench</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>24/7 Dispensary Support</h4>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>742 Healthway Boulevard, Suite 400<br>New York, NY 10001, USA</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <span>Helpline: (800) 555-0199<br>Direct Rx: (212) 555-0145</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <span>rx-desk@mediora.com<br>support@mediora.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-clock"></i>
+          <span>Dispensary: 24 Hours / 7 Days<br>Clinical Pharmacist on Duty</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-disclaimer-bar">
+      <div class="container">
+        <p class="disclaimer-text">
+          <strong>Mandatory Healthcare Disclaimer:</strong> All medicines requiring prescription are dispensed strictly against an authentic, legible medical prescription from a registered healthcare professional. Content on this website is for educational and informational purposes only and does not constitute clinical diagnosis or substitute for professional medical advice. Always consult your physician before starting any medication regimen.
+        </p>
+        <div class="footer-bottom-flex">
+          <div>
+            &copy; 2026 Mediora Inc. All Rights Reserved. HIPAA Compliant • FDA Registered Logistics.
+          </div>
+          <div class="payment-badges" title="Accepted Payment Methods">
+            <i class="fa-brands fa-cc-visa"></i>
+            <i class="fa-brands fa-cc-mastercard"></i>
+            <i class="fa-brands fa-cc-amex"></i>
+            <i class="fa-brands fa-cc-paypal"></i>
+            <i class="fa-brands fa-cc-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER & OVERLAY -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart Drawer">
+    <div class="cart-drawer-header">
+      <h3><i class="fa-solid fa-basket-shopping" style="color:var(--primary-green);"></i> Your Pharmacy Cart</h3>
+      <button class="cart-close-btn" onclick="window.PharmaApp.closeCartDrawer()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="cartRxWarningBox" style="display:none; background:#FEF2F2; border-bottom:1px solid #FECACA; padding:10px 16px; font-size:0.8rem; color:#991B1B;">
+      <i class="fa-solid fa-triangle-exclamation"></i> Contains prescription medicines. You must provide a valid prescription before order dispatch.
+    </div>
+    <div class="cart-drawer-body" id="cartDrawerBody"></div>
+    <div class="cart-drawer-footer">
+      <div class="cart-summary-line"><span>Subtotal</span><strong id="cartSubtotal">$0.00</strong></div>
+      <div class="cart-summary-line"><span>Estimated Delivery Fee</span><strong id="cartShipping">$0.00</strong></div>
+      <div class="cart-total-line"><span>Estimated Total</span><span id="cartTotal" style="color:var(--primary-green);">$0.00</span></div>
+      <button class="btn btn-primary btn-lg" style="width:100%;" id="proceedCheckoutBtn">
+        Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+      </button>
+      <div style="text-align:center; margin-top:10px; font-size:0.75rem; color:var(--text-muted);">
+        <i class="fa-solid fa-lock"></i> 256-Bit SSL Encrypted Healthcare Checkout
+      </div>
+    </div>
+  </aside>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Patient &amp; Staff Portal Access</h3>
+        <button class="modal-close-btn" onclick="window.PharmaApp.closeModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="loginTabBtn" onclick="window.PharmaApp.switchAuthTab('login')">Patient Login</button>
+          <button class="auth-tab-btn" id="registerTabBtn" onclick="window.PharmaApp.switchAuthTab('register')">New Registration</button>
+        </div>
+        <form id="loginForm" onsubmit="event.preventDefault(); window.PharmaApp.showToast('Login successful! Welcome back.', 'success'); window.PharmaApp.closeModal('authModal');">
+          <div class="form-group"><label>Email Address</label><input type="email" class="form-control" required value="demo@patient.com"></div>
+          <div class="form-group"><label>Password</label><input type="password" class="form-control" required value="password123"></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT QUICK VIEW MODAL -->
+  <div class="modal-backdrop" id="quickViewModal">
+    <div class="modal-card" style="max-width:680px;">
+      <div class="modal-header">
+        <h3 id="qvTitle">Medicine Details</h3>
+        <button class="modal-close-btn" onclick="window.PharmaApp.closeModal('quickViewModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" style="display:grid; grid-template-columns:1fr 1.3fr; gap:24px;">
+        <div style="background:#F9FBFA; padding:16px; border-radius:var(--radius-lg); display:flex; align-items:center; justify-content:center;">
+          <img id="qvImage" src="images/cat-prescription.jpg" alt="Medicine" style="max-height:220px; object-fit:contain;">
+        </div>
+        <div>
+          <div style="display:flex; gap:8px; margin-bottom:8px;">
+            <span id="qvRxBadge" class="badge badge-rx">Rx Required</span>
+            <span id="qvCategory" class="badge" style="background:var(--subtle-gray); color:var(--text-secondary);">Category</span>
+          </div>
+          <div id="qvBrand" style="font-size:0.85rem; font-weight:700; color:var(--primary-green); margin-bottom:4px;">Brand</div>
+          <div id="qvDosage" style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:12px;">Dosage</div>
+          <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:14px;">
+            <span id="qvPrice" style="font-size:1.6rem; font-weight:800; color:var(--dark-forest); font-family:var(--font-heading);">$0.00</span>
+            <span id="qvOldPrice" style="font-size:0.9rem; text-decoration:line-through; color:var(--text-light);">$0.00</span>
+          </div>
+          <p id="qvDesc" style="font-size:0.86rem; color:var(--text-secondary); line-height:1.5; margin-bottom:12px;">Product description</p>
+          <div style="background:var(--soft-medical-green); padding:10px 14px; border-radius:var(--radius-md); font-size:0.8rem; margin-bottom:18px;">
+            <strong id="qvIngredient">Active Ingredient: </strong><br>
+            <span id="qvUsage" style="color:var(--text-secondary);">Usage instructions</span>
+          </div>
+          <button id="qvAddBtn" class="btn btn-primary" style="width:100%;">
+            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RX VERIFICATION NOTICE MODAL -->
+  <div class="modal-backdrop" id="rxNoticeModal">
+    <div class="modal-card" style="max-width:480px; text-align:center;">
+      <div class="modal-body" style="padding:32px 24px;">
+        <div style="width:64px; height:64px; border-radius:50%; background:#FEE2E2; color:#DC2626; display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 16px auto;">
+          <i class="fa-solid fa-file-prescription"></i>
+        </div>
+        <h3 style="font-size:1.35rem; margin-bottom:10px;">Prescription Required</h3>
+        <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.55; margin-bottom:20px;">
+          You added <strong id="rxNoticeProductName">Prescription Medication</strong> to your cart. By pharmacy regulations, our licensed clinical pharmacists must verify an authentic doctor's prescription before delivery.
+        </p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <a href="upload-prescription.html" class="btn btn-primary" onclick="window.PharmaApp.closeModal('rxNoticeModal')">
+            <i class="fa-solid fa-file-arrow-up"></i> Upload Doctor's Prescription Now
+          </a>
+          <button class="btn btn-secondary" onclick="window.PharmaApp.closeModal('rxNoticeModal')">
+            I Will Provide It Later (Continue Shopping)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    let currentCategory = 'all';
+    let searchQuery = '';
+
+    function initCatalog() {
+      // Read query params if any
+      const urlParams = new URLSearchParams(window.location.search);
+      const catParam = urlParams.get('cat');
+      const qParam = urlParams.get('q');
+
+      if (catParam) {
+        currentCategory = catParam;
+        // update radio
+        const radio = document.querySelector(`input[name="catFilter"][value="${catParam}"]`);
+        if (radio) radio.checked = true;
+        // update chips
+        updateChipsActive(catParam);
+      }
+
+      if (qParam) {
+        searchQuery = qParam.toLowerCase();
+        const headerInput = document.getElementById('headerSearchInput');
+        if (headerInput) headerInput.value = qParam;
+      }
+
+      applyFilters();
+    }
+
+    function updateChipsActive(cat) {
+      const chips = document.querySelectorAll('#categoryChipsContainer .blog-filter-btn');
+      chips.forEach(chip => {
+        const text = chip.textContent.toLowerCase();
+        if ((cat === 'all' && text.includes('all')) || text.includes(cat)) {
+          chip.classList.add('active');
+        } else {
+          chip.classList.remove('active');
+        }
+      });
+    }
+
+    function setCategoryFilter(cat, btn) {
+      currentCategory = cat;
+      const radio = document.querySelector(`input[name="catFilter"][value="${cat}"]`);
+      if (radio) radio.checked = true;
+
+      document.querySelectorAll('#categoryChipsContainer .blog-filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      applyFilters();
+    }
+
+    function handleSearchSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('headerSearchInput');
+      searchQuery = input ? input.value.trim().toLowerCase() : '';
+      applyFilters();
+    }
+
+    function applyFilters() {
+      if (!window.PharmaData || !window.PharmaData.products) return;
+
+      const radioCat = document.querySelector('input[name="catFilter"]:checked');
+      const cat = radioCat ? radioCat.value : 'all';
+      currentCategory = cat;
+
+      const rxOnly = document.getElementById('filterRxOnly').checked;
+      const otcOnly = document.getElementById('filterOtcOnly').checked;
+      const inStockOnly = document.getElementById('filterInStock').checked;
+      const minPrice = parseFloat(document.getElementById('priceMin').value) || 0;
+      const maxPrice = parseFloat(document.getElementById('priceMax').value) || Infinity;
+      const sortBy = document.getElementById('sortDropdown').value;
+
+      let list = [...window.PharmaData.products];
+
+      // Filter by Category
+      if (cat !== 'all') {
+        list = list.filter(p => p.category === cat);
+      }
+
+      // Filter by Search Query
+      if (searchQuery) {
+        list = list.filter(p =>
+          p.name.toLowerCase().includes(searchQuery) ||
+          p.brand.toLowerCase().includes(searchQuery) ||
+          p.activeIngredient.toLowerCase().includes(searchQuery) ||
+          p.categoryName.toLowerCase().includes(searchQuery)
+        );
+      }
+
+      // Filter Rx / OTC
+      if (rxOnly) list = list.filter(p => p.rxRequired === true);
+      if (otcOnly) list = list.filter(p => p.rxRequired === false);
+
+      // Filter In Stock
+      if (inStockOnly) list = list.filter(p => p.inStock);
+
+      // Filter Price
+      list = list.filter(p => p.price >= minPrice && p.price <= maxPrice);
+
+      // Sort
+      if (sortBy === 'price-asc') {
+        list.sort((a, b) => a.price - b.price);
+      } else if (sortBy === 'price-desc') {
+        list.sort((a, b) => b.price - a.price);
+      } else if (sortBy === 'alpha') {
+        list.sort((a, b) => a.name.localeCompare(b.name));
+      } else {
+        list.sort((a, b) => b.rating - a.rating);
+      }
+
+      renderProducts(list);
+    }
+
+    function renderProducts(items) {
+      const grid = document.getElementById('productCatalogGrid');
+      const noFound = document.getElementById('noProductsFound');
+      const countEl = document.getElementById('productCountDisplay');
+
+      if (!grid) return;
+
+      if (countEl) countEl.textContent = items.length;
+
+      if (items.length === 0) {
+        grid.style.display = 'none';
+        if (noFound) noFound.style.display = 'block';
+        return;
+      }
+
+      grid.style.display = 'grid';
+      if (noFound) noFound.style.display = 'none';
+
+      let html = '';
+      items.forEach(p => {
+        html += `
+          <div class="product-card">
+            <div class="product-media">
+              <div class="product-badges">
+                ${p.rxRequired ? '<span class="badge badge-rx"><i class="fa-solid fa-prescription"></i> Rx Required</span>' : '<span class="badge badge-otc"><i class="fa-solid fa-check"></i> OTC</span>'}
+                ${p.oldPrice ? `<span class="badge badge-sale">-${Math.round((1 - p.price/p.oldPrice)*100)}%</span>` : ''}
+              </div>
+              <img src="${p.image}" alt="${p.name}">
+              <button class="product-quick-view-btn" onclick="window.PharmaApp.openQuickView(${p.id})" title="Quick View">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+            <div class="product-content">
+              <span class="product-category-sub">${p.categoryName}</span>
+              <a href="javascript:void(0)" onclick="window.PharmaApp.openQuickView(${p.id})" class="product-title">${p.name}</a>
+              <div class="product-dosage">${p.brand} • ${p.dosage}</div>
+              <div class="product-rating">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                <span>${p.rating} (${p.reviewsCount} reviews)</span>
+              </div>
+              <div class="product-bottom-row">
+                <div class="product-price-box">
+                  <span class="product-price">$${p.price.toFixed(2)}</span>
+                  ${p.oldPrice ? `<span class="product-old-price">$${p.oldPrice.toFixed(2)}</span>` : ''}
+                </div>
+                <button class="add-to-cart-btn" onclick="window.PharmaApp.addToCart(${p.id})">
+                  <i class="fa-solid fa-cart-plus"></i> Add
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      grid.innerHTML = html;
+    }
+
+    function resetFilters() {
+      const radio = document.querySelector('input[name="catFilter"][value="all"]');
+      if (radio) radio.checked = true;
+      document.getElementById('filterRxOnly').checked = false;
+      document.getElementById('filterOtcOnly').checked = false;
+      document.getElementById('filterInStock').checked = true;
+      document.getElementById('priceMin').value = '';
+      document.getElementById('priceMax').value = '';
+      document.getElementById('sortDropdown').value = 'popular';
+      document.getElementById('headerSearchInput').value = '';
+      searchQuery = '';
+      updateChipsActive('all');
+      applyFilters();
+      window.PharmaApp.showToast('Catalog filters reset', 'info');
+    }
+
+    function searchFromHero(val) {
+      if (!val) return;
+      searchQuery = val.toLowerCase().trim();
+      const topSearch = document.getElementById('headerSearchInput');
+      if (topSearch) topSearch.value = val;
+      applyFilters();
+      const grid = document.getElementById('productCatalogGrid');
+      if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function toggleFaqAccordion(card) {
+      const isActive = card.classList.contains('active');
+      document.querySelectorAll('.faq-item-card').forEach(c => c.classList.remove('active'));
+      if (!isActive) {
+        card.classList.add('active');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initCatalog);
+  </script>
+</body>
+</html>

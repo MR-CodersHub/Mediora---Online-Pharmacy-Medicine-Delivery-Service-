@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Your Trusted Partner in Everyday Healthcare | Mediora</title>
+  <meta name="description" content="Learn about Mediora - our mission, licensed pharmacists, cleanroom quality standards, cold-chain handling, and commitment to safe doorstep healthcare.">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function(){
+      try {
+        if(localStorage.getItem('mediora_theme_mode') === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        if(localStorage.getItem('mediora_direction') === 'rtl') {
+          document.documentElement.setAttribute('dir', 'rtl');
+        }
+      } catch(e){}
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Central Dispensary: <strong>New York, NY 10001</strong></span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-certificate"></i>
+          <span>State Board Licensed Online Pharmacy #NY-PHARM-88204</span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>HIPAA Compliant Patient Privacy Protocols</span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-headset"></i>
+          <span>Support: <strong>(800) 555-0199</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-sticky-container">
+    <header class="main-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" title="Mediora Home">
+        <img src="images/logo.svg" alt="Mediora Logo" class="logo-light">
+        <img src="images/logo-white.svg" alt="Mediora Logo" class="logo-dark">
+      </a>
+
+      <div class="header-search">
+        <form class="search-bar-form" action="products.html" method="GET">
+          <select class="search-category-select" name="cat" aria-label="Select Category">
+            <option value="all">All Categories</option>
+            <option value="prescription">Prescription Rx</option>
+            <option value="otc">Over-the-Counter</option>
+            <option value="vitamins">Vitamins &amp; Supplements</option>
+            <option value="devices">Medical Devices</option>
+          </select>
+          <input type="text" class="search-input" name="q" placeholder="Search medicines, active ingredients, vitamins..." aria-label="Search medicines">
+          <button type="submit" class="search-btn" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Search</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="header-actions">
+        <!-- RTL & Theme Controls -->
+        <button type="button" class="header-action-btn rtl-toggle-btn" id="rtlToggleBtn" aria-label="Toggle RTL Layout" title="Toggle RTL / LTR layout" onclick="window.PharmaApp.toggleRTL()">
+          <i class="fa-solid fa-right-left"></i>
+          <span class="toggle-text">RTL</span>
+        </button>
+
+        <button type="button" class="header-action-btn theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Dark / Light Theme" title="Toggle Dark / Light Theme" onclick="window.PharmaApp.toggleTheme()">
+          <i class="fa-solid fa-moon theme-icon"></i>
+          <span class="toggle-text">Dark</span>
+        </button>
+
+        <div class="account-wrapper">
+          <button type="button" class="header-action-btn account-icon-btn" id="accountBtn" aria-label="Customer Account" title="Customer Account">
+            <i class="fa-regular fa-user"></i>
+          </button>
+          <div class="account-dropdown-menu" id="accountDropdown">
+            <a href="javascript:void(0)" class="dropdown-item" onclick="window.PharmaApp.openAuthModal('login')">
+              <i class="fa-solid fa-right-to-bracket"></i> Login / Sign Up
+            </a>
+            <a href="admin-dashboard.html" class="dropdown-item">
+              <i class="fa-solid fa-shield-halved"></i> Admin Dashboard
+            </a>
+            <a href="user-dashboard.html" class="dropdown-item">
+              <i class="fa-solid fa-id-card-clip"></i> User Dashboard
+            </a>
+          </div>
+        </div>
+
+        <div class="cart-btn-wrapper">
+          <button type="button" class="cart-icon-btn" onclick="window.PharmaApp.openCartDrawer()" aria-label="Open Shopping Cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Cart</span>
+            <span class="cart-badge-count" style="display:none;">0</span>
+          </button>
+        </div>
+
+        <button type="button" class="mobile-nav-toggle" aria-label="Toggle Navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="nav-bar">
+    <div class="container nav-inner">
+
+      <!-- Mobile View Exclusive: Account Panel -->
+      <div class="mobile-menu-account">
+        <div class="mobile-account-card">
+          <div class="mobile-account-avatar"><i class="fa-regular fa-user"></i></div>
+          <div class="mobile-account-info">
+            <span class="mobile-account-label">Patient Access</span>
+            <h5 class="mobile-account-name">My Account</h5>
+          </div>
+        </div>
+        <div class="mobile-account-links">
+          <a href="javascript:void(0)" class="mobile-account-link" onclick="window.PharmaApp.openAuthModal('login'); document.querySelector('.nav-bar')?.classList.remove('mobile-open');">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>Login / Sign Up</span>
+          </a>
+          <a href="user-dashboard.html" class="mobile-account-link">
+            <i class="fa-solid fa-id-card-clip"></i>
+            <span>User Portal</span>
+          </a>
+          <a href="admin-dashboard.html" class="mobile-account-link">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Admin</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile View Exclusive: Cart CTA Card -->
+      <div class="mobile-menu-cart">
+        <button type="button" class="mobile-menu-cart-btn" onclick="window.PharmaApp.openCartDrawer(); document.querySelector('.nav-bar')?.classList.remove('mobile-open');">
+          <div class="mobile-menu-cart-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-badge-count" style="display:none;">0</span>
+          </div>
+          <div class="mobile-menu-cart-info">
+            <span class="mobile-menu-cart-sub">Order Summary</span>
+            <strong class="mobile-menu-cart-title">View Shopping Cart</strong>
+          </div>
+          <i class="fa-solid fa-chevron-right mobile-menu-cart-arrow"></i>
+        </button>
+      </div>
+
+      <!-- Mobile View Exclusive: Medicine Search -->
+      <div class="mobile-menu-search">
+        <form action="products.html" method="GET">
+          <input type="text" name="q" placeholder="Search medicines, vitamins..." aria-label="Search medicines in menu">
+          <button type="submit" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+      </div>
+
+      <!-- Navigation Links (All 7 Pages) -->
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="home-2.html" class="nav-link"><i class="fa-solid fa-bolt"></i> Home 2</a></li>
+        <li><a href="about.html" class="nav-link active"><i class="fa-solid fa-circle-info"></i> About</a></li>
+        <li><a href="products.html" class="nav-link"><i class="fa-solid fa-tablets"></i> Products</a></li>
+        <li><a href="upload-prescription.html" class="nav-link"><i class="fa-solid fa-file-prescription"></i> Prescription</a></li>
+        <li><a href="blog.html" class="nav-link"><i class="fa-solid fa-book-medical"></i> Blog</a></li>
+        <li><a href="contact.html" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+      </ul>
+
+      <!-- Mobile View Exclusive: CTA Group -->
+      <div class="mobile-menu-cta-group">
+        <a href="upload-prescription.html" class="btn btn-primary mobile-cta-btn">
+          <i class="fa-solid fa-file-arrow-up"></i> Upload Doctor's Rx Slip
+        </a>
+        <a href="tel:8005550199" class="nav-phone-cta">
+          <i class="fa-solid fa-headset"></i>
+          <span>24/7 Hotline: <strong>(800) 555-0199</strong></span>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+  </div>
+
+  <!-- =========================================================================
+       SECTION 1: INTRODUCTORY HERO (Unified 520px Height)
+       ========================================================================= -->
+  <section class="hero-unified hero-bg-about">
+    <div class="container">
+      <div class="hero-unified-grid">
+        <div class="hero-content">
+          <div class="hero-badge-pill">
+            <i class="fa-solid fa-certificate"></i>
+            <span>Licensed Clinical Pharmacy Since 2018 • NABP &amp; FDA Accredited</span>
+          </div>
+          <h1 class="hero-headline">
+            Your Trusted Partner in <span>Everyday Healthcare</span>
+          </h1>
+          <p class="hero-subtext">
+            Bridging the gap between certified hospital-grade dispensaries and digital convenience. Dual clinical verification, cold-chain assurance, and 24/7 on-duty PharmD consultations for you and your loved ones.
+          </p>
+          <div class="hero-btn-group">
+            <a href="#ourStory" class="btn btn-primary">
+              <i class="fa-solid fa-users"></i> Our Clinical Team
+            </a>
+            <a href="products.html" class="btn btn-secondary" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); color:#FFFFFF;">
+              <i class="fa-solid fa-shield-halved"></i> Quality Standards
+            </a>
+          </div>
+          <!-- 3 Clinical Key Stat Cards -->
+          <div class="hero-stats-row">
+            <div class="hero-stat-card">
+              <div class="hero-stat-val">45,000+</div>
+              <div class="hero-stat-desc">Active Patients Served</div>
+            </div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-val">99.98%</div>
+              <div class="hero-stat-desc">Dispense Accuracy Rate</div>
+            </div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-val">24/7</div>
+              <div class="hero-stat-desc">On-Call Clinical PharmDs</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-unified-media">
+          <img src="images/pharmacy-lab.jpg" alt="Certified Hospital Grade Pharmacy Cleanroom Lab" class="hero-unified-img">
+          <!-- Floating trust badges -->
+          <div class="hero-float-card-dark" style="top:20px; left:-20px;">
+            <div class="float-icon"><i class="fa-solid fa-shield-virus"></i></div>
+            <div class="float-info">
+              <h5>ISO Cleanroom Certified</h5>
+              <p>Class 1000 Clean Air Standards</p>
+            </div>
+          </div>
+          <div class="hero-float-card-dark" style="bottom:20px; right:-14px; animation-delay:2s;">
+            <div class="float-icon"><i class="fa-solid fa-user-doctor"></i></div>
+            <div class="float-info">
+              <h5>Dual-Pharmacist Check</h5>
+              <p>100% Genuine Lab Audited</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 2: REDESIGNED MISSION & VISION (Purpose & Ambition Showcase)
+       ========================================================================= -->
+  <section class="mv-modern-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag"><i class="fa-solid fa-compass"></i> Clinical Purpose &amp; Ambition</span>
+        <h2 class="section-title">Our Mission &amp; Healthcare Vision</h2>
+        <p class="section-subtitle">
+          Driven by clinical rigor, guided by patient empathy, and committed to eliminating friction in obtaining life-saving pharmaceuticals.
+        </p>
+      </div>
+
+      <div class="mv-modern-grid">
+        <!-- Our Mission Card -->
+        <div class="mv-modern-card mv-card-mission">
+          <div class="mv-card-top-badge">
+            <i class="fa-solid fa-bullseye"></i> Patient-First Oath • 2026 Mandate
+          </div>
+          <h3>Our Mission</h3>
+          <p class="mv-statement-text">
+            To provide every patient and household with transparent, rapid, and 100% verified access to essential pharmaceuticals and healthcare products. We ensure that no patient faces barriers to life-saving medicines due to mobility, distance, or complex pharmacy supply chains.
+          </p>
+          <div class="mv-commitments-list">
+            <div class="mv-commitment-item">
+              <div class="mv-item-icon"><i class="fa-solid fa-check"></i></div>
+              <div>
+                <strong style="color:var(--dark-forest);">Dual Independent Clinical Review:</strong>
+                <span style="color:var(--text-secondary);"> Every prescription is verified by two licensed PharmD specialists for contraindications and dosage safety.</span>
+              </div>
+            </div>
+            <div class="mv-commitment-item">
+              <div class="mv-item-icon"><i class="fa-solid fa-check"></i></div>
+              <div>
+                <strong style="color:var(--dark-forest);">Zero Tolerance for Counterfeits:</strong>
+                <span style="color:var(--text-secondary);"> Sourced exclusively from licensed FDA-registered manufacturers with verifiable GS1 batch tracking.</span>
+              </div>
+            </div>
+            <div class="mv-commitment-item">
+              <div class="mv-item-icon"><i class="fa-solid fa-check"></i></div>
+              <div>
+                <strong style="color:var(--dark-forest);">Guaranteed Cold-Chain Integrity:</strong>
+                <span style="color:var(--text-secondary);"> Continuous 2°C–8°C thermal monitoring for biologics, insulin, and temperature-sensitive treatments.</span>
+              </div>
+            </div>
+          </div>
+          <div class="mv-metric-footer">
+            <span style="color:var(--text-secondary);"><i class="fa-solid fa-shield-halved" style="color:var(--primary-green); margin-right:4px;"></i> Quality Standard:</span>
+            <span class="mv-metric-highlight">100% Zero-Dispense Error Benchmark</span>
+          </div>
+        </div>
+
+        <!-- Our Vision Card -->
+        <div class="mv-modern-card mv-card-vision">
+          <div class="mv-card-top-badge">
+            <i class="fa-solid fa-eye"></i> Future of Dispensary Technology
+          </div>
+          <h3>Our Vision</h3>
+          <p class="mv-statement-text">
+            To establish the nationwide gold standard for patient-centric digital healthcare dispensing. We envision an interconnected healthcare ecosystem where clinical consultations, prescription refills, and safe doorstep delivery take place seamlessly within minutes.
+          </p>
+          <div class="mv-commitments-list">
+            <div class="mv-commitment-item">
+              <div class="mv-item-icon"><i class="fa-solid fa-check"></i></div>
+              <div>
+                <strong style="color:var(--dark-forest);">Nationwide 30-Minute Dispatch:</strong>
+                <span style="color:var(--text-secondary);"> Building rapid urban micro-dispensaries with temperature-controlled couriers for instant deliveries.</span>
+              </div>
+            </div>
+            <div class="mv-commitment-item">
+              <div class="mv-item-icon"><i class="fa-solid fa-check"></i></div>
+              <div>
+                <strong style="color:var(--dark-forest);">Encrypted Patient Health Vaults:</strong>
+                <span style="color:var(--text-secondary);"> Sovereign patient record systems safeguarding prescription histories with cryptographic consent controls.</span>
+              </div>
+            </div>
+            <div class="mv-commitment-item">
+              <div class="mv-item-icon"><i class="fa-solid fa-check"></i></div>
+              <div>
+                <strong style="color:var(--dark-forest);">Proactive Chronic Disease Adherence:</strong>
+                <span style="color:var(--text-secondary);"> Automated refill coordination to ensure vulnerable patients never run out of critical maintenance medications.</span>
+              </div>
+            </div>
+          </div>
+          <div class="mv-metric-footer">
+            <span style="color:var(--text-secondary);"><i class="fa-solid fa-network-wired" style="color:#0284C7; margin-right:4px;"></i> Expansion Horizon:</span>
+            <span class="mv-metric-highlight">50+ Metro Express Hubs by 2027</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 3: THE STORY BEHIND MEDIORA & OUR COMMITMENT
+       ========================================================================= -->
+  <section class="story-section">
+    <div class="container story-grid">
+      <div class="story-content">
+        <span class="section-tag"><i class="fa-solid fa-book-open"></i> Our Journey</span>
+        <h2>From Community Pharmacy to Digital Healthcare Pioneer</h2>
+        <p>
+          Mediora was founded by a team of licensed clinical pharmacists and healthcare technology specialists who witnessed firsthand the struggles vulnerable patients faced when obtaining vital prescriptions. Lengthy dispensary queues, confusing drug substitution notices, and stock shortages were compromising health outcomes.
+        </p>
+        <p>
+          In response, we engineered a clinical workflow combining digital prescription ingestion with licensed cleanroom verification. Every order is reviewed by a PharmD specialist before being sealed in tamper-evident packaging and assigned to temperature-monitored couriers.
+        </p>
+        <div class="story-stats">
+          <div class="story-stat-item">
+            <h3>45,000+</h3>
+            <span>Active Patients</span>
+          </div>
+          <div class="story-stat-item">
+            <h3>99.9%</h3>
+            <span>Dispense Accuracy</span>
+          </div>
+          <div class="story-stat-item">
+            <h3>24/7</h3>
+            <span>Pharmacist On Duty</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-media" style="position:relative;">
+        <img src="images/pharmacist-consult.jpg" alt="Clinical Pharmacist Reviewing Electronic Prescription" style="border-radius:var(--radius-xl); box-shadow:var(--shadow-xl); border:4px solid #FFFFFF; width:100%;">
+        <div style="position:absolute; bottom:20px; left:20px; background:rgba(255,255,255,0.95); backdrop-filter:blur(8px); padding:16px 20px; border-radius:var(--radius-lg); border:1px solid var(--border-color); box-shadow:var(--shadow-md);">
+          <div style="font-weight:800; font-size:0.95rem; color:var(--dark-forest);">Dr. Sarah Jenkins, PharmD</div>
+          <div style="font-size:0.78rem; color:var(--text-muted);">Head of Clinical Pharmacy Services</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 4: REDESIGNED CORE HEALTHCARE VALUES SHOWCASE
+       ========================================================================= -->
+  <section class="values-showcase-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag"><i class="fa-solid fa-heart-pulse"></i> Ethical Foundation</span>
+        <h2 class="section-title">Our Core Healthcare Values</h2>
+        <p class="section-subtitle">
+          Every pill, vial, and clinical recommendation is governed by an uncompromised ethical framework and patient-first mandate.
+        </p>
+      </div>
+
+      <div class="values-showcase-grid">
+        <!-- Value 1 -->
+        <div class="value-card-v2 val-emerald">
+          <div class="value-accent-stripe"></div>
+          <div class="value-card-header">
+            <div class="value-icon-v2">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <span class="value-num-index">01</span>
+          </div>
+          <h4>Clinical Safety First</h4>
+          <p>We mandate double-independent pharmacist verification for all prescription medicines, screening for potential contraindications, allergy risks, and drug interactions.</p>
+          <div class="value-badge-chip">
+            <i class="fa-solid fa-circle-check" style="color:#087653;"></i> Dual-Pharmacist Screening
+          </div>
+        </div>
+
+        <!-- Value 2 -->
+        <div class="value-card-v2 val-teal">
+          <div class="value-accent-stripe"></div>
+          <div class="value-card-header">
+            <div class="value-icon-v2">
+              <i class="fa-solid fa-certificate"></i>
+            </div>
+            <span class="value-num-index">02</span>
+          </div>
+          <h4>100% Genuine Authenticity</h4>
+          <p>We source medications directly from licensed pharmaceutical manufacturers, strictly eliminating intermediary gray-market channels and counterfeit risks.</p>
+          <div class="value-badge-chip">
+            <i class="fa-solid fa-circle-check" style="color:#0D9488;"></i> Direct Manufacturer Lot
+          </div>
+        </div>
+
+        <!-- Value 3 -->
+        <div class="value-card-v2 val-amber">
+          <div class="value-accent-stripe"></div>
+          <div class="value-card-header">
+            <div class="value-icon-v2">
+              <i class="fa-solid fa-receipt"></i>
+            </div>
+            <span class="value-num-index">03</span>
+          </div>
+          <h4>Transparent Pricing</h4>
+          <p>No surprise fees or hidden prescription markups. We provide clear price breakdowns, generic bioequivalent options, and upfront insurance copay calculations.</p>
+          <div class="value-badge-chip">
+            <i class="fa-solid fa-circle-check" style="color:#D97706;"></i> Zero Hidden Markups
+          </div>
+        </div>
+
+        <!-- Value 4 -->
+        <div class="value-card-v2 val-indigo">
+          <div class="value-accent-stripe"></div>
+          <div class="value-card-header">
+            <div class="value-icon-v2">
+              <i class="fa-solid fa-user-lock"></i>
+            </div>
+            <span class="value-num-index">04</span>
+          </div>
+          <h4>Patient Privacy &amp; HIPAA</h4>
+          <p>Your health data and prescription details are encrypted using state-of-the-art AES-256 protocols. We strictly forbid selling patient records to third-party data brokers.</p>
+          <div class="value-badge-chip">
+            <i class="fa-solid fa-circle-check" style="color:#4F46E5;"></i> AES-256 Medical Encryption
+          </div>
+        </div>
+
+        <!-- Value 5 -->
+        <div class="value-card-v2 val-rose">
+          <div class="value-accent-stripe"></div>
+          <div class="value-card-header">
+            <div class="value-icon-v2">
+              <i class="fa-solid fa-hand-holding-heart"></i>
+            </div>
+            <span class="value-num-index">05</span>
+          </div>
+          <h4>Compassionate Care</h4>
+          <p>Healthcare is deeply personal. Our pharmacists are available around the clock via phone and secure chat to answer dosage questions with warmth, empathy, and patience.</p>
+          <div class="value-badge-chip">
+            <i class="fa-solid fa-circle-check" style="color:#E11D48;"></i> 24/7 Human Pharmacists
+          </div>
+        </div>
+
+        <!-- Value 6 -->
+        <div class="value-card-v2 val-sky">
+          <div class="value-accent-stripe"></div>
+          <div class="value-card-header">
+            <div class="value-icon-v2">
+              <i class="fa-solid fa-snowflake"></i>
+            </div>
+            <span class="value-num-index">06</span>
+          </div>
+          <h4>Logistical Rigor</h4>
+          <p>Preserving cold-chain standards from our certified cleanroom warehouse to your doorstep, using calibrated thermal insulation packs and continuous logger tags.</p>
+          <div class="value-badge-chip">
+            <i class="fa-solid fa-circle-check" style="color:#0284C7;"></i> Calibrated 2°C–8°C Shippers
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       NEW SECTION 1 (ABOUT): ACCREDITED CLINICAL ADVISORY BOARD & LEADERSHIP
+       ========================================================================= -->
+  <section class="clinical-board-section" id="clinicalBoard">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag"><i class="fa-solid fa-user-doctor"></i> Medical &amp; Pharmacy Leadership</span>
+        <h2 class="section-title">Accredited Clinical Advisory Board</h2>
+        <p class="section-subtitle">
+          Our registered PharmD specialists and clinical directors guide our medical safety protocols, drug formulation auditing, and patient care standards.
+        </p>
+      </div>
+
+      <div class="clinical-board-grid">
+        <!-- Member 1 -->
+        <div class="clinical-member-card">
+          <div class="member-avatar-wrap">
+            <div class="member-avatar-icon">
+              <i class="fa-solid fa-user-doctor"></i>
+            </div>
+            <div class="member-verified-badge">
+              <i class="fa-solid fa-circle-check"></i> Licensed PharmD
+            </div>
+          </div>
+          <div class="member-body">
+            <h4 class="member-name">Dr. Marcus Vance, PharmD, BCPS</h4>
+            <span class="member-role">Chief Pharmacy Officer &amp; Co-Founder</span>
+            <p class="member-bio">Former clinical pharmacotherapy fellow at Johns Hopkins Hospital. Leads dispensing accuracy protocols, emergency antibiotic formulations, and clinical oversight.</p>
+            <div class="member-credentials">
+              <span><strong>License:</strong> NY State Board #NY-54921</span>
+              <span><strong>Specialty:</strong> Board Certified Pharmacotherapy</span>
+            </div>
+            <a href="contact.html" class="member-contact-btn">
+              <i class="fa-solid fa-comment-medical"></i> Consult Dr. Vance
+            </a>
+          </div>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="clinical-member-card">
+          <div class="member-avatar-wrap">
+            <div class="member-avatar-icon" style="color:#0284C7;">
+              <i class="fa-solid fa-stethoscope"></i>
+            </div>
+            <div class="member-verified-badge">
+              <i class="fa-solid fa-circle-check"></i> Medical Board
+            </div>
+          </div>
+          <div class="member-body">
+            <h4 class="member-name">Dr. Elena Rostova, MD, PhD</h4>
+            <span class="member-role">Medical Director &amp; Drug Safety Advisor</span>
+            <p class="member-bio">Columbia University College of Physicians &amp; Surgeons alum with 18+ years in clinical pharmacology. Oversees adverse reaction screening and physician coordination.</p>
+            <div class="member-credentials">
+              <span><strong>Credential:</strong> Fellow American College Clin. Pharm</span>
+              <span><strong>Focus:</strong> Cardiovascular &amp; Endocrine Therapies</span>
+            </div>
+            <a href="contact.html" class="member-contact-btn">
+              <i class="fa-solid fa-comment-medical"></i> Clinical Query
+            </a>
+          </div>
+        </div>
+
+        <!-- Member 3 -->
+        <div class="clinical-member-card">
+          <div class="member-avatar-wrap">
+            <div class="member-avatar-icon" style="color:#D97706;">
+              <i class="fa-solid fa-mortar-pestle"></i>
+            </div>
+            <div class="member-verified-badge">
+              <i class="fa-solid fa-circle-check"></i> Sterile Specialist
+            </div>
+          </div>
+          <div class="member-body">
+            <h4 class="member-name">David Chen, RPh, MS</h4>
+            <span class="member-role">Director of Cleanroom &amp; Compounding</span>
+            <p class="member-bio">USP 797 &amp; 800 certified sterile compounding supervisor. Engineers our IoT refrigeration networks and automated robotic pill-counting validation sensors.</p>
+            <div class="member-credentials">
+              <span><strong>License:</strong> Licensed Compounding Specialist</span>
+              <span><strong>Focus:</strong> ISO Class 7 Cleanroom Logistics</span>
+            </div>
+            <a href="contact.html" class="member-contact-btn">
+              <i class="fa-solid fa-comment-medical"></i> Cleanroom Desk
+            </a>
+          </div>
+        </div>
+
+        <!-- Member 4 -->
+        <div class="clinical-member-card">
+          <div class="member-avatar-wrap">
+            <div class="member-avatar-icon" style="color:#E11D48;">
+              <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <div class="member-verified-badge">
+              <i class="fa-solid fa-circle-check"></i> Patient Advocate
+            </div>
+          </div>
+          <div class="member-body">
+            <h4 class="member-name">Dr. Ananya Patel, PharmD</h4>
+            <span class="member-role">Lead Consultation &amp; Geriatric Pharmacist</span>
+            <p class="member-bio">UCSF School of Pharmacy graduate specializing in polypharmacy management and diabetic disease state education. Directs our 24/7 on-duty emergency hotline.</p>
+            <div class="member-credentials">
+              <span><strong>Certification:</strong> Certified Diabetes Care (CDCES)</span>
+              <span><strong>Desk:</strong> 24/7 Patient Emergency Hotline</span>
+            </div>
+            <a href="contact.html" class="member-contact-btn">
+              <i class="fa-solid fa-comment-medical"></i> Speak With Dr. Patel
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       NEW SECTION 2 (ABOUT): STATE-OF-THE-ART CLEANROOM & COLD-CHAIN FACILITY
+       ========================================================================= -->
+  <section class="cleanroom-facility-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag"><i class="fa-solid fa-microscope"></i> Hospital-Grade Infrastructure</span>
+        <h2 class="section-title">Inside Our ISO Class 7 Cleanroom &amp; Lab</h2>
+        <p class="section-subtitle">
+          Where hospital-grade sanitary engineering meets IoT telemetry to guarantee uncompromised medication purity and thermal safety.
+        </p>
+      </div>
+
+      <div class="cleanroom-layout-grid">
+        <!-- Left: Telemetry HUD Card -->
+        <div class="cleanroom-hud-box">
+          <div class="hud-telemetry-header">
+            <div class="hud-title">
+              <span class="pulse-sensor-dot"></span> Live Facility Telemetry HUD
+            </div>
+            <span style="font-size:0.75rem; color:#A7F3D0; font-family:monospace;">STATION: NY-DISPENSARY-01</span>
+          </div>
+          <div class="hud-media-container">
+            <img src="images/pharmacy-lab.jpg" alt="Certified Hospital Grade Pharmacy Cleanroom Lab">
+            <div class="hud-hotspot-pin" style="top:25px; left:20px;">
+              <i class="fa-solid fa-shield-virus"></i> Positive Pressure Sterile Hood
+            </div>
+            <div class="hud-hotspot-pin" style="bottom:25px; right:20px;">
+              <i class="fa-solid fa-temperature-arrow-down"></i> Cryo-Safe Biologics Vault
+            </div>
+          </div>
+          <div class="hud-sensors-grid">
+            <div class="hud-sensor-item">
+              <div class="sensor-val">19.4°C</div>
+              <div class="sensor-label">Cleanroom Temp</div>
+            </div>
+            <div class="hud-sensor-item">
+              <div class="sensor-val">41% RH</div>
+              <div class="sensor-label">Clean Humidity</div>
+            </div>
+            <div class="hud-sensor-item">
+              <div class="sensor-val">3.8°C</div>
+              <div class="sensor-label">Cold Vault</div>
+            </div>
+            <div class="hud-sensor-item">
+              <div class="sensor-val">99.99%</div>
+              <div class="sensor-label">HEPA Purity</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Technical Specifications -->
+        <div>
+          <div class="cleanroom-specs-list">
+            <div class="cleanroom-spec-card">
+              <div class="cleanroom-spec-icon">
+                <i class="fa-solid fa-wind"></i>
+              </div>
+              <div class="cleanroom-spec-text">
+                <h4>ISO Class 7 Clean Air Filtration</h4>
+                <p>Air passes through dual HEPA filtration systems with 45 air changes per hour (ACH), maintaining an ultra-clean environment that prevents particulate and bacterial settling.</p>
+              </div>
+            </div>
+
+            <div class="cleanroom-spec-card">
+              <div class="cleanroom-spec-icon" style="color:#0284C7; background:#EFF6FF;">
+                <i class="fa-solid fa-camera"></i>
+              </div>
+              <div class="cleanroom-spec-text">
+                <h4>Robotic Optical Imprint Verification</h4>
+                <p>Dual 4K high-speed cameras photograph every pill during dispensing, checking physical dimension, imprint, and coloration against the official FDA pill database.</p>
+              </div>
+            </div>
+
+            <div class="cleanroom-spec-card">
+              <div class="cleanroom-spec-icon" style="color:#D97706; background:#FFFBEB;">
+                <i class="fa-solid fa-satellite-dish"></i>
+              </div>
+              <div class="cleanroom-spec-text">
+                <h4>Continuous IoT Thermal Telemetry</h4>
+                <p>Medical refrigeration units ping our central monitoring server every 15 seconds. If temperatures drift ±0.5°C from the 2°C–8°C band, automated emergency cooling triggers.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accreditations Row -->
+          <div class="facility-accreditation-row">
+            <span class="facility-acc-badge"><i class="fa-solid fa-award"></i> NABP Digital Pharmacy</span>
+            <span class="facility-acc-badge"><i class="fa-solid fa-shield-halved"></i> FDA Registered Facility</span>
+            <span class="facility-acc-badge"><i class="fa-solid fa-certificate"></i> ISO 9001:2015 Certified</span>
+            <span class="facility-acc-badge"><i class="fa-solid fa-vault"></i> DEA Schedule II Vault</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 5: QUALITY ASSURANCE & RESPONSIBLE MEDICINE HANDLING
+       ========================================================================= -->
+  <section class="qa-section">
+    <div class="container qa-grid">
+      <div class="qa-media">
+        <img src="images/pharmacy-lab.jpg" alt="State of the Art Pharmacy Cleanroom and Cold Chain Storage" style="border-radius:var(--radius-xl); box-shadow:var(--shadow-xl); border:4px solid #FFFFFF; width:100%;">
+      </div>
+      <div class="qa-content">
+        <span class="section-tag"><i class="fa-solid fa-microscope"></i> Cleanroom Protocols</span>
+        <h2>Responsible Medicine Handling &amp; Verification</h2>
+        <p style="color:var(--text-secondary); font-size:0.95rem; line-height:1.6; margin-bottom:20px;">
+          Medicines are bioactive agents that require careful environmental control and strict audit trails. Our specialized facilities operate under stringent Good Dispensing Practice (GDP) standards.
+        </p>
+
+        <div class="qa-list">
+          <div class="qa-list-item">
+            <div class="qa-bullet"><i class="fa-solid fa-check"></i></div>
+            <div class="qa-item-text">
+              <h5>Continuous Cold-Chain Monitoring</h5>
+              <p>Insulin, biologics, and specialized antibiotics remain in calibrated 2°C to 8°C IoT-monitored refrigerators until dispatch in thermal insulated pouches.</p>
+            </div>
+          </div>
+
+          <div class="qa-list-item">
+            <div class="qa-bullet"><i class="fa-solid fa-check"></i></div>
+            <div class="qa-item-text">
+              <h5>Rigorous Expiry Date Auditing</h5>
+              <p>Our inventory system enforces strict FIFO (First In, First Out) rules. No medicine with less than 6 months remaining shelf-life is ever shipped to patients.</p>
+            </div>
+          </div>
+
+          <div class="qa-list-item">
+            <div class="qa-bullet"><i class="fa-solid fa-check"></i></div>
+            <div class="qa-item-text">
+              <h5>Tamper-Evident Medical Packaging</h5>
+              <p>Orders are sealed in numbered, tamper-evident security bags with peel-proof indicator tape, ensuring patient receiving safety.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 6: CUSTOMER COMMITMENT & CONTACT CALL-TO-ACTION
+       ========================================================================= -->
+  <section class="about-cta-section" style="padding:80px 0;">
+    <div class="container">
+      <div class="cta-consult-banner" style="margin:0;">
+        <div class="cta-consult-content">
+          <span class="badge" style="background:rgba(255,255,255,0.15); color:#FFFFFF; margin-bottom:12px;">
+            <i class="fa-solid fa-headset"></i> We Are Here For You
+          </span>
+          <h3>Have Questions About Your Medication or Dosage?</h3>
+          <p>
+            Our dedicated clinical team is ready to discuss your prescriptions, insurance copays, or doorstep delivery details. Talk to a licensed pharmacist today.
+          </p>
+          <div class="cta-btn-row">
+            <a href="contact.html" class="btn btn-white btn-lg">
+              <i class="fa-solid fa-envelope"></i> Contact Dispensary Desk
+            </a>
+            <a href="products.html" class="btn btn-secondary btn-lg" style="background:rgba(255,255,255,0.1); color:#FFFFFF; border-color:rgba(255,255,255,0.3);">
+              <i class="fa-solid fa-pills"></i> Browse All Medicines
+            </a>
+          </div>
+        </div>
+        <div class="cta-stat-box">
+          <div style="font-size:1.8rem; font-weight:800; color:#34D399; margin-bottom:8px;">
+            <i class="fa-solid fa-clock"></i> 24/7 / 365
+          </div>
+          <p style="font-weight:700; color:#FFFFFF; font-size:1.05rem; margin-bottom:4px;">Always Open</p>
+          <p style="font-size:0.85rem; color:#D1FAE5;">
+            Our pharmacy night shift handles urgent nocturnal refills and emergency patient queries without interruption.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLOBAL FOOTER -->
+  <footer class="global-footer">
+    <div class="container footer-grid">
+      <div class="footer-col-brand">
+        <a href="index.html">
+          <img src="images/logo-white.svg" alt="Mediora" style="height:44px;">
+        </a>
+        <p>
+          Mediora is a certified online pharmacy and healthcare delivery service dedicated to patient safety, authentic pharmaceuticals, and clinical dispensing excellence.
+        </p>
+        <div class="footer-licence-badge">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>State Board Pharmacy License #NY-PHARM-88204</span>
+        </div>
+        <div class="footer-social-links">
+          <a href="#" class="social-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-link" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation Links</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home (Main)</a></li>
+          <li><a href="home-2.html"><i class="fa-solid fa-chevron-right"></i> Home 2 (Express)</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Our Pharmacy</a></li>
+          <li><a href="products.html"><i class="fa-solid fa-chevron-right"></i> Browse All Medicines</a></li>
+          <li><a href="upload-prescription.html"><i class="fa-solid fa-chevron-right"></i> Upload Prescription</a></li>
+          <li><a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Health Articles &amp; Blog</a></li>
+          <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Customer Contact &amp; FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Dispensary Categories</h4>
+        <ul class="footer-links-list">
+          <li><a href="products.html?cat=prescription"><i class="fa-solid fa-chevron-right"></i> Prescription Rx</a></li>
+          <li><a href="products.html?cat=otc"><i class="fa-solid fa-chevron-right"></i> Over-the-Counter (OTC)</a></li>
+          <li><a href="products.html?cat=vitamins"><i class="fa-solid fa-chevron-right"></i> Vitamins &amp; Supplements</a></li>
+          <li><a href="products.html?cat=devices"><i class="fa-solid fa-chevron-right"></i> Medical Equipment</a></li>
+          <li><a href="products.html?cat=baby"><i class="fa-solid fa-chevron-right"></i> Baby &amp; Pediatric Care</a></li>
+          <li><a href="user-dashboard.html"><i class="fa-solid fa-chevron-right"></i> Patient Portal</a></li>
+          <li><a href="admin-dashboard.html"><i class="fa-solid fa-chevron-right"></i> Admin Workbench</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>24/7 Dispensary Support</h4>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>742 Healthway Boulevard, Suite 400<br>New York, NY 10001, USA</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <span>Helpline: (800) 555-0199<br>Direct Rx: (212) 555-0145</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <span>rx-desk@mediora.com<br>support@mediora.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-clock"></i>
+          <span>Dispensary: 24 Hours / 7 Days<br>Clinical Pharmacist on Duty</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-disclaimer-bar">
+      <div class="container">
+        <p class="disclaimer-text">
+          <strong>Mandatory Healthcare Disclaimer:</strong> All medicines requiring prescription are dispensed strictly against an authentic, legible medical prescription from a registered healthcare professional. Content on this website is for educational and informational purposes only and does not constitute clinical diagnosis or substitute for professional medical advice. Always consult your physician before starting any medication regimen.
+        </p>
+        <div class="footer-bottom-flex">
+          <div>
+            &copy; 2026 Mediora Inc. All Rights Reserved. HIPAA Compliant • FDA Registered Logistics.
+          </div>
+          <div class="payment-badges" title="Accepted Payment Methods">
+            <i class="fa-brands fa-cc-visa"></i>
+            <i class="fa-brands fa-cc-mastercard"></i>
+            <i class="fa-brands fa-cc-amex"></i>
+            <i class="fa-brands fa-cc-paypal"></i>
+            <i class="fa-brands fa-cc-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER & OVERLAY -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart Drawer">
+    <div class="cart-drawer-header">
+      <h3><i class="fa-solid fa-basket-shopping" style="color:var(--primary-green);"></i> Your Pharmacy Cart</h3>
+      <button class="cart-close-btn" onclick="window.PharmaApp.closeCartDrawer()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="cartRxWarningBox" style="display:none; background:#FEF2F2; border-bottom:1px solid #FECACA; padding:10px 16px; font-size:0.8rem; color:#991B1B;">
+      <i class="fa-solid fa-triangle-exclamation"></i> Contains prescription medicines. You must provide a valid prescription before order dispatch.
+    </div>
+    <div class="cart-drawer-body" id="cartDrawerBody"></div>
+    <div class="cart-drawer-footer">
+      <div class="cart-summary-line"><span>Subtotal</span><strong id="cartSubtotal">$0.00</strong></div>
+      <div class="cart-summary-line"><span>Estimated Delivery Fee</span><strong id="cartShipping">$0.00</strong></div>
+      <div class="cart-total-line"><span>Estimated Total</span><span id="cartTotal" style="color:var(--primary-green);">$0.00</span></div>
+      <button class="btn btn-primary btn-lg" style="width:100%;" id="proceedCheckoutBtn">
+        Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+      </button>
+      <div style="text-align:center; margin-top:10px; font-size:0.75rem; color:var(--text-muted);">
+        <i class="fa-solid fa-lock"></i> 256-Bit SSL Encrypted Healthcare Checkout
+      </div>
+    </div>
+  </aside>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Patient &amp; Staff Portal Access</h3>
+        <button class="modal-close-btn" onclick="window.PharmaApp.closeModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="loginTabBtn" onclick="window.PharmaApp.switchAuthTab('login')">Patient Login</button>
+          <button class="auth-tab-btn" id="registerTabBtn" onclick="window.PharmaApp.switchAuthTab('register')">New Registration</button>
+        </div>
+        <form id="loginForm" onsubmit="event.preventDefault(); window.PharmaApp.showToast('Login successful! Welcome back.', 'success'); window.PharmaApp.closeModal('authModal');">
+          <div class="form-group"><label>Email Address</label><input type="email" class="form-control" required value="demo@patient.com"></div>
+          <div class="form-group"><label>Password</label><input type="password" class="form-control" required value="password123"></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

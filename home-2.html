@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Express Medicine Delivery &amp; Refills | Mediora (Home 2)</title>
+  <meta name="description" content="Experience 30-minute rapid doorstep medicine delivery and easy digital prescription refill assistance with Mediora. Authentic licensed dispensary.">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function(){
+      try {
+        if(localStorage.getItem('mediora_theme_mode') === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        if(localStorage.getItem('mediora_direction') === 'rtl') {
+          document.documentElement.setAttribute('dir', 'rtl');
+        }
+      } catch(e){}
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- =========================================================================
+       SECTION 1: PHARMACY ANNOUNCEMENT BAR & NAVIGATION HEADER
+       ========================================================================= -->
+  <div class="top-bar" style="background:#053B2D;">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-bolt-lightning" style="color:#FBBF24;"></i>
+          <span><strong>Express 30-Min Delivery:</strong> Available for Manhattan, Brooklyn &amp; Queens</span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-percent"></i>
+          <span>Save 15% on First Chronic Medication Refill • Code: <strong>REFILL15</strong></span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-shield-heart"></i>
+          <span>Dual Pharmacist Inspection Protocol</span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-phone"></i>
+          <span>Emergency Line: <strong>(800) 555-0199</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-sticky-container">
+    <header class="main-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" title="Mediora Home">
+        <img src="images/logo.svg" alt="Mediora Logo" class="logo-light">
+        <img src="images/logo-white.svg" alt="Mediora Logo" class="logo-dark">
+      </a>
+
+      <!-- Quick Medicine Search -->
+      <div class="header-search">
+        <form class="search-bar-form" action="products.html" method="GET">
+          <select class="search-category-select" name="cat" aria-label="Select Category">
+            <option value="all">All Medicines</option>
+            <option value="prescription">Prescription Rx</option>
+            <option value="otc">Over-the-Counter</option>
+            <option value="vitamins">Vitamins &amp; Immunity</option>
+            <option value="devices">Diagnostic Devices</option>
+          </select>
+          <input type="text" class="search-input" name="q" placeholder="Quick search medicine name, generic formula..." aria-label="Search medicines">
+          <button type="submit" class="search-btn" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Search</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="header-actions">
+        <!-- RTL & Theme Controls -->
+        <button type="button" class="header-action-btn rtl-toggle-btn" id="rtlToggleBtn" aria-label="Toggle RTL Layout" title="Toggle RTL / LTR layout" onclick="window.PharmaApp.toggleRTL()">
+          <i class="fa-solid fa-right-left"></i>
+          <span class="toggle-text">RTL</span>
+        </button>
+
+        <button type="button" class="header-action-btn theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Dark / Light Theme" title="Toggle Dark / Light Theme" onclick="window.PharmaApp.toggleTheme()">
+          <i class="fa-solid fa-moon theme-icon"></i>
+          <span class="toggle-text">Dark</span>
+        </button>
+
+        <!-- Account Dropdown -->
+        <div class="account-wrapper">
+          <button type="button" class="header-action-btn account-icon-btn" id="accountBtn" aria-label="Customer Account" title="Customer Account">
+            <i class="fa-regular fa-user"></i>
+          </button>
+          <div class="account-dropdown-menu" id="accountDropdown">
+            <a href="javascript:void(0)" class="dropdown-item" onclick="window.PharmaApp.openAuthModal('login')">
+              <i class="fa-solid fa-right-to-bracket"></i> Login / Sign Up
+            </a>
+            <a href="admin-dashboard.html" class="dropdown-item">
+              <i class="fa-solid fa-shield-halved"></i> Admin Dashboard
+            </a>
+            <a href="user-dashboard.html" class="dropdown-item">
+              <i class="fa-solid fa-id-card-clip"></i> User Dashboard
+            </a>
+          </div>
+        </div>
+
+        <!-- Cart Button -->
+        <div class="cart-btn-wrapper">
+          <button type="button" class="cart-icon-btn" onclick="window.PharmaApp.openCartDrawer()" aria-label="Open Shopping Cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Cart</span>
+            <span class="cart-badge-count" style="display:none;">0</span>
+          </button>
+        </div>
+
+        <button type="button" class="mobile-nav-toggle" aria-label="Toggle Navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav-bar">
+    <div class="container nav-inner">
+
+      <!-- Mobile View Exclusive: Account Panel -->
+      <div class="mobile-menu-account">
+        <div class="mobile-account-card">
+          <div class="mobile-account-avatar"><i class="fa-regular fa-user"></i></div>
+          <div class="mobile-account-info">
+            <span class="mobile-account-label">Patient Access</span>
+            <h5 class="mobile-account-name">My Account</h5>
+          </div>
+        </div>
+        <div class="mobile-account-links">
+          <a href="javascript:void(0)" class="mobile-account-link" onclick="window.PharmaApp.openAuthModal('login'); document.querySelector('.nav-bar')?.classList.remove('mobile-open');">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>Login / Sign Up</span>
+          </a>
+          <a href="user-dashboard.html" class="mobile-account-link">
+            <i class="fa-solid fa-id-card-clip"></i>
+            <span>User Portal</span>
+          </a>
+          <a href="admin-dashboard.html" class="mobile-account-link">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Admin</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile View Exclusive: Cart CTA Card -->
+      <div class="mobile-menu-cart">
+        <button type="button" class="mobile-menu-cart-btn" onclick="window.PharmaApp.openCartDrawer(); document.querySelector('.nav-bar')?.classList.remove('mobile-open');">
+          <div class="mobile-menu-cart-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-badge-count" style="display:none;">0</span>
+          </div>
+          <div class="mobile-menu-cart-info">
+            <span class="mobile-menu-cart-sub">Order Summary</span>
+            <strong class="mobile-menu-cart-title">View Shopping Cart</strong>
+          </div>
+          <i class="fa-solid fa-chevron-right mobile-menu-cart-arrow"></i>
+        </button>
+      </div>
+
+      <!-- Mobile View Exclusive: Medicine Search -->
+      <div class="mobile-menu-search">
+        <form action="products.html" method="GET">
+          <input type="text" name="q" placeholder="Search medicines, vitamins..." aria-label="Search medicines in menu">
+          <button type="submit" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+      </div>
+
+      <!-- Navigation Links (All 7 Pages) -->
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="home-2.html" class="nav-link active"><i class="fa-solid fa-bolt"></i> Home 2</a></li>
+        <li><a href="about.html" class="nav-link"><i class="fa-solid fa-circle-info"></i> About</a></li>
+        <li><a href="products.html" class="nav-link"><i class="fa-solid fa-tablets"></i> Products</a></li>
+        <li><a href="upload-prescription.html" class="nav-link"><i class="fa-solid fa-file-prescription"></i> Prescription</a></li>
+        <li><a href="blog.html" class="nav-link"><i class="fa-solid fa-book-medical"></i> Blog</a></li>
+        <li><a href="contact.html" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+      </ul>
+
+      <!-- Mobile View Exclusive: CTA Group -->
+      <div class="mobile-menu-cta-group">
+        <a href="upload-prescription.html" class="btn btn-primary mobile-cta-btn">
+          <i class="fa-solid fa-file-arrow-up"></i> Upload Doctor's Rx Slip
+        </a>
+        <a href="tel:8005550199" class="nav-phone-cta">
+          <i class="fa-solid fa-headset"></i>
+          <span>24/7 Hotline: <strong>(800) 555-0199</strong></span>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+  </div>
+
+  <!-- =========================================================================
+       SECTION 2: ALTERNATIVE HERO LAYOUT (Doorstep Delivery & Refills Focus)
+       ========================================================================= -->
+  <section class="hero-unified hero-bg-express">
+    <div class="container">
+      <div class="hero-unified-grid">
+        <div class="hero-content">
+          <div class="hero-badge-pill">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Express Medicine Delivery • Under 30 Mins in Metro Hubs</span>
+          </div>
+          <h1 class="hero-headline">
+            Your Prescriptions &amp; Essentials, <span>Delivered in Minutes</span>
+          </h1>
+          <p class="hero-subtext">
+            Skip pharmacy queues. Upload your doctor's slip or choose essential health supplies. Real-time temperature-monitored courier fleet delivering tamper-evident medication directly to your doorstep.
+          </p>
+
+          <!-- Live ZIP Code Checker Widget -->
+          <div class="hero-zip-widget">
+            <div class="hero-zip-widget-title">
+              <i class="fa-solid fa-map-location-dot"></i> Check Rapid Delivery in Your Zip Code:
+            </div>
+            <div class="hero-zip-input-row">
+              <input type="text" id="heroZipInput" placeholder="Enter 5-digit ZIP (e.g. 10001)" maxlength="5" class="hero-zip-input">
+              <button type="button" class="btn btn-primary" onclick="checkDeliveryZip()" style="white-space:nowrap; padding:9px 18px;">
+                Check Availability
+              </button>
+            </div>
+            <div id="zipResult" style="display:none; margin-top:8px; font-size:0.82rem; font-weight:700; color:#34D399;">
+              <i class="fa-solid fa-circle-check"></i> ZIP Code is eligible for 30-Minute Rush Delivery!
+            </div>
+
+            <!-- Quick Medicine Search Pills -->
+            <div class="hero-zip-tags-row">
+              <span style="font-weight:600; font-size:0.78rem;">Popular:</span>
+              <button type="button" class="hero-zip-tag-btn" onclick="quickFillSearch('Amoxicillin')">Amoxicillin</button>
+              <button type="button" class="hero-zip-tag-btn" onclick="quickFillSearch('Paracetamol')">Paracetamol</button>
+              <button type="button" class="hero-zip-tag-btn" onclick="quickFillSearch('Blood Pressure Monitor')">BP Monitor</button>
+              <button type="button" class="hero-zip-tag-btn" onclick="quickFillSearch('Omega-3')">Omega-3</button>
+              <button type="button" class="hero-zip-tag-btn" onclick="quickFillSearch('Cetirizine')">Cetirizine</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-unified-media">
+          <img src="images/hero-delivery.jpg" alt="Mediora Express Courier Delivering Medicine" class="hero-unified-img">
+          <!-- Floating delivery badges -->
+          <div class="hero-float-card-dark" style="top:20px; left:-20px;">
+            <div class="float-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+            <div class="float-info">
+              <h5>Live Courier GPS</h5>
+              <p>Monitored Cold-Chain Fleet</p>
+            </div>
+          </div>
+          <div class="hero-float-card-dark" style="bottom:20px; right:-14px; animation-delay:2s;">
+            <div class="float-icon"><i class="fa-solid fa-box-archive"></i></div>
+            <div class="float-info">
+              <h5>Tamper-Evident Sealed</h5>
+              <p>Temperature Checked at 4.2°C</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 3: QUICK MEDICINE SEARCH & POPULAR CATEGORY TILES
+       ========================================================================= -->
+  <section class="cat-tiles-section" style="padding:40px 0; border-bottom:1px solid var(--border-color);">
+    <div class="container">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+        <h3 style="font-size:1.4rem;">Browse by Daily Medical Need</h3>
+        <a href="products.html" style="color:var(--primary-green); font-weight:700; font-size:0.9rem;">View Catalog <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:16px;" class="cat-tiles-grid">
+        <a href="products.html?cat=prescription" class="cat-tile-item cat-tile-rx" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+          <i class="fa-solid fa-pills" style="font-size:1.8rem; color:var(--primary-green); margin-bottom:8px; display:block;"></i>
+          <strong style="font-size:0.95rem; color:var(--dark-forest);">Prescription Rx</strong>
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Doctor Verified</div>
+        </a>
+        <a href="products.html?cat=otc" class="cat-tile-item cat-tile-pain" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+          <i class="fa-solid fa-tablets" style="font-size:1.8rem; color:#D97706; margin-bottom:8px; display:block;"></i>
+          <strong style="font-size:0.95rem; color:var(--dark-forest);">Pain &amp; Fever</strong>
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Fast Relief OTC</div>
+        </a>
+        <a href="products.html?cat=vitamins" class="cat-tile-item cat-tile-immunity" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+          <i class="fa-solid fa-capsules" style="font-size:1.8rem; color:#16A34A; margin-bottom:8px; display:block;"></i>
+          <strong style="font-size:0.95rem; color:var(--dark-forest);">Immunity Boost</strong>
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Vitamins &amp; Zinc</div>
+        </a>
+        <a href="products.html?cat=devices" class="cat-tile-item cat-tile-devices" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+          <i class="fa-solid fa-heart-pulse" style="font-size:1.8rem; color:#2563EB; margin-bottom:8px; display:block;"></i>
+          <strong style="font-size:0.95rem; color:var(--dark-forest);">Health Monitors</strong>
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">BP &amp; Glucose</div>
+        </a>
+        <a href="products.html?cat=baby" class="cat-tile-item cat-tile-baby" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+          <i class="fa-solid fa-baby" style="font-size:1.8rem; color:#DB2777; margin-bottom:8px; display:block;"></i>
+          <strong style="font-size:0.95rem; color:var(--dark-forest);">Mother &amp; Baby</strong>
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Gentle Pediatrics</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 4: SHOP HEALTHCARE ESSENTIALS (Curated Collections)
+       ========================================================================= -->
+  <section class="products-section products-subtle-bg">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag"><i class="fa-solid fa-star-of-life"></i> Curated Collections</span>
+        <h2 class="section-title">Shop Healthcare Essentials</h2>
+        <p class="section-subtitle">Specially curated medicine and daily diagnostics ready for immediate checkout.</p>
+      </div>
+
+      <div class="product-grid">
+        <!-- Product Lisinopril -->
+        <div class="product-card">
+          <div class="product-media">
+            <div class="product-badges">
+              <span class="badge badge-rx"><i class="fa-solid fa-prescription"></i> Rx Required</span>
+              <span class="badge badge-sale">-23%</span>
+            </div>
+            <img src="images/cat-prescription.jpg" alt="Lisinopril 20mg Tablets">
+            <button class="product-quick-view-btn" onclick="window.PharmaApp.openQuickView(4)" title="Quick View">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <div class="product-content">
+            <span class="product-category-sub">Prescription Medicines</span>
+            <a href="javascript:void(0)" onclick="window.PharmaApp.openQuickView(4)" class="product-title">Lisinopril 20mg Tablets</a>
+            <div class="product-dosage">Teva Pharmaceuticals • 30 Tablets</div>
+            <div class="product-rating">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <span>4.8 (94 reviews)</span>
+            </div>
+            <div class="product-bottom-row">
+              <div class="product-price-box">
+                <span class="product-price">$15.20</span>
+                <span class="product-old-price">$19.80</span>
+              </div>
+              <button class="add-to-cart-btn" onclick="window.PharmaApp.addToCart(4)">
+                <i class="fa-solid fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Paracetamol -->
+        <div class="product-card">
+          <div class="product-media">
+            <div class="product-badges">
+              <span class="badge badge-otc"><i class="fa-solid fa-check"></i> OTC Direct</span>
+              <span class="badge badge-sale">-20%</span>
+            </div>
+            <img src="images/cat-prescription.jpg" alt="Paracetamol 650mg">
+            <button class="product-quick-view-btn" onclick="window.PharmaApp.openQuickView(9)" title="Quick View">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <div class="product-content">
+            <span class="product-category-sub">Over-the-Counter</span>
+            <a href="javascript:void(0)" onclick="window.PharmaApp.openQuickView(9)" class="product-title">Paracetamol 650mg Fast Relief</a>
+            <div class="product-dosage">MediRelief • 20 Caplets</div>
+            <div class="product-rating">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <span>4.9 (380 reviews)</span>
+            </div>
+            <div class="product-bottom-row">
+              <div class="product-price-box">
+                <span class="product-price">$7.99</span>
+                <span class="product-old-price">$9.99</span>
+              </div>
+              <button class="add-to-cart-btn" onclick="window.PharmaApp.addToCart(9)">
+                <i class="fa-solid fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Vitamin C -->
+        <div class="product-card">
+          <div class="product-media">
+            <div class="product-badges">
+              <span class="badge badge-otc"><i class="fa-solid fa-shield-virus"></i> Immunity</span>
+              <span class="badge badge-sale">-19%</span>
+            </div>
+            <img src="images/cat-vitamins.jpg" alt="Vitamin C 1000mg + Zinc">
+            <button class="product-quick-view-btn" onclick="window.PharmaApp.openQuickView(8)" title="Quick View">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <div class="product-content">
+            <span class="product-category-sub">Vitamins &amp; Supplements</span>
+            <a href="javascript:void(0)" onclick="window.PharmaApp.openQuickView(8)" class="product-title">ImmuneGuard Vitamin C 1000mg + Zinc</a>
+            <div class="product-dosage">ImmuneGuard Bio • 30 Effervescent</div>
+            <div class="product-rating">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <span>4.9 (240 reviews)</span>
+            </div>
+            <div class="product-bottom-row">
+              <div class="product-price-box">
+                <span class="product-price">$14.50</span>
+                <span class="product-old-price">$18.00</span>
+              </div>
+              <button class="add-to-cart-btn" onclick="window.PharmaApp.addToCart(8)">
+                <i class="fa-solid fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Thermometer -->
+        <div class="product-card">
+          <div class="product-media">
+            <div class="product-badges">
+              <span class="badge badge-otc"><i class="fa-solid fa-check"></i> 1-Sec Read</span>
+              <span class="badge badge-sale">-21%</span>
+            </div>
+            <img src="images/cat-devices.jpg" alt="Infrared Thermometer">
+            <button class="product-quick-view-btn" onclick="window.PharmaApp.openQuickView(6)" title="Quick View">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <div class="product-content">
+            <span class="product-category-sub">Medical Equipment</span>
+            <a href="javascript:void(0)" onclick="window.PharmaApp.openQuickView(6)" class="product-title">Infrared Forehead Thermometer</a>
+            <div class="product-dosage">MedCheck Diagnostics • Contactless Sensor</div>
+            <div class="product-rating">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+              <span>4.75 (182 reviews)</span>
+            </div>
+            <div class="product-bottom-row">
+              <div class="product-price-box">
+                <span class="product-price">$29.90</span>
+                <span class="product-old-price">$38.00</span>
+              </div>
+              <button class="add-to-cart-btn" onclick="window.PharmaApp.addToCart(6)">
+                <i class="fa-solid fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 5: REDESIGNED “YOUR PRESCRIPTION, DELIVERED” PIPELINE
+       ========================================================================= -->
+  <section class="rx-pipeline-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag"><i class="fa-solid fa-route"></i> Streamlined 4-Step Fulfillment</span>
+        <h2 class="section-title">Your Prescription, Verified &amp; Delivered</h2>
+        <p class="section-subtitle">
+          How our clinical dispensing pipeline verifies your doctor's slip, checks drug interactions, and coordinates temperature-monitored courier delivery.
+        </p>
+      </div>
+
+      <div class="rx-pipeline-grid">
+        <!-- Step 1 -->
+        <div class="rx-pipeline-card">
+          <div class="rx-pipeline-header">
+            <span class="rx-step-badge">STEP 01</span>
+            <span class="rx-time-badge"><i class="fa-regular fa-clock"></i> ~2 Mins</span>
+          </div>
+          <div class="rx-step-icon-wrap">
+            <i class="fa-solid fa-file-arrow-up"></i>
+          </div>
+          <h4>Upload Prescription</h4>
+          <p>Snap a photo of your doctor's prescription slip, upload a clinic PDF, or transfer directly from your hospital portal.</p>
+          <div class="rx-step-pill-tag">
+            <i class="fa-solid fa-shield-halved"></i> 256-Bit Encrypted Vault
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="rx-pipeline-card">
+          <div class="rx-pipeline-header">
+            <span class="rx-step-badge">STEP 02</span>
+            <span class="rx-time-badge"><i class="fa-regular fa-clock"></i> ~8 Mins</span>
+          </div>
+          <div class="rx-step-icon-wrap">
+            <i class="fa-solid fa-user-doctor"></i>
+          </div>
+          <h4>Pharmacist Clinical Check</h4>
+          <p>Registered PharmD specialists audit dosage, screening for dangerous drug contraindications, patient allergies, and stock.</p>
+          <div class="rx-step-pill-tag">
+            <i class="fa-solid fa-certificate"></i> Dual-PharmD Audited
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="rx-pipeline-card">
+          <div class="rx-pipeline-header">
+            <span class="rx-step-badge">STEP 03</span>
+            <span class="rx-time-badge"><i class="fa-regular fa-clock"></i> ~10 Mins</span>
+          </div>
+          <div class="rx-step-icon-wrap">
+            <i class="fa-solid fa-box-archive"></i>
+          </div>
+          <h4>Cleanroom Dispensing</h4>
+          <p>Medications are counted under ISO-certified clean air, cold-chain packed with gel coolant, and sealed in tamper-proof bags.</p>
+          <div class="rx-step-pill-tag">
+            <i class="fa-solid fa-snowflake"></i> 2°C–8°C Thermal Pack
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="rx-pipeline-card">
+          <div class="rx-pipeline-header">
+            <span class="rx-step-badge">STEP 04</span>
+            <span class="rx-time-badge" style="color:#D97706; background:#FFFBEB; border-color:#FDE68A;"><i class="fa-solid fa-bolt"></i> &lt; 30 Mins</span>
+          </div>
+          <div class="rx-step-icon-wrap">
+            <i class="fa-solid fa-motorcycle"></i>
+          </div>
+          <h4>Doorstep Handover</h4>
+          <p>Our GPS-tracked medical courier brings your sealed delivery directly to your door with contact-free clinical signature.</p>
+          <div class="rx-step-pill-tag">
+            <i class="fa-solid fa-location-crosshairs"></i> Live GPS Courier Ping
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Bar -->
+      <div class="rx-pipeline-action-bar">
+        <div style="display:flex; align-items:center; gap:16px;">
+          <div style="width:48px; height:48px; border-radius:50%; background:var(--soft-medical-green); color:var(--primary-green); display:flex; align-items:center; justify-content:center; font-size:1.3rem;">
+            <i class="fa-solid fa-file-medical"></i>
+          </div>
+          <div>
+            <strong style="font-size:1.05rem; display:block; color:var(--dark-forest);">Have an urgent prescription slip right now?</strong>
+            <span style="font-size:0.84rem; color:var(--text-secondary);">Supported Formats: JPG, PNG, HEIC, PDF, e-Prescription Token (Max 25MB)</span>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+          <a href="upload-prescription.html" class="btn btn-primary btn-lg">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Start Prescription Order Now
+          </a>
+          <a href="contact.html" class="btn btn-secondary btn-lg">
+            <i class="fa-solid fa-phone"></i> Consult a Pharmacist
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 6: FEATURED PRODUCT GRID WITH ACTIVE CART CONTROLS
+       ========================================================================= -->
+  <section class="products-section products-bordered-top">
+    <div class="container">
+      <div class="section-header-flex">
+        <div>
+          <span class="section-tag"><i class="fa-solid fa-thumbs-up"></i> Pharmacist Recommended</span>
+          <h2 class="section-title" style="margin-bottom:4px;">Home Care Essentials</h2>
+          <p style="color:var(--text-secondary); font-size:0.95rem;">Everyday items every household medicine cabinet needs.</p>
+        </div>
+        <div style="display:flex; gap:12px;">
+          <a href="products.html?cat=firstaid" class="btn btn-secondary btn-sm">First Aid Kits</a>
+          <a href="products.html?cat=personal" class="btn btn-secondary btn-sm">Skin &amp; Hygiene</a>
+        </div>
+      </div>
+
+      <div class="product-grid">
+        <!-- Metformin -->
+        <div class="product-card">
+          <div class="product-media">
+            <div class="product-badges">
+              <span class="badge badge-rx"><i class="fa-solid fa-prescription"></i> Rx Required</span>
+            </div>
+            <img src="images/cat-prescription.jpg" alt="Metformin 500mg">
+            <button class="product-quick-view-btn" onclick="window.PharmaApp.openQuickView(7)" title="Quick View">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <div class="product-content">
+            <span class="product-category-sub">Prescription Medicines</span>
+            <a href="javascript:void(0)" onclick="window.PharmaApp.openQuickView(7)" class="product-title">Metformin HCl 500mg ER</a>
+            <div class="product-dosage">Sandoz Healthcare • 60 ER Tablets</div>
+            <div class="product-rating">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+              <span>4.85 (140 reviews)</span>
+            </div>
+            <div class="product-bottom-row">
+              <div class="product-price-box">
+                <span class="product-price">$12.80</span>
+                <span class="product-old-price">$16.50</span>
+              </div>
+              <button class="add-to-cart-btn" onclick="window.PharmaApp.addToCart(7)">
+                <i class="fa-solid fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Allergy Clear -->
+        <div class="product-card">
+          <div class="product-media">
+            <div class="product-badges">
+              <span class="badge badge-otc"><i class="fa-solid fa-check"></i> Non-Drowsy</span>
+            </div>
+            <img src="images/cat-prescription.jpg" alt="Cetirizine 10mg">
+            <button class="product-quick-view-btn" onclick="window.PharmaApp.openQuickView(10)" title="Quick View">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <div class="product-content">
+            <span class="product-category-sub">Over-the-Counter</span>
+            <a href="javascript:void(0)" onclick="window.PharmaApp.openQuickView(10)" class="product-title">AllergyClear Cetirizine 10mg</a>
+            <div class="product-dosage">ClearBreathe Pharma • 30 Tablets</div>
+            <div class="product-rating">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <span>4.8 (198 reviews)</span>
+            </div>
+            <div class="product-bottom-row">
+              <div class="product-price-box">
+                <span class="product-price">$11.25</span>
+                <span class="product-old-price">$14.50</span>
+              </div>
+              <button class="add-to-cart-btn" onclick="window.PharmaApp.addToCart(10)">
+                <i class="fa-solid fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DermaSoothe -->
+        <div class="product-card">
+          <div class="product-media">
+            <div class="product-badges">
+              <span class="badge badge-otc"><i class="fa-solid fa-heart"></i> Dermatologist Tested</span>
+            </div>
+            <img src="images/cat-baby.jpg" alt="DermaSoothe Ceramide Cream">
+            <button class="product-quick-view-btn" onclick="window.PharmaApp.openQuickView(11)" title="Quick View">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <div class="product-content">
+            <span class="product-category-sub">Personal Care</span>
+            <a href="javascript:void(0)" onclick="window.PharmaApp.openQuickView(11)" class="product-title">DermaSoothe Ceramide Cream</a>
+            <div class="product-dosage">DermaSoothe Labs • 340g Barrier Tub</div>
+            <div class="product-rating">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              <span>4.9 (175 reviews)</span>
+            </div>
+            <div class="product-bottom-row">
+              <div class="product-price-box">
+                <span class="product-price">$19.50</span>
+                <span class="product-old-price">$24.99</span>
+              </div>
+              <button class="add-to-cart-btn" onclick="window.PharmaApp.addToCart(11)">
+                <i class="fa-solid fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- First Aid Kit -->
+        <div class="product-card">
+          <div class="product-media">
+            <div class="product-badges">
+              <span class="badge badge-otc"><i class="fa-solid fa-kit-medical"></i> 48-Piece Set</span>
+            </div>
+            <img src="images/cat-devices.jpg" alt="Trauma First Aid Kit">
+            <button class="product-quick-view-btn" onclick="window.PharmaApp.openQuickView(12)" title="Quick View">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <div class="product-content">
+            <span class="product-category-sub">First Aid &amp; Wound Care</span>
+            <a href="javascript:void(0)" onclick="window.PharmaApp.openQuickView(12)" class="product-title">Emergency First Aid Kit (48 Pcs)</a>
+            <div class="product-dosage">LifeShield Medical • Waterproof Pouch</div>
+            <div class="product-rating">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+              <span>4.85 (112 reviews)</span>
+            </div>
+            <div class="product-bottom-row">
+              <div class="product-price-box">
+                <span class="product-price">$24.99</span>
+                <span class="product-old-price">$32.00</span>
+              </div>
+              <button class="add-to-cart-btn" onclick="window.PharmaApp.addToCart(12)">
+                <i class="fa-solid fa-cart-plus"></i> Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 7: PROMOTIONAL BANNERS (Vitamins, Family Care, Subscriptions)
+       ========================================================================= -->
+  <section class="promo-banners-section">
+    <div class="container">
+      <div class="promo-grid">
+        <!-- Promo 1 -->
+        <div class="promo-card promo-card-1">
+          <div>
+            <span class="promo-tag">Immunity &amp; Wellness</span>
+            <h3>Daily Vitamins &amp; Supplements</h3>
+            <p>Up to 25% off Norwegian Omega-3, Vitamin D3, and Zinc chewables for family defense.</p>
+          </div>
+          <a href="products.html?cat=vitamins" class="btn btn-primary btn-sm" style="align-self:flex-start;">
+            Shop Vitamins <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Promo 2 -->
+        <div class="promo-card promo-card-2">
+          <div>
+            <span class="promo-tag">Auto-Refill Savings</span>
+            <h3>Monthly Prescription Subscription</h3>
+            <p>Never miss a dose. Automated pharmacist review and free doorstep dispatch on your schedule.</p>
+          </div>
+          <a href="upload-prescription.html" class="btn btn-secondary btn-sm" style="align-self:flex-start; background:#FFFFFF;">
+            Setup Refills <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <!-- Promo 3 -->
+        <div class="promo-card promo-card-3">
+          <div>
+            <span class="promo-tag">Home Diagnostics</span>
+            <h3>Certified Blood Pressure &amp; Sugar Monitors</h3>
+            <p>Clinical accuracy at home with Bluetooth synchronizing diagnostic devices.</p>
+          </div>
+          <a href="products.html?cat=devices" class="btn btn-primary btn-sm" style="align-self:flex-start;">
+            View Devices <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       NEW SECTION 1: FLASH HEALTHCARE DEALS & EMERGENCY MEDICINE BUNDLES
+       ========================================================================= -->
+  <section class="deals-flash-section">
+    <div class="container">
+      <div class="deals-flash-header">
+        <div>
+          <span class="section-tag" style="background:#FFFBEB; border-color:#FDE68A; color:#D97706;">
+            <i class="fa-solid fa-bolt-lightning"></i> Limited Express Dispatch
+          </span>
+          <h2 class="section-title" style="margin-bottom:6px;">Emergency Medicine &amp; Family Care Bundles</h2>
+          <p style="color:var(--text-secondary); font-size:0.95rem; margin:0;">
+            Pre-assembled clinical care bundles with up to 30% savings. Ready for priority 30-minute doorstep courier dispatch.
+          </p>
+        </div>
+        <div class="deals-countdown-box">
+          <i class="fa-solid fa-clock-rotate-left" style="color:#FBBF24;"></i>
+          <span>Next Express Wave Closes In:</span>
+          <span class="deals-countdown-timer" id="dealCountTimer">03:42:18</span>
+        </div>
+      </div>
+
+      <div class="deals-grid-3">
+        <!-- Bundle 1 -->
+        <div class="deal-bundle-card">
+          <div class="deal-bundle-media">
+            <span class="deal-badge-save">SAVE 28%</span>
+            <img src="images/cat-devices.jpg" alt="Emergency First Aid &amp; Trauma Bundle">
+            <span class="deal-badge-rush"><i class="fa-solid fa-bolt"></i> 30-Min Eligible</span>
+          </div>
+          <div class="deal-bundle-content">
+            <span class="deal-bundle-cat">Home Safety &amp; Trauma</span>
+            <h3 class="deal-bundle-title">Emergency First-Aid &amp; Trauma Rapid Pack</h3>
+            <p class="deal-bundle-desc">Complete medical emergency response kit containing certified trauma essentials for family and office accidents.</p>
+            <ul class="deal-items-list">
+              <li><i class="fa-solid fa-check"></i> 48-Piece Sterile Gauze &amp; Bandages</li>
+              <li><i class="fa-solid fa-check"></i> Infrared Forehead Thermometer</li>
+              <li><i class="fa-solid fa-check"></i> Antiseptic Povidone Spray &amp; Burn Gel</li>
+            </ul>
+            <div class="deal-stock-bar-wrap">
+              <div class="deal-stock-info">
+                <span>Stock in Metro Dispatch Hub</span>
+                <span style="color:#DC2626;">Only 6 Bundles Left</span>
+              </div>
+              <div class="deal-progress-bar">
+                <div class="deal-progress-fill" style="width:78%;"></div>
+              </div>
+            </div>
+            <div class="deal-price-row">
+              <div>
+                <span class="deal-current-price">$34.99</span>
+                <span class="deal-old-price">$48.50</span>
+              </div>
+              <button type="button" class="btn btn-primary" onclick="window.PharmaApp.addToCart(12); window.PharmaApp.showToast('Added Emergency Trauma Pack to cart!', 'success');">
+                <i class="fa-solid fa-cart-plus"></i> Claim Bundle
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bundle 2 -->
+        <div class="deal-bundle-card">
+          <div class="deal-bundle-media">
+            <span class="deal-badge-save">SAVE 25%</span>
+            <img src="images/cat-prescription.jpg" alt="Seasonal Allergy &amp; Respiratory Care Pack">
+            <span class="deal-badge-rush"><i class="fa-solid fa-bolt"></i> 30-Min Eligible</span>
+          </div>
+          <div class="deal-bundle-content">
+            <span class="deal-bundle-cat">Respiratory &amp; Allergy</span>
+            <h3 class="deal-bundle-title">Seasonal Allergy &amp; Breathe-Easy Kit</h3>
+            <p class="deal-bundle-desc">Dual antihistamine and airway defense for rapid relief from pollens, dust mites, pet dander, and nocturnal congestion.</p>
+            <ul class="deal-items-list">
+              <li><i class="fa-solid fa-check"></i> Cetirizine 10mg Non-Drowsy (30 Tab)</li>
+              <li><i class="fa-solid fa-check"></i> Isotonic Saline Nasal Rinse Spray</li>
+              <li><i class="fa-solid fa-check"></i> Menthol &amp; Honey Lozenges (24ct)</li>
+            </ul>
+            <div class="deal-stock-bar-wrap">
+              <div class="deal-stock-info">
+                <span>Stock in Metro Dispatch Hub</span>
+                <span style="color:#D97706;">14 Bundles Left</span>
+              </div>
+              <div class="deal-progress-bar">
+                <div class="deal-progress-fill" style="width:55%;"></div>
+              </div>
+            </div>
+            <div class="deal-price-row">
+              <div>
+                <span class="deal-current-price">$24.50</span>
+                <span class="deal-old-price">$32.90</span>
+              </div>
+              <button type="button" class="btn btn-primary" onclick="window.PharmaApp.addToCart(10); window.PharmaApp.showToast('Added Allergy Breathe-Easy Kit to cart!', 'success');">
+                <i class="fa-solid fa-cart-plus"></i> Claim Bundle
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bundle 3 -->
+        <div class="deal-bundle-card">
+          <div class="deal-bundle-media">
+            <span class="deal-badge-save">SAVE 30%</span>
+            <img src="images/cat-vitamins.jpg" alt="Daily Immunity &amp; Vitality Bundle">
+            <span class="deal-badge-rush"><i class="fa-solid fa-bolt"></i> 30-Min Eligible</span>
+          </div>
+          <div class="deal-bundle-content">
+            <span class="deal-bundle-cat">Immunity &amp; Wellness</span>
+            <h3 class="deal-bundle-title">Daily Immunity &amp; Vitality Family Shield</h3>
+            <p class="deal-bundle-desc">High-potency clinical vitamins and bioactive antioxidants formulated to reinforce immune defenses year-round.</p>
+            <ul class="deal-items-list">
+              <li><i class="fa-solid fa-check"></i> ImmuneGuard Vitamin C 1000mg + Zinc</li>
+              <li><i class="fa-solid fa-check"></i> Norwegian Pure Omega-3 Fish Oil 1200mg</li>
+              <li><i class="fa-solid fa-check"></i> Vitamin D3 5000 IU High-Absorb Softgels</li>
+            </ul>
+            <div class="deal-stock-bar-wrap">
+              <div class="deal-stock-info">
+                <span>Stock in Metro Dispatch Hub</span>
+                <span style="color:#059669;">22 Bundles Left</span>
+              </div>
+              <div class="deal-progress-bar">
+                <div class="deal-progress-fill" style="width:35%; background:#10B981;"></div>
+              </div>
+            </div>
+            <div class="deal-price-row">
+              <div>
+                <span class="deal-current-price">$36.80</span>
+                <span class="deal-old-price">$52.00</span>
+              </div>
+              <button type="button" class="btn btn-primary" onclick="window.PharmaApp.addToCart(8); window.PharmaApp.showToast('Added Daily Immunity Shield to cart!', 'success');">
+                <i class="fa-solid fa-cart-plus"></i> Claim Bundle
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 8: REDESIGNED CLINICAL SECURITY & TRUST PILLARS
+       ========================================================================= -->
+  <section class="trust-showcase-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag"><i class="fa-solid fa-shield-heart"></i> Patient Security Mandate</span>
+        <h2 class="section-title">Why Patients Choose Mediora</h2>
+        <p class="section-subtitle">We treat your health with the precision, confidentiality, and rigor of a high-standard clinical institution.</p>
+      </div>
+
+      <div class="trust-showcase-grid">
+        <!-- Pillar 1 -->
+        <div class="trust-pillar-card-v2 pillar-accent-green">
+          <div class="pillar-v2-icon-wrap">
+            <i class="fa-solid fa-certificate"></i>
+          </div>
+          <h4>100% Genuine Medicines</h4>
+          <p>Direct manufacturer supply chains with verified batch lot numbers, serialized barcodes, and tamper-evident holographic seals.</p>
+          <div class="pillar-stat-chip">
+            <span style="color:var(--text-secondary); font-size:0.75rem;">Authentication:</span>
+            <span style="color:var(--primary-green); font-weight:800;">100% Batch Tracked</span>
+          </div>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="trust-pillar-card-v2 pillar-accent-blue">
+          <div class="pillar-v2-icon-wrap">
+            <i class="fa-solid fa-snowflake"></i>
+          </div>
+          <h4>Cold Chain Monitored</h4>
+          <p>Insulin and biologics stored strictly at 2°C to 8°C in smart IoT refrigerated modules with uninterrupted temperature logs.</p>
+          <div class="pillar-stat-chip">
+            <span style="display:flex; align-items:center; font-size:0.75rem; color:var(--text-secondary);"><span class="pulse-sensor-dot"></span> IoT Live Sensor:</span>
+            <span style="color:#0284C7; font-weight:800;">3.8°C Calibrated</span>
+          </div>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="trust-pillar-card-v2 pillar-accent-amber">
+          <div class="pillar-v2-icon-wrap">
+            <i class="fa-solid fa-user-doctor"></i>
+          </div>
+          <h4>24/7 Clinical Support</h4>
+          <p>Speak with registered PharmD specialists anytime for drug-drug interaction audits, dosage timing, and side-effect consultations.</p>
+          <div class="pillar-stat-chip">
+            <span style="color:var(--text-secondary); font-size:0.75rem;">Avg Response Time:</span>
+            <span style="color:#D97706; font-weight:800;">&lt; 45 Seconds</span>
+          </div>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="trust-pillar-card-v2 pillar-accent-purple">
+          <div class="pillar-v2-icon-wrap">
+            <i class="fa-solid fa-user-shield"></i>
+          </div>
+          <h4>HIPAA &amp; Privacy First</h4>
+          <p>Bank-grade 256-bit AES encryption protects your medical prescription scans, diagnoses, and personal health data. Zero commercial data brokering.</p>
+          <div class="pillar-stat-chip">
+            <span style="color:var(--text-secondary); font-size:0.75rem;">Privacy Standard:</span>
+            <span style="color:#6366F1; font-weight:800;">HIPAA Title II Certified</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       NEW SECTION 2: INSTANT RX REFILL & DOCTOR COORDINATION STATION
+       ========================================================================= -->
+  <section class="refill-station-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag"><i class="fa-solid fa-repeat"></i> Fast Prescription Station</span>
+        <h2 class="section-title">Instant Refill &amp; Doctor Coordination</h2>
+        <p class="section-subtitle">
+          Reorder ongoing chronic treatments in seconds or coordinate directly with your prescribing clinic for automated refills.
+        </p>
+      </div>
+
+      <div class="refill-station-grid">
+        <!-- Patient Refill Tool -->
+        <div class="refill-intake-card">
+          <div class="refill-intake-header">
+            <h3><i class="fa-solid fa-bolt" style="color:#F59E0B; margin-right:8px;"></i> Quick Rx Refill Desk</h3>
+            <p>Enter your active Rx prescription number from your existing bottle label to dispatch your next supply.</p>
+          </div>
+
+          <form id="refillStationForm" onsubmit="event.preventDefault(); handleRefillLookup();">
+            <div class="refill-input-row">
+              <div class="refill-form-group">
+                <label for="rxNumberInput">Prescription Rx Number</label>
+                <input type="text" id="rxNumberInput" class="refill-text-input" placeholder="e.g. RX-84920" required value="RX-84920">
+              </div>
+              <div class="refill-form-group">
+                <label for="dobInput">Patient Date of Birth</label>
+                <input type="date" id="dobInput" class="refill-text-input" value="1985-06-14" required>
+              </div>
+            </div>
+
+            <div class="refill-form-group">
+              <label>Refill Supply Cycle</label>
+              <div class="refill-radio-group">
+                <label class="refill-radio-option selected" onclick="selectRefillOption(this)">
+                  <input type="radio" name="refillCycle" value="30" checked style="display:none;">
+                  <i class="fa-solid fa-calendar-day" style="color:var(--primary-green);"></i>
+                  <span>30-Day Supply (Standard)</span>
+                </label>
+                <label class="refill-radio-option" onclick="selectRefillOption(this)">
+                  <input type="radio" name="refillCycle" value="90" style="display:none;">
+                  <i class="fa-solid fa-calendar-check" style="color:var(--primary-green);"></i>
+                  <span>90-Day Auto-Ship (Save 15%)</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="refill-form-group">
+              <label>Courier Urgency</label>
+              <div class="refill-radio-group">
+                <label class="refill-radio-option selected" onclick="selectDeliveryOption(this)">
+                  <input type="radio" name="deliverySpeed" value="rush" checked style="display:none;">
+                  <i class="fa-solid fa-bolt" style="color:#D97706;"></i>
+                  <span>30-Min Rush Dispatch (+$4.99)</span>
+                </label>
+                <label class="refill-radio-option" onclick="selectDeliveryOption(this)">
+                  <input type="radio" name="deliverySpeed" value="free" style="display:none;">
+                  <i class="fa-solid fa-truck" style="color:var(--primary-green);"></i>
+                  <span>Standard Next-Day (Free)</span>
+                </label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%; padding:14px; margin-top:8px;">
+              <i class="fa-solid fa-magnifying-glass"></i> Check Rx Ledger &amp; Schedule Refill
+            </button>
+
+            <!-- Live lookup result box -->
+            <div id="refillResultBox" class="refill-live-feedback">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                <strong><i class="fa-solid fa-circle-check"></i> Prescription Valid &amp; Authorized!</strong>
+                <span class="badge badge-rx">Refill #3 of 5</span>
+              </div>
+              <div style="font-size:0.88rem; color:var(--dark-forest); margin-bottom:6px;">
+                <strong>Medicine:</strong> Lisinopril 20mg Tablets (30 count) • Teva Pharmaceuticals
+              </div>
+              <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:12px;">
+                Prescribing Physician: Dr. Robert Harrison, MD • Copay: $12.00 (Insurance Applied)
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" onclick="window.PharmaApp.addToCart(4); window.PharmaApp.showToast('Lisinopril refill dispatched to active order queue!', 'success');">
+                <i class="fa-solid fa-cart-shopping"></i> Confirm &amp; Dispatch Refill
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Physician & Clinic Direct E-Prescribing Gateway -->
+        <div class="clinic-portal-card">
+          <div>
+            <div class="clinic-portal-header">
+              <span class="badge" style="background:rgba(255,255,255,0.15); color:#A7F3D0; margin-bottom:12px;">
+                <i class="fa-solid fa-hospital-user"></i> Clinic &amp; Provider Gateway
+              </span>
+              <h3>Doctor E-Prescribing Routing</h3>
+              <p>
+                Healthcare practitioners and hospitals can transmit electronic prescriptions directly to Mediora via secure Surescripts and NCPDP health exchange networks.
+              </p>
+            </div>
+
+            <div class="clinic-id-pill-box">
+              <div class="clinic-id-row">
+                <span class="clinic-id-label">NCPDP Dispensary ID:</span>
+                <span class="clinic-id-code">3391824</span>
+              </div>
+              <div class="clinic-id-row">
+                <span class="clinic-id-label">NPI Registry Number:</span>
+                <span class="clinic-id-code">1948201948</span>
+              </div>
+              <div class="clinic-id-row">
+                <span class="clinic-id-label">Direct Clinical Fax:</span>
+                <span class="clinic-id-code">(800) 555-0198</span>
+              </div>
+            </div>
+
+            <div class="clinic-feature-chips">
+              <div class="clinic-chip-item">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Automated prior authorization &amp; formulary copay sync</span>
+              </div>
+              <div class="clinic-chip-item">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Instant doctor phone confirmation for compound formulations</span>
+              </div>
+              <div class="clinic-chip-item">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Direct transfer coordination from CVS, Walgreens, or Rite Aid</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;">
+            <a href="upload-prescription.html" class="btn btn-secondary transfer-rx-btn" style="flex:1; justify-content:center;">
+              <i class="fa-solid fa-arrow-right-arrow-left"></i> Transfer Existing Rx
+            </a>
+            <a href="contact.html" class="btn btn-secondary" style="background:rgba(255,255,255,0.12); color:#FFFFFF; border-color:rgba(255,255,255,0.25);">
+              <i class="fa-solid fa-headset"></i> Provider Line
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       PATIENT REVIEWS / TESTIMONIALS SECTION
+       ========================================================================= -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag"><i class="fa-solid fa-comments"></i> Patient Experiences</span>
+        <h2 class="section-title">Trusted by Thousands of Families</h2>
+        <p class="section-subtitle">Read how our fast dispensary and licensed care make a difference every day.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;" class="promo-grid">
+        <div class="testimonial-card">
+          <div style="color:#F59E0B; margin-bottom:12px; font-size:0.9rem;">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p style="font-size:0.92rem; line-height:1.6; margin-bottom:16px;">
+            "My elderly mother needed her blood pressure refill urgently on a Sunday evening. The pharmacist reviewed the uploaded slip within 10 minutes and the medicine arrived safely at our door in 40 minutes!"
+          </p>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="testimonial-avatar" style="width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">CW</div>
+            <div>
+              <strong style="font-size:0.92rem; display:block;">Claire Williams</strong>
+              <span style="font-size:0.78rem;">Verified Patient • Manhattan, NY</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div style="color:#F59E0B; margin-bottom:12px; font-size:0.9rem;">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p style="font-size:0.92rem; line-height:1.6; margin-bottom:16px;">
+            "The cold-chain packaging for insulin is exceptional. It arrived in an insulated thermo-pouch with chilled ice packs at the exact required 4 degrees Celsius. Extremely impressed by the medical professionalism."
+          </p>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="testimonial-avatar" style="width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">RT</div>
+            <div>
+              <strong style="font-size:0.92rem; display:block;">Robert Taylor</strong>
+              <span style="font-size:0.78rem;">Chronic Care Patient • Brooklyn, NY</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div style="color:#F59E0B; margin-bottom:12px; font-size:0.9rem;">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p style="font-size:0.92rem; line-height:1.6; margin-bottom:16px;">
+            "Mediora's digital prescription upload is smoother than any chain pharmacy app. The pharmacist actually called me to clarify my antibiotic allergy history before dispatch. Outstanding customer care!"
+          </p>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="testimonial-avatar" style="width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700;">SN</div>
+            <div>
+              <strong style="font-size:0.92rem; display:block;">Sophia Nguyen</strong>
+              <span style="font-size:0.78rem;">Family Care Member • Queens, NY</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       GLOBAL FOOTER
+       ========================================================================= -->
+  <footer class="global-footer">
+    <div class="container footer-grid">
+      <div class="footer-col-brand">
+        <a href="index.html">
+          <img src="images/logo-white.svg" alt="Mediora" style="height:44px;">
+        </a>
+        <p>
+          Mediora is a certified online pharmacy and healthcare delivery service dedicated to patient safety, authentic pharmaceuticals, and clinical dispensing excellence.
+        </p>
+        <div class="footer-licence-badge">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>State Board Pharmacy License #NY-PHARM-88204</span>
+        </div>
+        <div class="footer-social-links">
+          <a href="#" class="social-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-link" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation Links</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home (Main)</a></li>
+          <li><a href="home-2.html"><i class="fa-solid fa-chevron-right"></i> Home 2 (Express)</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Our Pharmacy</a></li>
+          <li><a href="products.html"><i class="fa-solid fa-chevron-right"></i> Browse All Medicines</a></li>
+          <li><a href="upload-prescription.html"><i class="fa-solid fa-chevron-right"></i> Upload Prescription</a></li>
+          <li><a href="blog.html"><i class="fa-solid fa-chevron-right"></i> Health Articles &amp; Blog</a></li>
+          <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Customer Contact &amp; FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Dispensary Categories</h4>
+        <ul class="footer-links-list">
+          <li><a href="products.html?cat=prescription"><i class="fa-solid fa-chevron-right"></i> Prescription Rx</a></li>
+          <li><a href="products.html?cat=otc"><i class="fa-solid fa-chevron-right"></i> Over-the-Counter (OTC)</a></li>
+          <li><a href="products.html?cat=vitamins"><i class="fa-solid fa-chevron-right"></i> Vitamins &amp; Supplements</a></li>
+          <li><a href="products.html?cat=devices"><i class="fa-solid fa-chevron-right"></i> Medical Equipment</a></li>
+          <li><a href="products.html?cat=baby"><i class="fa-solid fa-chevron-right"></i> Baby &amp; Pediatric Care</a></li>
+          <li><a href="user-dashboard.html"><i class="fa-solid fa-chevron-right"></i> Patient Portal</a></li>
+          <li><a href="admin-dashboard.html"><i class="fa-solid fa-chevron-right"></i> Admin Workbench</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>24/7 Dispensary Support</h4>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>742 Healthway Boulevard, Suite 400<br>New York, NY 10001, USA</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <span>Helpline: (800) 555-0199<br>Direct Rx: (212) 555-0145</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <span>rx-desk@mediora.com<br>support@mediora.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-clock"></i>
+          <span>Dispensary: 24 Hours / 7 Days<br>Clinical Pharmacist on Duty</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-disclaimer-bar">
+      <div class="container">
+        <p class="disclaimer-text">
+          <strong>Mandatory Healthcare Disclaimer:</strong> All medicines requiring prescription are dispensed strictly against an authentic, legible medical prescription from a registered healthcare professional. Content on this website is for educational and informational purposes only and does not constitute clinical diagnosis or substitute for professional medical advice. Always consult your physician before starting any medication regimen.
+        </p>
+        <div class="footer-bottom-flex">
+          <div>
+            &copy; 2026 Mediora Inc. All Rights Reserved. HIPAA Compliant • FDA Registered Logistics.
+          </div>
+          <div class="payment-badges" title="Accepted Payment Methods">
+            <i class="fa-brands fa-cc-visa"></i>
+            <i class="fa-brands fa-cc-mastercard"></i>
+            <i class="fa-brands fa-cc-amex"></i>
+            <i class="fa-brands fa-cc-paypal"></i>
+            <i class="fa-brands fa-cc-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER & OVERLAY -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart Drawer">
+    <div class="cart-drawer-header">
+      <h3><i class="fa-solid fa-basket-shopping" style="color:var(--primary-green);"></i> Your Pharmacy Cart</h3>
+      <button class="cart-close-btn" onclick="window.PharmaApp.closeCartDrawer()" aria-label="Close Cart">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div id="cartRxWarningBox" style="display:none; background:#FEF2F2; border-bottom:1px solid #FECACA; padding:10px 16px; font-size:0.8rem; color:#991B1B;">
+      <i class="fa-solid fa-triangle-exclamation"></i> Contains prescription medicines. You must provide a valid prescription before order dispatch.
+    </div>
+    <div class="cart-drawer-body" id="cartDrawerBody"></div>
+    <div class="cart-drawer-footer">
+      <div class="cart-summary-line"><span>Subtotal</span><strong id="cartSubtotal">$0.00</strong></div>
+      <div class="cart-summary-line"><span>Estimated Delivery Fee</span><strong id="cartShipping">$0.00</strong></div>
+      <div class="cart-total-line"><span>Estimated Total</span><span id="cartTotal" style="color:var(--primary-green);">$0.00</span></div>
+      <button class="btn btn-primary btn-lg" style="width:100%;" id="proceedCheckoutBtn">
+        Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+      </button>
+      <div style="text-align:center; margin-top:10px; font-size:0.75rem; color:var(--text-muted);">
+        <i class="fa-solid fa-lock"></i> 256-Bit SSL Encrypted Healthcare Checkout
+      </div>
+    </div>
+  </aside>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Patient &amp; Staff Portal Access</h3>
+        <button class="modal-close-btn" onclick="window.PharmaApp.closeModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="loginTabBtn" onclick="window.PharmaApp.switchAuthTab('login')">Patient Login</button>
+          <button class="auth-tab-btn" id="registerTabBtn" onclick="window.PharmaApp.switchAuthTab('register')">New Registration</button>
+        </div>
+        <form id="loginForm" onsubmit="event.preventDefault(); window.PharmaApp.showToast('Login successful! Welcome back.', 'success'); window.PharmaApp.closeModal('authModal');">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" class="form-control" id="loginEmail" required value="demo@patient.com">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <div style="position:relative;">
+              <input type="password" class="form-control" id="loginPass" required value="password123">
+              <i class="fa-regular fa-eye" style="position:absolute; right:14px; top:13px; color:var(--text-muted); cursor:pointer;" onclick="window.PharmaApp.togglePasswordVisibility('loginPass', this)"></i>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; font-size:0.84rem;">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" checked accent-color="var(--primary-green)"> Remember this device
+            </label>
+            <a href="#" style="color:var(--primary-green); font-weight:600;" onclick="window.PharmaApp.showToast('Password reset link sent to demo email', 'info'); return false;">Forgot Password?</a>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Sign In to Patient Portal</button>
+        </form>
+        <form id="registerForm" style="display:none;" onsubmit="event.preventDefault(); window.PharmaApp.showToast('Account registered! Verification email sent.', 'success'); window.PharmaApp.closeModal('authModal');">
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" class="form-control" required placeholder="Eleanor"></div>
+            <div class="form-group"><label>Last Name</label><input type="text" class="form-control" required placeholder="Vance"></div>
+          </div>
+          <div class="form-group"><label>Email Address</label><input type="email" class="form-control" required placeholder="name@domain.com"></div>
+          <div class="form-group"><label>Phone Number</label><input type="tel" class="form-control" required placeholder="(555) 000-0000"></div>
+          <div class="form-group"><label>Create Password</label><input type="password" class="form-control" required placeholder="At least 8 characters"></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Create Patient Account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT QUICK VIEW MODAL -->
+  <div class="modal-backdrop" id="quickViewModal">
+    <div class="modal-card" style="max-width:680px;">
+      <div class="modal-header">
+        <h3 id="qvTitle">Medicine Details</h3>
+        <button class="modal-close-btn" onclick="window.PharmaApp.closeModal('quickViewModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" style="display:grid; grid-template-columns:1fr 1.3fr; gap:24px;">
+        <div style="background:#F9FBFA; padding:16px; border-radius:var(--radius-lg); display:flex; align-items:center; justify-content:center;">
+          <img id="qvImage" src="images/cat-prescription.jpg" alt="Medicine" style="max-height:220px; object-fit:contain;">
+        </div>
+        <div>
+          <div style="display:flex; gap:8px; margin-bottom:8px;">
+            <span id="qvRxBadge" class="badge badge-rx">Rx Required</span>
+            <span id="qvCategory" class="badge" style="background:var(--subtle-gray); color:var(--text-secondary);">Category</span>
+          </div>
+          <div id="qvBrand" style="font-size:0.85rem; font-weight:700; color:var(--primary-green); margin-bottom:4px;">Brand</div>
+          <div id="qvDosage" style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:12px;">Dosage</div>
+          <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:14px;">
+            <span id="qvPrice" style="font-size:1.6rem; font-weight:800; color:var(--dark-forest); font-family:var(--font-heading);">$0.00</span>
+            <span id="qvOldPrice" style="font-size:0.9rem; text-decoration:line-through; color:var(--text-light);">$0.00</span>
+          </div>
+          <p id="qvDesc" style="font-size:0.86rem; color:var(--text-secondary); line-height:1.5; margin-bottom:12px;">Product description</p>
+          <div style="background:var(--soft-medical-green); padding:10px 14px; border-radius:var(--radius-md); font-size:0.8rem; margin-bottom:18px;">
+            <strong id="qvIngredient">Active Ingredient: </strong><br>
+            <span id="qvUsage" style="color:var(--text-secondary);">Usage instructions</span>
+          </div>
+          <button id="qvAddBtn" class="btn btn-primary" style="width:100%;">
+            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RX VERIFICATION NOTICE MODAL -->
+  <div class="modal-backdrop" id="rxNoticeModal">
+    <div class="modal-card" style="max-width:480px; text-align:center;">
+      <div class="modal-body" style="padding:32px 24px;">
+        <div style="width:64px; height:64px; border-radius:50%; background:#FEE2E2; color:#DC2626; display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 16px auto;">
+          <i class="fa-solid fa-file-prescription"></i>
+        </div>
+        <h3 style="font-size:1.35rem; margin-bottom:10px;">Prescription Required</h3>
+        <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.55; margin-bottom:20px;">
+          You added <strong id="rxNoticeProductName">Prescription Medication</strong> to your cart. By pharmacy regulations, our licensed clinical pharmacists must verify an authentic doctor's prescription before delivery.
+        </p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <a href="upload-prescription.html" class="btn btn-primary" onclick="window.PharmaApp.closeModal('rxNoticeModal')">
+            <i class="fa-solid fa-file-arrow-up"></i> Upload Doctor's Prescription Now
+          </a>
+          <button class="btn btn-secondary" onclick="window.PharmaApp.closeModal('rxNoticeModal')">
+            I Will Provide It Later (Continue Shopping)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT DEMO MODAL -->
+  <div class="modal-backdrop" id="checkoutDemoModal">
+    <div class="modal-card" style="max-width:500px; text-align:center;">
+      <div class="modal-body" style="padding:36px 28px;">
+        <div style="width:64px; height:64px; border-radius:50%; background:var(--soft-medical-green); color:var(--primary-green); display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 16px auto;">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h3 style="font-size:1.4rem; margin-bottom:8px;">Order Placed for Demonstration!</h3>
+        <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.55; margin-bottom:16px;">
+          Thank you for testing the Mediora ordering experience! A sample order <strong>#RX-90822</strong> has been logged in your patient account.
+        </p>
+        <div style="background:#FFFBEB; border:1px solid #FCD34D; border-radius:var(--radius-md); padding:12px; font-size:0.8rem; color:#92400E; text-align:left; margin-bottom:20px;">
+          <i class="fa-solid fa-circle-info"></i> <strong>Frontend Prototype Notice:</strong> No actual payment was charged. Real dispensing requires licensed pharmacist verification on secure backend.
+        </div>
+        <div style="display:flex; gap:12px; justify-content:center;">
+          <a href="user-dashboard.html" class="btn btn-primary">View in Patient Dashboard</a>
+          <button class="btn btn-secondary" onclick="window.PharmaApp.closeModal('checkoutDemoModal')">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    function checkDeliveryZip() {
+      const zip = document.getElementById('heroZipInput').value.trim();
+      const res = document.getElementById('zipResult');
+      if (zip.length === 5 && !isNaN(zip)) {
+        res.style.display = 'block';
+        res.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>ZIP ${zip}</strong> is eligible for 30-Minute Rush Medicine Delivery!`;
+        window.PharmaApp.showToast(`ZIP ${zip} is within our active 30-min express zone!`, 'success');
+      } else {
+        res.style.display = 'block';
+        res.style.color = '#DC2626';
+        res.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Please enter a valid 5-digit ZIP code.`;
+      }
+    }
+
+    function quickFillSearch(term) {
+      window.location.href = `products.html?q=${encodeURIComponent(term)}`;
+    }
+
+    // Interactive Deals Countdown Clock
+    (function initDealsTimer() {
+      let secondsRemaining = 3 * 3600 + 42 * 60 + 18;
+      const timerEl = document.getElementById('dealCountTimer');
+      if (!timerEl) return;
+      setInterval(() => {
+        if (secondsRemaining > 0) secondsRemaining--;
+        const h = String(Math.floor(secondsRemaining / 3600)).padStart(2, '0');
+        const m = String(Math.floor((secondsRemaining % 3600) / 60)).padStart(2, '0');
+        const s = String(secondsRemaining % 60).padStart(2, '0');
+        timerEl.textContent = `${h}:${m}:${s}`;
+      }, 1000);
+    })();
+
+    // Interactive Refill Station Handlers
+    function selectRefillOption(el) {
+      document.querySelectorAll('input[name="refillCycle"]').forEach(input => {
+        input.closest('.refill-radio-option').classList.remove('selected');
+      });
+      el.classList.add('selected');
+      const radio = el.querySelector('input');
+      if (radio) radio.checked = true;
+    }
+
+    function selectDeliveryOption(el) {
+      document.querySelectorAll('input[name="deliverySpeed"]').forEach(input => {
+        input.closest('.refill-radio-option').classList.remove('selected');
+      });
+      el.classList.add('selected');
+      const radio = el.querySelector('input');
+      if (radio) radio.checked = true;
+    }
+
+    function handleRefillLookup() {
+      const rxNum = document.getElementById('rxNumberInput').value.trim();
+      const resultBox = document.getElementById('refillResultBox');
+      if (!rxNum) {
+        window.PharmaApp.showToast('Please enter an Rx Number', 'error');
+        return;
+      }
+      window.PharmaApp.showToast(`Verifying prescription ${rxNum} in dispensary ledger...`, 'info');
+      setTimeout(() => {
+        if (resultBox) {
+          resultBox.style.display = 'block';
+          resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        window.PharmaApp.showToast('Rx verified: Lisinopril 20mg is ready for dispatch!', 'success');
+      }, 600);
+    }
+  </script>
+</body>
+</html>

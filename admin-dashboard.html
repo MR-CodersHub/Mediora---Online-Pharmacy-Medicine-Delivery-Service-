@@ -1,0 +1,1926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Dispensary Console &amp; Admin Dashboard | Mediora</title>
+  <meta name="description" content="Administrative dispensary portal for licensed clinical pharmacists to review uploaded prescriptions, monitor cold-chain inventory, manage orders, and dispatch deliveries.">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function(){
+      try {
+        if(localStorage.getItem('mediora_theme_mode') === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        if(localStorage.getItem('mediora_direction') === 'rtl') {
+          document.documentElement.setAttribute('dir', 'rtl');
+        }
+      } catch(e){}
+    })();
+  </script>
+</head>
+<body style="background:#F8FAF9;">
+
+  <!-- ADMIN TOP BAR -->
+  <div class="top-bar" style="background:#032A20;">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-user-doctor" style="color:var(--mint-green);"></i>
+          <span>Clinical Pharmacist on Duty: <strong>Dr. Sarah Jenkins, PharmD (ID #PH-492)</strong></span>
+        </div>
+        <div class="top-bar-item">
+          <i class="fa-solid fa-snowflake" style="color:var(--mint-green);"></i>
+          <span>Refrigerated Vault Temp: <strong>3.6°C (Optimal 2°C – 8°C)</strong></span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <div class="top-bar-item">
+          <i class="fa-solid fa-shield-halved" style="color:var(--mint-green);"></i>
+          <span>DEA State Audit: <strong>Verified Compliant (#NY-PHARM-88204)</strong></span>
+        </div>
+        <div class="top-bar-item">
+          <a href="index.html" class="top-bar-link" style="color:var(--mint-green); font-weight:700;"><i class="fa-solid fa-arrow-left"></i> Patient Storefront</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIFIED DASHBOARD STICKY HEADER -->
+  <header class="dashboard-header-bar">
+    <div class="dash-header-left">
+      <a href="index.html" class="brand-logo" title="Mediora Home">
+        <img src="images/logo.svg" alt="Mediora Logo" class="logo-light">
+        <img src="images/logo-white.svg" alt="Mediora Logo" class="logo-dark">
+      </a>
+
+      <!-- Sidebar Toggle Hamburger Button -->
+      <button type="button" class="dash-sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation Sidebar" title="Collapse / Expand Sidebar">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+
+      <!-- Staff Console Badge -->
+      <span class="dash-console-badge">
+        <i class="fa-solid fa-shield-halved"></i> Staff Dispensary Console
+      </span>
+
+      <!-- Breadcrumbs -->
+      <div class="dash-breadcrumb">
+        <a href="index.html">Mediora</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+        <a href="admin-dashboard.html">Staff Console</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+        <span class="active" id="adminBreadcrumbCurrent">Dispensary Overview</span>
+      </div>
+    </div>
+
+    <div class="dash-header-right">
+      <!-- Cold-Chain Telemetry Pill -->
+      <span class="dash-system-badge">
+        <i class="fa-solid fa-circle-dot" style="color:#10B981; animation:pulseGreen 1.5s infinite;"></i>
+        <span>Vault: <strong>3.6°C Compliant</strong></span>
+      </span>
+
+      <!-- RTL & Theme Controls -->
+      <button type="button" class="header-action-btn rtl-toggle-btn" id="rtlToggleBtn" aria-label="Toggle RTL Layout" title="Toggle RTL / LTR layout" onclick="window.PharmaApp.toggleRTL()">
+        <i class="fa-solid fa-right-left"></i>
+        <span class="toggle-text">RTL</span>
+      </button>
+
+      <button type="button" class="header-action-btn theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Dark / Light Theme" title="Toggle Dark / Light Theme" onclick="window.PharmaApp.toggleTheme()">
+        <i class="fa-solid fa-moon theme-icon"></i>
+        <span class="toggle-text">Dark</span>
+      </button>
+
+      <!-- Notification Bell with Popover -->
+      <div class="dash-notification-wrapper">
+        <button type="button" class="dash-notification-btn" id="dashNotifBtn" onclick="toggleNotifications()" aria-label="View Operational Alerts">
+          <i class="fa-regular fa-bell"></i>
+          <span class="dash-notification-badge">5</span>
+        </button>
+        
+        <div class="dash-notification-popover" id="dashNotifPopover">
+          <div class="dash-notif-header">
+            <span>Dispensary Alerts (5)</span>
+            <a href="javascript:void(0)" onclick="clearAdminNotifications()" style="font-size:0.75rem; color:var(--primary-green); font-weight:600;">Mark Read</a>
+          </div>
+          <div class="dash-notif-item" onclick="switchAdminTab('prescriptions')">
+            <div class="dash-notif-icon" style="background:#FEE2E2; color:#991B1B;"><i class="fa-solid fa-file-medical"></i></div>
+            <div>
+              <strong>7 Pending Prescriptions</strong>
+              <div style="color:var(--text-muted); font-size:0.75rem; margin-top:2px;">Patient scripts awaiting PharmD verification.</div>
+            </div>
+          </div>
+          <div class="dash-notif-item" onclick="switchAdminTab('orders')">
+            <div class="dash-notif-icon" style="background:#FEF3C7; color:#92400E;"><i class="fa-solid fa-box-open"></i></div>
+            <div>
+              <strong>38 New Orders Placed</strong>
+              <div style="color:var(--text-muted); font-size:0.75rem; margin-top:2px;">14 cold-chain insulated packs ready for staging.</div>
+            </div>
+          </div>
+          <div class="dash-notif-item" onclick="switchAdminTab('deliveries')">
+            <div class="dash-notif-icon" style="background:#E0F2FE; color:#0369A1;"><i class="fa-solid fa-truck-fast"></i></div>
+            <div>
+              <strong>Van #NY-MED-04 On Route</strong>
+              <div style="color:var(--text-muted); font-size:0.75rem; margin-top:2px;">Insulated temp 3.4°C — 8 stops remaining.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clean Header Account Section: ONLY user icon button + 3-item dropdown -->
+      <div class="account-wrapper">
+        <button type="button" class="header-action-btn account-icon-btn" id="accountBtn" aria-label="Account Menu" title="Account Menu">
+          <i class="fa-regular fa-user"></i>
+        </button>
+        <div class="account-dropdown-menu" id="accountDropdown">
+          <a href="javascript:void(0)" class="dropdown-item" onclick="window.PharmaApp.openAuthModal('login')">
+            <i class="fa-solid fa-right-to-bracket"></i> Login / Sign Up
+          </a>
+          <a href="admin-dashboard.html" class="dropdown-item active">
+            <i class="fa-solid fa-shield-halved"></i> Admin Dashboard
+          </a>
+          <a href="user-dashboard.html" class="dropdown-item">
+            <i class="fa-solid fa-id-card-clip"></i> User Dashboard
+          </a>
+        </div>
+      </div>
+
+      <!-- Topbar Staff Chip -->
+      <div class="dash-user-chip">
+        <div class="dash-user-chip-avatar" style="background:#053B2D;">SJ</div>
+        <div class="dash-user-chip-info">
+          <div class="dash-user-chip-name">Dr. Sarah Jenkins</div>
+          <div class="dash-user-chip-role">Chief Pharmacist</div>
+        </div>
+      </div>
+
+      <!-- Switch to Patient Portal shortcut -->
+      <a href="user-dashboard.html" class="btn btn-secondary btn-sm" style="display:inline-flex; align-items:center; gap:6px;">
+        <i class="fa-solid fa-user"></i> Patient Portal
+      </a>
+    </div>
+  </header>
+
+  <!-- DASHBOARD APP SHELL CONTAINER -->
+  <div class="dashboard-app-shell">
+    
+    <!-- Mobile Sidebar Drawer Overlay -->
+    <div class="dash-sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- LEFT ADMIN SIDEBAR NAVIGATION -->
+    <aside class="dashboard-sidebar" id="dashboardSidebar">
+      
+      <!-- Staff Profile Card -->
+      <div class="dash-sidebar-header">
+        <div class="dash-user-card">
+          <div class="dash-avatar" style="background:#E0F2FE; color:#0284C7; border-color:#0284C7;">
+            <i class="fa-solid fa-user-doctor"></i>
+          </div>
+          <h4>Dr. Sarah Jenkins</h4>
+          <p>Supervising Chief Pharmacist, PharmD</p>
+          <div style="margin-top:8px;">
+            <span class="badge" style="background:#053B2D; color:#34D399; font-size:0.72rem; padding:3px 8px;">
+              <i class="fa-solid fa-shield-halved"></i> DEA #FB-9402188
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="dash-sidebar-body">
+        <div class="dash-nav-category-title">Core Operations</div>
+        
+        <button class="dash-nav-btn active" id="nav-overview" onclick="switchAdminTab('overview')">
+          <i class="fa-solid fa-gauge-high"></i>
+          <span>Overview</span>
+        </button>
+
+        <button class="dash-nav-btn" id="nav-orders" onclick="switchAdminTab('orders')">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>Orders Management</span>
+          <span class="dash-nav-pill-badge badge-pending">38 New</span>
+        </button>
+
+        <button class="dash-nav-btn" id="nav-prescriptions" onclick="switchAdminTab('prescriptions')">
+          <i class="fa-solid fa-file-medical"></i>
+          <span>Prescription Verification</span>
+          <span class="dash-nav-pill-badge badge-rejected" style="background:#FEE2E2; color:#991B1B;">7 Pending</span>
+        </button>
+
+        <button class="dash-nav-btn" id="nav-products" onclick="switchAdminTab('products')">
+          <i class="fa-solid fa-tablets"></i>
+          <span>Products &amp; Categories</span>
+          <span class="dash-nav-pill-badge" style="background:#E0F2FE; color:#0369A1;">540 SKUs</span>
+        </button>
+
+        <div class="dash-nav-category-title" style="margin-top:10px;">Fulfillment &amp; Patients</div>
+
+        <button class="dash-nav-btn" id="nav-customers" onclick="switchAdminTab('customers')">
+          <i class="fa-solid fa-users"></i>
+          <span>Customers (Patients)</span>
+        </button>
+
+        <button class="dash-nav-btn" id="nav-deliveries" onclick="switchAdminTab('deliveries')">
+          <i class="fa-solid fa-truck-ramp-box"></i>
+          <span>Deliveries &amp; Fleet</span>
+          <span class="dash-nav-pill-badge badge-coldchain">6 Vans</span>
+        </button>
+
+        <button class="dash-nav-btn" id="nav-reminders" onclick="switchAdminTab('reminders')">
+          <i class="fa-solid fa-bell"></i>
+          <span>Refill Reminders</span>
+          <span class="dash-nav-pill-badge badge-pending">42 Due</span>
+        </button>
+
+        <div class="dash-nav-category-title" style="margin-top:10px;">Analytics &amp; Config</div>
+
+        <button class="dash-nav-btn" id="nav-reports" onclick="switchAdminTab('reports')">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Reports &amp; Analytics</span>
+        </button>
+
+        <button class="dash-nav-btn" id="nav-settings" onclick="switchAdminTab('settings')">
+          <i class="fa-solid fa-gears"></i>
+          <span>Dispensary Settings</span>
+        </button>
+      </div>
+
+      <!-- Sidebar Footer -->
+      <div class="dash-sidebar-footer">
+        <div style="background:var(--subtle-gray); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:10px 12px; font-size:0.75rem; color:var(--text-secondary);">
+          <div style="font-weight:700; color:var(--dark-forest); margin-bottom:2px;"><i class="fa-solid fa-circle-check" style="color:var(--primary-green);"></i> Shift Status: Active</div>
+          Dispensary Vault A: 3.6°C Normal<br>
+          Next DEA inspection: Q1 2027
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN DASHBOARD CONTENT AREA -->
+    <main class="dashboard-main-content">
+      
+      <!-- MAIN CONTENT -->
+
+      <!-- Frontend Demo Disclaimer Alert -->
+      <div style="background:#FEF3C7; border:1.5px solid #F59E0B; border-radius:var(--radius-lg); padding:14px 20px; margin-bottom:24px; display:flex; align-items:center; justify-content:space-between; gap:16px; color:#92400E; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <i class="fa-solid fa-triangle-exclamation" style="font-size:1.3rem; flex-shrink:0;"></i>
+          <span style="font-size:0.85rem; line-height:1.4;">
+            <strong>Administrative Frontend Demonstration:</strong> Pharmacist verification workflows, cold-chain IoT telemetry, order fulfillments, and patient records are presented as functional frontend simulations.
+          </span>
+        </div>
+        <span class="badge" style="background:#92400E; color:#FFFFFF; font-size:0.72rem; padding:4px 8px;">
+          <i class="fa-solid fa-lock"></i> Staff Role Protected
+        </span>
+      </div>
+
+      <!-- =========================================================================
+           TAB 1: ADMIN OVERVIEW
+           ========================================================================= -->
+      <section class="dash-tab-pane active" id="pane-admin-overview">
+        
+        <div class="dash-page-header">
+          <div>
+            <h1 class="dash-page-header-title">Pharmacy Operations Overview</h1>
+            <p class="dash-page-header-sub">Daily operational monitoring, prescription verification throughput, cold-chain fleet status, and revenue telemetry.</p>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-outline btn-sm" onclick="exportCsvDemo('Overview_Summary')">
+              <i class="fa-solid fa-file-csv"></i> Export CSV
+            </button>
+            <button class="btn btn-primary btn-sm" onclick="switchAdminTab('prescriptions')">
+              <i class="fa-solid fa-clipboard-check"></i> Review Prescriptions (7)
+            </button>
+          </div>
+        </div>
+
+        <!-- 6 KPI SUMMARY CARDS -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-bottom:24px;">
+          
+          <div class="dash-kpi-card" onclick="switchAdminTab('orders')" style="cursor:pointer;">
+            <div class="dash-kpi-icon" style="background:#ECFDF5; color:#087653;">
+              <i class="fa-solid fa-boxes-stacked"></i>
+            </div>
+            <div class="dash-kpi-info">
+              <div class="dash-kpi-value">1,482</div>
+              <div class="dash-kpi-label">Total Orders</div>
+              <div class="dash-kpi-tag" style="background:#D1FAE5; color:#065F46;">
+                <i class="fa-solid fa-arrow-up"></i> +12.4% vs last week
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-kpi-card" onclick="switchAdminTab('orders')" style="cursor:pointer;">
+            <div class="dash-kpi-icon" style="background:#FEF3C7; color:#D97706;">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="dash-kpi-info">
+              <div class="dash-kpi-value">38</div>
+              <div class="dash-kpi-label">New Orders Today</div>
+              <div class="dash-kpi-tag" style="background:#FEF3C7; color:#92400E;">
+                <i class="fa-solid fa-truck-ramp-box"></i> Requires Packing
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-kpi-card" onclick="switchAdminTab('prescriptions')" style="cursor:pointer;">
+            <div class="dash-kpi-icon" style="background:#FEE2E2; color:#DC2626;">
+              <i class="fa-solid fa-file-prescription"></i>
+            </div>
+            <div class="dash-kpi-info">
+              <div class="dash-kpi-value">7</div>
+              <div class="dash-kpi-label">Pending Prescriptions</div>
+              <div class="dash-kpi-tag" style="background:#FEE2E2; color:#991B1B;">
+                <i class="fa-solid fa-circle-exclamation"></i> PharmD Review Needed
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-kpi-card" onclick="switchAdminTab('products')" style="cursor:pointer;">
+            <div class="dash-kpi-icon" style="background:#E0F2FE; color:#0284C7;">
+              <i class="fa-solid fa-tablets"></i>
+            </div>
+            <div class="dash-kpi-info">
+              <div class="dash-kpi-value">540</div>
+              <div class="dash-kpi-label">Active Medicine SKUs</div>
+              <div class="dash-kpi-tag" style="background:#E0F2FE; color:#0369A1;">
+                <i class="fa-solid fa-triangle-exclamation"></i> 12 Low Stock
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-kpi-card" onclick="switchAdminTab('customers')" style="cursor:pointer;">
+            <div class="dash-kpi-icon" style="background:#F3E8FF; color:#7E22CE;">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="dash-kpi-info">
+              <div class="dash-kpi-value">3,290</div>
+              <div class="dash-kpi-label">Registered Patients</div>
+              <div class="dash-kpi-tag" style="background:#F3E8FF; color:#6B21A8;">
+                <i class="fa-solid fa-shield-halved"></i> HIPAA Protected
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-kpi-card" onclick="switchAdminTab('deliveries')" style="cursor:pointer;">
+            <div class="dash-kpi-icon" style="background:#CCFBF1; color:#0F766E;">
+              <i class="fa-solid fa-truck-fast"></i>
+            </div>
+            <div class="dash-kpi-info">
+              <div class="dash-kpi-value">6 Vans</div>
+              <div class="dash-kpi-label">Cold-Chain Fleet</div>
+              <div class="dash-kpi-tag" style="background:#CCFBF1; color:#0F766E;">
+                <i class="fa-solid fa-snowflake"></i> 100% 2°C–8°C Safe
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CHARTS SECTION: 2 SVG CHARTS -->
+        <div style="display:grid; grid-template-columns:1.35fr 0.85fr; gap:24px; margin-bottom:28px;">
+          
+          <!-- Chart 1: 7-Day Order Volume Trend (SVG Bar & Spline Chart) -->
+          <div class="dash-chart-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+              <div>
+                <h3 style="font-size:1.05rem; margin:0; color:var(--dark-forest); font-weight:700;">
+                  <i class="fa-solid fa-chart-column" style="color:var(--primary-green);"></i> 7-Day Order &amp; Dispensing Volume
+                </h3>
+                <span style="font-size:0.78rem; color:var(--text-muted);">Mon Oct 04 – Sun Oct 10 • Daily packages fulfilled</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:12px; font-size:0.75rem;">
+                <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#087653; border-radius:2px;"></span> Orders</span>
+                <span style="display:flex; align-items:center; gap:4px;"><span style="width:10px; height:10px; background:#34D399; border-radius:2px;"></span> Cold-Chain</span>
+              </div>
+            </div>
+
+            <!-- Responsive Pure SVG Chart -->
+            <svg class="dash-chart-svg" viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg">
+              <!-- Grid lines -->
+              <line x1="40" y1="30" x2="580" y2="30" stroke="#E2E8F0" stroke-dasharray="4 4"/>
+              <line x1="40" y1="80" x2="580" y2="80" stroke="#E2E8F0" stroke-dasharray="4 4"/>
+              <line x1="40" y1="130" x2="580" y2="130" stroke="#E2E8F0" stroke-dasharray="4 4"/>
+              <line x1="40" y1="180" x2="580" y2="180" stroke="#E2E8F0"/>
+
+              <!-- Y-axis labels -->
+              <text x="30" y="34" font-size="11" fill="#94A3B8" text-anchor="end">200</text>
+              <text x="30" y="84" font-size="11" fill="#94A3B8" text-anchor="end">150</text>
+              <text x="30" y="134" font-size="11" fill="#94A3B8" text-anchor="end">100</text>
+              <text x="30" y="184" font-size="11" fill="#94A3B8" text-anchor="end">0</text>
+
+              <!-- Day Bars (Mon-Sun) -->
+              <!-- Mon -->
+              <rect x="70" y="65" width="22" height="115" rx="3" fill="#087653"/>
+              <rect x="96" y="105" width="22" height="75" rx="3" fill="#34D399"/>
+              <text x="94" y="202" font-size="11" fill="#64748B" text-anchor="middle">Mon</text>
+
+              <!-- Tue -->
+              <rect x="145" y="55" width="22" height="125" rx="3" fill="#087653"/>
+              <rect x="171" y="95" width="22" height="85" rx="3" fill="#34D399"/>
+              <text x="169" y="202" font-size="11" fill="#64748B" text-anchor="middle">Tue</text>
+
+              <!-- Wed -->
+              <rect x="220" y="45" width="22" height="135" rx="3" fill="#087653"/>
+              <rect x="246" y="85" width="22" height="95" rx="3" fill="#34D399"/>
+              <text x="244" y="202" font-size="11" fill="#64748B" text-anchor="middle">Wed</text>
+
+              <!-- Thu -->
+              <rect x="295" y="70" width="22" height="110" rx="3" fill="#087653"/>
+              <rect x="321" y="110" width="22" height="70" rx="3" fill="#34D399"/>
+              <text x="319" y="202" font-size="11" fill="#64748B" text-anchor="middle">Thu</text>
+
+              <!-- Fri -->
+              <rect x="370" y="40" width="22" height="140" rx="3" fill="#087653"/>
+              <rect x="396" y="80" width="22" height="100" rx="3" fill="#34D399"/>
+              <text x="394" y="202" font-size="11" fill="#64748B" text-anchor="middle">Fri</text>
+
+              <!-- Sat -->
+              <rect x="445" y="85" width="22" height="95" rx="3" fill="#087653"/>
+              <rect x="471" y="125" width="22" height="55" rx="3" fill="#34D399"/>
+              <text x="469" y="202" font-size="11" fill="#64748B" text-anchor="middle">Sat</text>
+
+              <!-- Sun (Today) -->
+              <rect x="520" y="50" width="22" height="130" rx="3" fill="#087653"/>
+              <rect x="546" y="90" width="22" height="90" rx="3" fill="#34D399"/>
+              <text x="544" y="202" font-size="11" fill="#087653" font-weight="bold" text-anchor="middle">Today</text>
+
+              <!-- Average Line -->
+              <path d="M 70 85 Q 220 60 370 70 T 560 65" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+
+          <!-- Chart 2: Product Categories Breakdown (SVG Donut Chart) -->
+          <div class="dash-chart-card">
+            <div style="margin-bottom:12px;">
+              <h3 style="font-size:1.05rem; margin:0; color:var(--dark-forest); font-weight:700;">
+                <i class="fa-solid fa-pie-chart" style="color:var(--primary-green);"></i> Inventory Categories
+              </h3>
+              <span style="font-size:0.78rem; color:var(--text-muted);">Share of 540 active pharmaceutical SKUs</span>
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap;">
+              <!-- Donut SVG -->
+              <svg width="150" height="150" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="38" fill="transparent" stroke="#E2E8F0" stroke-width="16"/>
+                <!-- Segment 1: Rx (48%) -->
+                <circle cx="50" cy="50" r="38" fill="transparent" stroke="#087653" stroke-width="16" stroke-dasharray="114 238" stroke-dashoffset="0"/>
+                <!-- Segment 2: OTC (26%) -->
+                <circle cx="50" cy="50" r="38" fill="transparent" stroke="#34D399" stroke-width="16" stroke-dasharray="62 238" stroke-dashoffset="-114"/>
+                <!-- Segment 3: Vitamins (14%) -->
+                <circle cx="50" cy="50" r="38" fill="transparent" stroke="#F59E0B" stroke-width="16" stroke-dasharray="33 238" stroke-dashoffset="-176"/>
+                <!-- Segment 4: Devices (12%) -->
+                <circle cx="50" cy="50" r="38" fill="transparent" stroke="#0284C7" stroke-width="16" stroke-dasharray="29 238" stroke-dashoffset="-209"/>
+                <text x="50" y="47" font-size="12" font-weight="bold" fill="#053B2D" text-anchor="middle">540</text>
+                <text x="50" y="60" font-size="7" fill="#64748B" text-anchor="middle">Total SKUs</text>
+              </svg>
+
+              <!-- Legend -->
+              <div style="display:flex; flex-direction:column; gap:6px; font-size:0.8rem;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span style="width:10px; height:10px; background:#087653; border-radius:2px;"></span>
+                  <span>Prescription Rx (48%)</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span style="width:10px; height:10px; background:#34D399; border-radius:2px;"></span>
+                  <span>Over-the-Counter (26%)</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span style="width:10px; height:10px; background:#F59E0B; border-radius:2px;"></span>
+                  <span>Vitamins &amp; Immune (14%)</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span style="width:10px; height:10px; background:#0284C7; border-radius:2px;"></span>
+                  <span>Health Devices (12%)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Priority Prescription Verification Queue (Top 3) -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div>
+              <h3 class="dash-card-title"><i class="fa-solid fa-clipboard-check"></i> Urgent Prescription Review Queue</h3>
+              <span style="font-size:0.78rem; color:var(--text-muted);">Assigned to Supervising Pharmacist Dr. Sarah Jenkins, PharmD</span>
+            </div>
+            <button class="btn btn-outline btn-xs" onclick="switchAdminTab('prescriptions')">View All (7) &rarr;</button>
+          </div>
+          <div class="dash-table-wrap">
+            <table class="dash-table">
+              <thead>
+                <tr>
+                  <th>Prescription ID</th>
+                  <th>Patient Name &amp; DOB</th>
+                  <th>Prescribed Medication</th>
+                  <th>Prescribing Doctor (DEA)</th>
+                  <th>Upload Time</th>
+                  <th>Quick Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="quickRxRow-88205">
+                  <td><strong>#RX-88205</strong></td>
+                  <td>Robert Chen (DOB: 11/04/1975)</td>
+                  <td><strong>Rosuvastatin Calcium 10mg</strong> (#30)</td>
+                  <td>Dr. Mark Hayes, MD (DEA #MH-102948)</td>
+                  <td>12 mins ago</td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-primary btn-xs" onclick="adminApproveRx('quickRxRow-88205', 'RX-88205')">
+                        <i class="fa-solid fa-check"></i> Approve
+                      </button>
+                      <button class="btn btn-secondary btn-xs" onclick="inspectAdminRx('RX-88205', 'Robert Chen', 'Rosuvastatin 10mg', 'Dr. Mark Hayes, MD')">
+                        <i class="fa-solid fa-eye"></i> Inspect
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr id="quickRxRow-88204">
+                  <td><strong>#RX-88204</strong></td>
+                  <td>Elena Rostova (DOB: 03/19/1982)</td>
+                  <td><strong>Levothyroxine Sodium 50mcg</strong> (#90)</td>
+                  <td>Dr. Lisa Chang, MD (DEA #LC-990412)</td>
+                  <td>25 mins ago</td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-primary btn-xs" onclick="adminApproveRx('quickRxRow-88204', 'RX-88204')">
+                        <i class="fa-solid fa-check"></i> Approve
+                      </button>
+                      <button class="btn btn-secondary btn-xs" onclick="inspectAdminRx('RX-88204', 'Elena Rostova', 'Levothyroxine 50mcg', 'Dr. Lisa Chang, MD')">
+                        <i class="fa-solid fa-eye"></i> Inspect
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr id="quickRxRow-88203">
+                  <td><strong>#RX-88203</strong></td>
+                  <td>Eleanor Vance (DOB: 06/14/1988)</td>
+                  <td><strong>Atorvastatin Calcium 20mg</strong> (#30)</td>
+                  <td>Dr. Arthur Bennett, MD (DEA #AB-904128)</td>
+                  <td>40 mins ago</td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-primary btn-xs" onclick="adminApproveRx('quickRxRow-88203', 'RX-88203')">
+                        <i class="fa-solid fa-check"></i> Approve
+                      </button>
+                      <button class="btn btn-secondary btn-xs" onclick="inspectAdminRx('RX-88203', 'Eleanor Vance', 'Atorvastatin 20mg', 'Dr. Arthur Bennett, MD')">
+                        <i class="fa-solid fa-eye"></i> Inspect
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- =========================================================================
+           TAB 2: ORDERS MANAGEMENT
+           ========================================================================= -->
+      <section class="dash-tab-pane" id="pane-admin-orders">
+        
+        <div class="dash-page-header">
+          <div>
+            <h2 class="dash-page-header-title">Orders &amp; Fulfillment Management</h2>
+            <p class="dash-page-header-sub">View customer orders, update fulfillment statuses in real time, manage cancellations, and track courier dispatches.</p>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-outline btn-sm" onclick="exportCsvDemo('Orders_Master_Log')">
+              <i class="fa-solid fa-file-csv"></i> Export Orders CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Orders Filter Toolbar -->
+        <div class="dash-toolbar-flex">
+          <div style="display:flex; gap:10px; align-items:center; flex:1; max-width:400px;">
+            <input type="text" class="form-control" id="adminOrderSearch" placeholder="Search by Order ID, Patient name, or Medication..." onkeyup="filterAdminOrdersTable()" style="padding:8px 12px; font-size:0.86rem;">
+          </div>
+          <div class="dash-filter-inputs">
+            <select class="dash-status-select" id="adminOrderStatusFilter" onchange="filterAdminOrdersTable()">
+              <option value="all">All Fulfillment Stages</option>
+              <option value="New">New / Placed</option>
+              <option value="Confirmed">Confirmed</option>
+              <option value="Packed">Packed &amp; Sealed</option>
+              <option value="Shipped">Shipped / In Transit</option>
+              <option value="Delivered">Delivered</option>
+            </select>
+            <button class="btn btn-outline btn-xs" onclick="resetAdminOrderFilters()">
+              <i class="fa-solid fa-rotate-left"></i> Reset Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="dash-card">
+          <div class="dash-table-wrap">
+            <table class="dash-table" id="adminOrdersTable">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Patient Name &amp; Contact</th>
+                  <th>Medications Summary</th>
+                  <th>Total</th>
+                  <th>Payment</th>
+                  <th>Update Fulfillment</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-status="Shipped">
+                  <td><strong>#MED-94025</strong></td>
+                  <td>Eleanor Vance<div style="font-size:0.75rem; color:var(--text-muted);">(555) 234-5678</div></td>
+                  <td>Lipitor 20mg (30 tabs) + Vitamin D3</td>
+                  <td><strong>$54.20</strong></td>
+                  <td><span class="badge badge-approved">Paid</span></td>
+                  <td>
+                    <select class="dash-status-select" onchange="handleOrderStatusChange('MED-94025', this.value)">
+                      <option value="New">New</option>
+                      <option value="Confirmed">Confirmed</option>
+                      <option value="Packed">Packed</option>
+                      <option value="Shipped" selected>Shipped (Out for Delivery)</option>
+                      <option value="Delivered">Delivered</option>
+                    </select>
+                  </td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-secondary btn-xs" onclick="viewAdminOrderModal('MED-94025', 'Eleanor Vance', '$54.20', 'Lipitor 20mg + Vitamin D3')">
+                        <i class="fa-solid fa-eye"></i> Details
+                      </button>
+                      <button class="btn btn-outline btn-xs" style="color:#EF4444;" onclick="cancelOrderPrompt('MED-94025')">
+                        <i class="fa-solid fa-ban"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr data-status="Packed">
+                  <td><strong>#MED-94024</strong></td>
+                  <td>David Sterling<div style="font-size:0.75rem; color:var(--text-muted);">(555) 301-9284</div></td>
+                  <td>Metformin 500mg ER (60 tabs)</td>
+                  <td><strong>$18.50</strong></td>
+                  <td><span class="badge badge-approved">Paid</span></td>
+                  <td>
+                    <select class="dash-status-select" onchange="handleOrderStatusChange('MED-94024', this.value)">
+                      <option value="New">New</option>
+                      <option value="Confirmed">Confirmed</option>
+                      <option value="Packed" selected>Packed &amp; Sealed</option>
+                      <option value="Shipped">Shipped</option>
+                      <option value="Delivered">Delivered</option>
+                    </select>
+                  </td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-secondary btn-xs" onclick="viewAdminOrderModal('MED-94024', 'David Sterling', '$18.50', 'Metformin 500mg ER')">
+                        <i class="fa-solid fa-eye"></i> Details
+                      </button>
+                      <button class="btn btn-outline btn-xs" style="color:#EF4444;" onclick="cancelOrderPrompt('MED-94024')">
+                        <i class="fa-solid fa-ban"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr data-status="Confirmed">
+                  <td><strong>#MED-94023</strong></td>
+                  <td>Dr. Maria Santos<div style="font-size:0.75rem; color:var(--text-muted);">(555) 441-2918</div></td>
+                  <td>Ventolin HFA (Albuterol) 90mcg</td>
+                  <td><strong>$45.00</strong></td>
+                  <td><span class="badge badge-approved">Paid</span></td>
+                  <td>
+                    <select class="dash-status-select" onchange="handleOrderStatusChange('MED-94023', this.value)">
+                      <option value="New">New</option>
+                      <option value="Confirmed" selected>Confirmed</option>
+                      <option value="Packed">Packed</option>
+                      <option value="Shipped">Shipped</option>
+                      <option value="Delivered">Delivered</option>
+                    </select>
+                  </td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-secondary btn-xs" onclick="viewAdminOrderModal('MED-94023', 'Dr. Maria Santos', '$45.00', 'Ventolin HFA')">
+                        <i class="fa-solid fa-eye"></i> Details
+                      </button>
+                      <button class="btn btn-outline btn-xs" style="color:#EF4444;" onclick="cancelOrderPrompt('MED-94023')">
+                        <i class="fa-solid fa-ban"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr data-status="New">
+                  <td><strong>#MED-94022</strong></td>
+                  <td>James O'Connor<div style="font-size:0.75rem; color:var(--text-muted);">(555) 789-1029</div></td>
+                  <td>Amoxicillin 875mg (20 tablets)</td>
+                  <td><strong>$24.50</strong></td>
+                  <td><span class="badge badge-approved">Paid</span></td>
+                  <td>
+                    <select class="dash-status-select" onchange="handleOrderStatusChange('MED-94022', this.value)">
+                      <option value="New" selected>New / Awaiting Review</option>
+                      <option value="Confirmed">Confirmed</option>
+                      <option value="Packed">Packed</option>
+                      <option value="Shipped">Shipped</option>
+                      <option value="Delivered">Delivered</option>
+                    </select>
+                  </td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-secondary btn-xs" onclick="viewAdminOrderModal('MED-94022', 'James O\'Connor', '$24.50', 'Amoxicillin 875mg')">
+                        <i class="fa-solid fa-eye"></i> Details
+                      </button>
+                      <button class="btn btn-outline btn-xs" style="color:#EF4444;" onclick="cancelOrderPrompt('MED-94022')">
+                        <i class="fa-solid fa-ban"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr data-status="Delivered">
+                  <td><strong>#MED-94020</strong></td>
+                  <td>Patricia Bell<div style="font-size:0.75rem; color:var(--text-muted);">(555) 602-8812</div></td>
+                  <td>Lisinopril 10mg (30 tablets)</td>
+                  <td><strong>$14.20</strong></td>
+                  <td><span class="badge badge-approved">Paid</span></td>
+                  <td>
+                    <select class="dash-status-select" onchange="handleOrderStatusChange('MED-94020', this.value)">
+                      <option value="New">New</option>
+                      <option value="Confirmed">Confirmed</option>
+                      <option value="Packed">Packed</option>
+                      <option value="Shipped">Shipped</option>
+                      <option value="Delivered" selected>Delivered</option>
+                    </select>
+                  </td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-secondary btn-xs" onclick="viewAdminOrderModal('MED-94020', 'Patricia Bell', '$14.20', 'Lisinopril 10mg')">
+                        <i class="fa-solid fa-eye"></i> Details
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- =========================================================================
+           TAB 3: PRESCRIPTION VERIFICATION WORKFLOW
+           ========================================================================= -->
+      <section class="dash-tab-pane" id="pane-admin-prescriptions">
+        
+        <div class="dash-page-header">
+          <div>
+            <h2 class="dash-page-header-title">Prescription Clinical Verification Desk</h2>
+            <p class="dash-page-header-sub">Authorized pharmacist verification station. Inspect DEA registrations, patient allergies, approve valid slips, or request physician clarification.</p>
+          </div>
+          <div>
+            <span class="badge badge-approved" style="font-size:0.85rem; padding:6px 14px;">
+              <i class="fa-solid fa-certificate"></i> PharmD Authorized Session
+            </span>
+          </div>
+        </div>
+
+        <!-- Filter Sub-Tabs -->
+        <div style="display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap;">
+          <button class="btn btn-primary btn-xs active" onclick="filterRxStatus('all', this)">All Records (12)</button>
+          <button class="btn btn-outline btn-xs" onclick="filterRxStatus('pending', this)">Pending Verification (7)</button>
+          <button class="btn btn-outline btn-xs" onclick="filterRxStatus('approved', this)">Approved (4)</button>
+          <button class="btn btn-outline btn-xs" onclick="filterRxStatus('clarification', this)">Clarification Needed (1)</button>
+        </div>
+
+        <!-- Prescription Verification Table -->
+        <div class="dash-card">
+          <div class="dash-table-wrap">
+            <table class="dash-table" id="adminRxTable">
+              <thead>
+                <tr>
+                  <th>Rx ID</th>
+                  <th>Patient Details</th>
+                  <th>Prescription &amp; Dosage</th>
+                  <th>Prescribing Physician &amp; DEA</th>
+                  <th>Verification Status</th>
+                  <th>Clinical Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-rx-status="pending" id="rxRow-88205">
+                  <td><strong>#RX-88205</strong></td>
+                  <td>Robert Chen<div style="font-size:0.75rem; color:var(--text-muted);">DOB: 11/04/1975 • No known allergies</div></td>
+                  <td><strong>Rosuvastatin Calcium 10mg</strong> (#30)<div style="font-size:0.75rem; color:var(--text-muted);">Sig: 1 tab daily at bedtime</div></td>
+                  <td>Dr. Mark Hayes, MD<div style="font-size:0.75rem; color:var(--text-muted);">DEA: #MH-102948 • NPI: 1409283411</div></td>
+                  <td><span class="badge badge-pending" id="badge-88205"><i class="fa-solid fa-clock"></i> Pending Review</span></td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-primary btn-xs" onclick="adminApproveRx('rxRow-88205', 'RX-88205')">
+                        <i class="fa-solid fa-check"></i> Approve
+                      </button>
+                      <button class="btn btn-secondary btn-xs" onclick="inspectAdminRx('RX-88205', 'Robert Chen', 'Rosuvastatin 10mg', 'Dr. Mark Hayes, MD')">
+                        <i class="fa-solid fa-eye"></i> Inspect
+                      </button>
+                      <button class="btn btn-outline btn-xs" style="color:#EF4444;" onclick="openRejectReasonModal('RX-88205')">
+                        <i class="fa-solid fa-xmark"></i> Reject
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr data-rx-status="pending" id="rxRow-88204">
+                  <td><strong>#RX-88204</strong></td>
+                  <td>Elena Rostova<div style="font-size:0.75rem; color:var(--text-muted);">DOB: 03/19/1982 • Hypothyroidism</div></td>
+                  <td><strong>Levothyroxine Sodium 50mcg</strong> (#90)<div style="font-size:0.75rem; color:var(--text-muted);">Sig: 1 tab daily 30m before breakfast</div></td>
+                  <td>Dr. Lisa Chang, MD<div style="font-size:0.75rem; color:var(--text-muted);">DEA: #LC-990412 • NPI: 1049281729</div></td>
+                  <td><span class="badge badge-pending" id="badge-88204"><i class="fa-solid fa-clock"></i> Pending Review</span></td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-primary btn-xs" onclick="adminApproveRx('rxRow-88204', 'RX-88204')">
+                        <i class="fa-solid fa-check"></i> Approve
+                      </button>
+                      <button class="btn btn-secondary btn-xs" onclick="inspectAdminRx('RX-88204', 'Elena Rostova', 'Levothyroxine 50mcg', 'Dr. Lisa Chang, MD')">
+                        <i class="fa-solid fa-eye"></i> Inspect
+                      </button>
+                      <button class="btn btn-outline btn-xs" style="color:#EF4444;" onclick="openRejectReasonModal('RX-88204')">
+                        <i class="fa-solid fa-xmark"></i> Reject
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr data-rx-status="pending" id="rxRow-88201">
+                  <td><strong>#RX-88201</strong></td>
+                  <td>Eleanor Vance<div style="font-size:0.75rem; color:var(--text-muted);">DOB: 06/14/1988 • Allergy: Penicillin</div></td>
+                  <td><strong>Atorvastatin Calcium 20mg</strong> (#30)<div style="font-size:0.75rem; color:var(--text-muted);">Sig: 1 tab daily at bedtime</div></td>
+                  <td>Dr. Arthur Bennett, MD<div style="font-size:0.75rem; color:var(--text-muted);">DEA: #AB-904128 • NPI: 1982736450</div></td>
+                  <td><span class="badge badge-pending" id="badge-88201"><i class="fa-solid fa-clock"></i> Pending Review</span></td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-primary btn-xs" onclick="adminApproveRx('rxRow-88201', 'RX-88201')">
+                        <i class="fa-solid fa-check"></i> Approve
+                      </button>
+                      <button class="btn btn-secondary btn-xs" onclick="inspectAdminRx('RX-88201', 'Eleanor Vance', 'Atorvastatin 20mg', 'Dr. Arthur Bennett, MD')">
+                        <i class="fa-solid fa-eye"></i> Inspect
+                      </button>
+                      <button class="btn btn-outline btn-xs" style="color:#EF4444;" onclick="openRejectReasonModal('RX-88201')">
+                        <i class="fa-solid fa-xmark"></i> Reject
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr data-rx-status="approved" id="rxRow-88194">
+                  <td><strong>#RX-88194</strong></td>
+                  <td>Eleanor Vance<div style="font-size:0.75rem; color:var(--text-muted);">DOB: 06/14/1988 • Type 2 Diabetes</div></td>
+                  <td><strong>Metformin HCl 500mg ER</strong> (#60)<div style="font-size:0.75rem; color:var(--text-muted);">Sig: 1 tab twice daily with meals</div></td>
+                  <td>Dr. Evelyn Thorne, MD<div style="font-size:0.75rem; color:var(--text-muted);">DEA: #ET-330192 • NPI: 1849201948</div></td>
+                  <td><span class="badge badge-approved"><i class="fa-solid fa-check"></i> Verified &amp; Approved</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-xs" onclick="inspectAdminRx('RX-88194', 'Eleanor Vance', 'Metformin HCl 500mg ER', 'Dr. Evelyn Thorne, MD')">
+                      <i class="fa-solid fa-eye"></i> View Slip
+                    </button>
+                  </td>
+                </tr>
+
+                <tr data-rx-status="clarification" id="rxRow-87910">
+                  <td><strong>#RX-87910</strong></td>
+                  <td>Marcus Brody<div style="font-size:0.75rem; color:var(--text-muted);">DOB: 09/24/1963</div></td>
+                  <td><strong>Amoxicillin 875mg</strong> (#20)<div style="font-size:0.75rem; color:var(--text-muted);">Sig: 1 tab every 12 hours</div></td>
+                  <td>Dr. Julian Ramos, MD<div style="font-size:0.75rem; color:var(--text-muted);">DEA: #JR-110293 • NPI: 1204928172</div></td>
+                  <td><span class="badge badge-clarification"><i class="fa-solid fa-triangle-exclamation"></i> Clarification Needed</span></td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-secondary btn-xs" onclick="inspectAdminRx('RX-87910', 'Marcus Brody', 'Amoxicillin 875mg', 'Dr. Julian Ramos, MD')">
+                        <i class="fa-solid fa-eye"></i> View Notes
+                      </button>
+                      <button class="btn btn-primary btn-xs" onclick="adminApproveRx('rxRow-87910', 'RX-87910')">
+                        <i class="fa-solid fa-check"></i> Overrule &amp; Approve
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- =========================================================================
+           TAB 4: PRODUCTS & CATEGORIES
+           ========================================================================= -->
+      <section class="dash-tab-pane" id="pane-admin-products">
+        
+        <div class="dash-page-header">
+          <div>
+            <h2 class="dash-page-header-title">Medicine Catalog &amp; Inventory</h2>
+            <p class="dash-page-header-sub">Manage therapeutics, formulation types, cold-chain parameters, prices, stock levels, and Rx-required flags.</p>
+          </div>
+          <div>
+            <button class="btn btn-primary btn-sm" onclick="openAddMedicineModal()">
+              <i class="fa-solid fa-plus"></i> + Add New Medicine SKU
+            </button>
+          </div>
+        </div>
+
+        <!-- Inventory Filter Toolbar -->
+        <div class="dash-toolbar-flex">
+          <div style="display:flex; gap:10px; align-items:center; flex:1; max-width:400px;">
+            <input type="text" class="form-control" id="adminProductSearch" placeholder="Search product name, active ingredient, brand..." onkeyup="filterAdminProductsTable()" style="padding:8px 12px; font-size:0.86rem;">
+          </div>
+          <div class="dash-filter-inputs">
+            <select class="dash-status-select" id="adminCategoryFilter" onchange="filterAdminProductsTable()">
+              <option value="all">All Therapeutic Categories</option>
+              <option value="Prescription Rx">Prescription Rx</option>
+              <option value="OTC">Over-the-Counter</option>
+              <option value="Vitamins">Vitamins &amp; Supplements</option>
+              <option value="Devices">Medical Devices</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Products Table -->
+        <div class="dash-card">
+          <div class="dash-table-wrap">
+            <table class="dash-table" id="adminProductsTable">
+              <thead>
+                <tr>
+                  <th>Product Name &amp; SKU</th>
+                  <th>Category</th>
+                  <th>Unit Price</th>
+                  <th>Stock Level</th>
+                  <th>Rx Requirement</th>
+                  <th>Storage Spec</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-category="Prescription Rx">
+                  <td>
+                    <strong>Lipitor (Atorvastatin) 20mg</strong>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">SKU: #RX-LIP-20 • Pfizer</div>
+                  </td>
+                  <td>Prescription Rx</td>
+                  <td><strong>$38.50</strong></td>
+                  <td><span class="badge badge-approved">In Stock (184 units)</span></td>
+                  <td><span class="badge badge-rx"><i class="fa-solid fa-prescription"></i> Rx Required</span></td>
+                  <td><span class="badge badge-coldchain"><i class="fa-solid fa-snowflake"></i> 2°C – 8°C</span></td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-secondary btn-xs" onclick="window.PharmaApp.showToast('Edit medicine dialog opened', 'info')"><i class="fa-solid fa-pen"></i></button>
+                      <button class="btn btn-outline btn-xs" onclick="toggleStockDemo(this)">Stock</button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr data-category="Prescription Rx">
+                  <td>
+                    <strong>Metformin HCl 500mg ER</strong>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">SKU: #RX-MET-500 • Teva</div>
+                  </td>
+                  <td>Prescription Rx</td>
+                  <td><strong>$18.50</strong></td>
+                  <td><span class="badge badge-approved">In Stock (420 units)</span></td>
+                  <td><span class="badge badge-rx"><i class="fa-solid fa-prescription"></i> Rx Required</span></td>
+                  <td><span>Ambient (15°C–25°C)</span></td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-secondary btn-xs" onclick="window.PharmaApp.showToast('Edit medicine dialog opened', 'info')"><i class="fa-solid fa-pen"></i></button>
+                      <button class="btn btn-outline btn-xs" onclick="toggleStockDemo(this)">Stock</button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr data-category="Prescription Rx">
+                  <td>
+                    <strong>Ventolin HFA (Albuterol) 90mcg</strong>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">SKU: #RX-ALB-90 • GSK</div>
+                  </td>
+                  <td>Prescription Rx</td>
+                  <td><strong>$45.00</strong></td>
+                  <td><span class="badge badge-pending">Low Stock (8 units)</span></td>
+                  <td><span class="badge badge-rx"><i class="fa-solid fa-prescription"></i> Rx Required</span></td>
+                  <td><span>Ambient (15°C–25°C)</span></td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-secondary btn-xs" onclick="window.PharmaApp.showToast('Edit medicine dialog opened', 'info')"><i class="fa-solid fa-pen"></i></button>
+                      <button class="btn btn-outline btn-xs" onclick="toggleStockDemo(this)">Stock</button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr data-category="Vitamins">
+                  <td>
+                    <strong>Nature's Blend Vitamin D3 5000 IU</strong>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">SKU: #OTC-VIT-D5K • Nature Made</div>
+                  </td>
+                  <td>Vitamins</td>
+                  <td><strong>$15.70</strong></td>
+                  <td><span class="badge badge-approved">In Stock (310 units)</span></td>
+                  <td><span class="badge badge-otc"><i class="fa-solid fa-circle-check"></i> OTC Direct</span></td>
+                  <td><span>Ambient (15°C–25°C)</span></td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-secondary btn-xs" onclick="window.PharmaApp.showToast('Edit medicine dialog opened', 'info')"><i class="fa-solid fa-pen"></i></button>
+                      <button class="btn btn-outline btn-xs" onclick="toggleStockDemo(this)">Stock</button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr data-category="OTC">
+                  <td>
+                    <strong>Tylenol Extra Strength 500mg</strong>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">SKU: #OTC-TYL-500 • J&amp;J</div>
+                  </td>
+                  <td>OTC</td>
+                  <td><strong>$11.99</strong></td>
+                  <td><span class="badge badge-approved">In Stock (500 units)</span></td>
+                  <td><span class="badge badge-otc"><i class="fa-solid fa-circle-check"></i> OTC Direct</span></td>
+                  <td><span>Ambient (15°C–25°C)</span></td>
+                  <td>
+                    <div style="display:flex; gap:6px;">
+                      <button class="btn btn-secondary btn-xs" onclick="window.PharmaApp.showToast('Edit medicine dialog opened', 'info')"><i class="fa-solid fa-pen"></i></button>
+                      <button class="btn btn-outline btn-xs" onclick="toggleStockDemo(this)">Stock</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- =========================================================================
+           TAB 5: CUSTOMERS & PATIENT DIRECTORY
+           ========================================================================= -->
+      <section class="dash-tab-pane" id="pane-admin-customers">
+        
+        <div class="dash-page-header">
+          <div>
+            <h2 class="dash-page-header-title">Registered Patients &amp; Customer Accounts</h2>
+            <p class="dash-page-header-sub">View patient medical records, verify uploaded identification, and monitor lifetime dispensing totals.</p>
+          </div>
+          <div>
+            <span class="badge badge-approved" style="font-size:0.85rem; padding:6px 14px;">
+              <i class="fa-solid fa-lock"></i> HIPAA Certified Encrypted Directory
+            </span>
+          </div>
+        </div>
+
+        <!-- Privacy Shield Banner -->
+        <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:var(--radius-lg); padding:16px 20px; margin-bottom:24px; display:flex; align-items:center; gap:16px; color:#1E40AF;">
+          <i class="fa-solid fa-shield-halved" style="font-size:1.4rem;"></i>
+          <span style="font-size:0.85rem; line-height:1.5;">
+            <strong>Sensitive Health Information (PHI):</strong> In accordance with federal privacy regulations, patient contact data is masked and accessible exclusively to licensed clinical personnel.
+          </span>
+        </div>
+
+        <!-- Patients Table -->
+        <div class="dash-card">
+          <div class="dash-table-wrap">
+            <table class="dash-table">
+              <thead>
+                <tr>
+                  <th>Patient ID</th>
+                  <th>Full Name</th>
+                  <th>Contact Email / Phone</th>
+                  <th>Active Prescriptions</th>
+                  <th>Total Orders</th>
+                  <th>Patient Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>#PT-90412</strong></td>
+                  <td><strong>Eleanor Vance</strong><div style="font-size:0.75rem; color:var(--text-muted);">DOB: 06/14/1988</div></td>
+                  <td>eleanor.v***@example.com<div style="font-size:0.75rem; color:var(--text-muted);">(555) 234-••••</div></td>
+                  <td>3 Prescriptions</td>
+                  <td>14 Orders ($482.10)</td>
+                  <td><span class="badge badge-approved"><i class="fa-solid fa-check"></i> Identity Verified</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-xs" onclick="viewPatientProfileModal('PT-90412', 'Eleanor Vance', 'Penicillin allergy', 'Type 2 Diabetes, Hyperlipidemia')">
+                      <i class="fa-solid fa-id-card-clip"></i> Clinical Chart
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong>#PT-90411</strong></td>
+                  <td><strong>Robert Chen</strong><div style="font-size:0.75rem; color:var(--text-muted);">DOB: 11/04/1975</div></td>
+                  <td>r.chen***@gmail.com<div style="font-size:0.75rem; color:var(--text-muted);">(555) 890-••••</div></td>
+                  <td>1 Prescription</td>
+                  <td>6 Orders ($210.40)</td>
+                  <td><span class="badge badge-approved"><i class="fa-solid fa-check"></i> Identity Verified</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-xs" onclick="viewPatientProfileModal('PT-90411', 'Robert Chen', 'None recorded', 'Cardiovascular preventative')">
+                      <i class="fa-solid fa-id-card-clip"></i> Clinical Chart
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong>#PT-90398</strong></td>
+                  <td><strong>Elena Rostova</strong><div style="font-size:0.75rem; color:var(--text-muted);">DOB: 03/19/1982</div></td>
+                  <td>elena.r***@outlook.com<div style="font-size:0.75rem; color:var(--text-muted);">(555) 412-••••</div></td>
+                  <td>2 Prescriptions</td>
+                  <td>9 Orders ($328.00)</td>
+                  <td><span class="badge badge-approved"><i class="fa-solid fa-check"></i> Identity Verified</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-xs" onclick="viewPatientProfileModal('PT-90398', 'Elena Rostova', 'Sulfa drugs', 'Hypothyroidism')">
+                      <i class="fa-solid fa-id-card-clip"></i> Clinical Chart
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong>#PT-90280</strong></td>
+                  <td><strong>David Sterling</strong><div style="font-size:0.75rem; color:var(--text-muted);">DOB: 08/12/1959</div></td>
+                  <td>d.sterling***@yahoo.com<div style="font-size:0.75rem; color:var(--text-muted);">(555) 301-••••</div></td>
+                  <td>4 Prescriptions</td>
+                  <td>22 Orders ($790.50)</td>
+                  <td><span class="badge badge-approved"><i class="fa-solid fa-check"></i> Identity Verified</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-xs" onclick="viewPatientProfileModal('PT-90280', 'David Sterling', 'Aspirin allergy', 'Hypertension')">
+                      <i class="fa-solid fa-id-card-clip"></i> Clinical Chart
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- =========================================================================
+           TAB 6: DELIVERIES & FLEET TRACKING
+           ========================================================================= -->
+      <section class="dash-tab-pane" id="pane-admin-deliveries">
+        
+        <div class="dash-page-header">
+          <div>
+            <h2 class="dash-page-header-title">Deliveries &amp; Cold-Chain Fleet Telemetry</h2>
+            <p class="dash-page-header-sub">Live IoT GPS monitoring for insulated refrigerated medicine vehicles and express couriers.</p>
+          </div>
+          <div>
+            <span class="badge badge-coldchain" style="font-size:0.85rem; padding:6px 14px;">
+              <i class="fa-solid fa-snowflake"></i> 6 Fleet Vans Active • 0 Breaches
+            </span>
+          </div>
+        </div>
+
+        <!-- Fleet Grid Cards -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom:28px;">
+          
+          <div class="dash-card" style="margin-bottom:0; border-top:4px solid #10B981;">
+            <div class="dash-card-header">
+              <h4 style="margin:0; font-size:1.05rem; color:var(--dark-forest);"><i class="fa-solid fa-van-shuttle"></i> Van #NY-MED-04</h4>
+              <span class="badge badge-coldchain"><i class="fa-solid fa-snowflake"></i> 3.4°C Safe</span>
+            </div>
+            <div class="dash-card-body" style="font-size:0.85rem;">
+              <div>Driver: <strong>Marcus Vance</strong> (Badge #MC-821)</div>
+              <div>Route: Brooklyn Heights &amp; DUMBO (8 Stops remaining)</div>
+              <div style="margin:8px 0; color:var(--text-muted);">Current Stop: 742 Evergreen Terrace (Order #MED-94021)</div>
+              <button class="btn btn-primary btn-xs" style="width:100%; margin-top:8px;" onclick="window.PharmaApp.showToast('Van #NY-MED-04 telemetry pinged: GPS signal verified', 'success')">
+                <i class="fa-solid fa-satellite-dish"></i> Ping Vehicle Telemetry
+              </button>
+            </div>
+          </div>
+
+          <div class="dash-card" style="margin-bottom:0; border-top:4px solid #10B981;">
+            <div class="dash-card-header">
+              <h4 style="margin:0; font-size:1.05rem; color:var(--dark-forest);"><i class="fa-solid fa-van-shuttle"></i> Van #NY-MED-02</h4>
+              <span class="badge badge-coldchain"><i class="fa-solid fa-snowflake"></i> 4.1°C Safe</span>
+            </div>
+            <div class="dash-card-body" style="font-size:0.85rem;">
+              <div>Driver: <strong>Carlos Mendez</strong> (Badge #MC-740)</div>
+              <div>Route: Manhattan Midtown &amp; Upper East (12 Stops remaining)</div>
+              <div style="margin:8px 0; color:var(--text-muted);">Current Stop: 350 5th Avenue (Order #MED-94024)</div>
+              <button class="btn btn-primary btn-xs" style="width:100%; margin-top:8px;" onclick="window.PharmaApp.showToast('Van #NY-MED-02 telemetry pinged: GPS signal verified', 'success')">
+                <i class="fa-solid fa-satellite-dish"></i> Ping Vehicle Telemetry
+              </button>
+            </div>
+          </div>
+
+          <div class="dash-card" style="margin-bottom:0; border-top:4px solid #10B981;">
+            <div class="dash-card-header">
+              <h4 style="margin:0; font-size:1.05rem; color:var(--dark-forest);"><i class="fa-solid fa-van-shuttle"></i> Van #NY-MED-06</h4>
+              <span class="badge badge-coldchain"><i class="fa-solid fa-snowflake"></i> 3.8°C Safe</span>
+            </div>
+            <div class="dash-card-body" style="font-size:0.85rem;">
+              <div>Driver: <strong>Aisha Taylor</strong> (Badge #MC-912)</div>
+              <div>Route: Queens Long Island City (5 Stops remaining)</div>
+              <div style="margin:8px 0; color:var(--text-muted);">Current Stop: 44-02 23rd St (Order #MED-94018)</div>
+              <button class="btn btn-primary btn-xs" style="width:100%; margin-top:8px;" onclick="window.PharmaApp.showToast('Van #NY-MED-06 telemetry pinged: GPS signal verified', 'success')">
+                <i class="fa-solid fa-satellite-dish"></i> Ping Vehicle Telemetry
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================================================================
+           TAB 7: REFILL REMINDERS MANAGEMENT
+           ========================================================================= -->
+      <section class="dash-tab-pane" id="pane-admin-reminders">
+        
+        <div class="dash-page-header">
+          <div>
+            <h2 class="dash-page-header-title">Automated Refill Reminders Queue</h2>
+            <p class="dash-page-header-sub">Monitor scheduled patient medication refills, trigger automated SMS/email alerts, and prevent medication lapse.</p>
+          </div>
+          <div>
+            <button class="btn btn-primary btn-sm" onclick="triggerBatchRefillAlertsDemo()">
+              <i class="fa-solid fa-paper-plane"></i> Broadcast Due Refill SMS (18)
+            </button>
+          </div>
+        </div>
+
+        <!-- Reminders Table -->
+        <div class="dash-card">
+          <div class="dash-table-wrap">
+            <table class="dash-table">
+              <thead>
+                <tr>
+                  <th>Patient Name</th>
+                  <th>Medication &amp; Dosage</th>
+                  <th>Last Dispensed</th>
+                  <th>Refill Due Date</th>
+                  <th>Notification Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Eleanor Vance</strong></td>
+                  <td>Metformin HCl 500mg ER (#60)</td>
+                  <td>Sep 28, 2026</td>
+                  <td><strong style="color:#DC2626;">Oct 15, 2026 (5d)</strong></td>
+                  <td><span class="badge badge-pending">SMS Alert Scheduled</span></td>
+                  <td>
+                    <button class="btn btn-primary btn-xs" onclick="window.PharmaApp.showToast('SMS Refill reminder sent to Eleanor Vance!', 'success')">
+                      <i class="fa-solid fa-sms"></i> Send SMS Now
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong>Eleanor Vance</strong></td>
+                  <td>Lipitor (Atorvastatin) 20mg (#30)</td>
+                  <td>Sep 24, 2026</td>
+                  <td><strong style="color:#D97706;">Oct 24, 2026 (14d)</strong></td>
+                  <td><span class="badge badge-approved">Queued</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-xs" onclick="window.PharmaApp.showToast('Pre-refill packing slip prepared', 'info')">
+                      <i class="fa-solid fa-box"></i> Stage Refill
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong>David Sterling</strong></td>
+                  <td>Lisinopril 10mg Tablets (#30)</td>
+                  <td>Sep 10, 2026</td>
+                  <td><strong style="color:#DC2626;">Oct 11, 2026 (1d)</strong></td>
+                  <td><span class="badge badge-rejected">Overdue</span></td>
+                  <td>
+                    <button class="btn btn-primary btn-xs" onclick="window.PharmaApp.showToast('Urgent automated call triggered to David Sterling', 'success')">
+                      <i class="fa-solid fa-phone"></i> Call Patient
+                    </button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong>Elena Rostova</strong></td>
+                  <td>Levothyroxine 50mcg (#90)</td>
+                  <td>Jul 18, 2026</td>
+                  <td><strong>Oct 18, 2026 (8d)</strong></td>
+                  <td><span class="badge badge-pending">Email Sent</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-xs" onclick="window.PharmaApp.showToast('Email reminder re-sent', 'info')">
+                      <i class="fa-solid fa-envelope"></i> Resend Email
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- =========================================================================
+           TAB 8: REPORTS & ANALYTICS
+           ========================================================================= -->
+      <section class="dash-tab-pane" id="pane-admin-reports">
+        
+        <div class="dash-page-header">
+          <div>
+            <h2 class="dash-page-header-title">Reports &amp; Dispensary Analytics</h2>
+            <p class="dash-page-header-sub">Operational efficiency metrics, average pharmacist turnaround times, and DEA audit summaries.</p>
+          </div>
+          <div>
+            <button class="btn btn-primary btn-sm" onclick="exportCsvDemo('Monthly_Financial_Dispensary_Report')">
+              <i class="fa-solid fa-download"></i> Export Full Analytics CSV
+            </button>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:18px; margin-bottom:28px;">
+          
+          <div class="dash-kpi-card">
+            <div class="dash-kpi-info">
+              <div class="dash-kpi-value">$128,450</div>
+              <div class="dash-kpi-label">Monthly Gross Revenue</div>
+              <div class="dash-kpi-tag" style="background:#D1FAE5; color:#065F46;">+18.2% vs last month</div>
+            </div>
+          </div>
+
+          <div class="dash-kpi-card">
+            <div class="dash-kpi-info">
+              <div class="dash-kpi-value">8.4 Mins</div>
+              <div class="dash-kpi-label">Average Rx Review Speed</div>
+              <div class="dash-kpi-tag" style="background:#D1FAE5; color:#065F46;">Target &lt; 15 mins</div>
+            </div>
+          </div>
+
+          <div class="dash-kpi-card">
+            <div class="dash-kpi-info">
+              <div class="dash-kpi-value">99.8%</div>
+              <div class="dash-kpi-label">Cold-Chain Temp Compliance</div>
+              <div class="dash-kpi-tag" style="background:#D1FAE5; color:#065F46;">Zero Breaches</div>
+            </div>
+          </div>
+
+          <div class="dash-kpi-card">
+            <div class="dash-kpi-info">
+              <div class="dash-kpi-value">88.4%</div>
+              <div class="dash-kpi-label">Patient Refill Retention</div>
+              <div class="dash-kpi-tag" style="background:#D1FAE5; color:#065F46;">High Adherence</div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================================================================
+           TAB 9: DISPENSARY SETTINGS
+           ========================================================================= -->
+      <section class="dash-tab-pane" id="pane-admin-settings">
+        
+        <div class="dash-page-header">
+          <div>
+            <h2 class="dash-page-header-title">Dispensary Operations &amp; Board Licensure</h2>
+            <p class="dash-page-header-sub">Configure regulatory identifiers, cold-chain alert thresholds, operating shifts, and notification templates.</p>
+          </div>
+        </div>
+
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3 class="dash-card-title"><i class="fa-solid fa-stamp"></i> Regulatory Identifiers</h3>
+          </div>
+          <div class="dash-card-body">
+            <form onsubmit="saveAdminSettingsDemo(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>State Board of Pharmacy License #</label>
+                  <input type="text" class="form-control" value="NY-PHARM-88204" required>
+                </div>
+                <div class="form-group">
+                  <label>Federal DEA Registration #</label>
+                  <input type="text" class="form-control" value="FB-9402188" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Supervising Pharmacist in Charge (PIC)</label>
+                  <input type="text" class="form-control" value="Dr. Sarah Jenkins, PharmD (ID #PH-492)" required>
+                </div>
+                <div class="form-group">
+                  <label>Dispensary Hotline</label>
+                  <input type="text" class="form-control" value="(800) 555-0199" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Cold-Chain Min Temp Alert Threshold</label>
+                  <input type="number" step="0.1" class="form-control" value="2.0" required>
+                </div>
+                <div class="form-group">
+                  <label>Cold-Chain Max Temp Alert Threshold</label>
+                  <input type="number" step="0.1" class="form-control" value="8.0" required>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-sm" style="margin-top:12px;">
+                <i class="fa-solid fa-floppy-disk"></i> Save Dispensary Settings
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- =========================================================================
+       ADMIN MODALS
+       ========================================================================= -->
+
+  <!-- 1. ADMIN RX INSPECTION MODAL -->
+  <div class="modal-backdrop" id="adminRxInspectModal">
+    <div class="modal-card" style="max-width:680px;">
+      <div class="modal-header">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <i class="fa-solid fa-file-medical" style="color:var(--primary-green); font-size:1.3rem;"></i>
+          <h3 id="adminRxModalTitle">Clinical Prescription Inspection</h3>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="window.PharmaApp.closeModal('adminRxInspectModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="rx-doc-preview-card">
+          <div style="display:flex; justify-content:space-between; border-bottom:2px solid #087653; padding-bottom:12px; margin-bottom:16px;">
+            <div>
+              <h4 style="margin:0; font-size:1.15rem; color:var(--dark-forest);" id="adminInspectDoctor">Dr. Arthur Bennett, MD</h4>
+              <div style="font-size:0.78rem; color:var(--text-secondary);">State Board Verified Physician</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">DEA Reg: Verified Active • Clinic: New York Medical Pavilion</div>
+            </div>
+            <div style="text-align:right;">
+              <span style="font-size:2.4rem; color:var(--primary-green); font-family:serif; font-weight:bold; line-height:1;">℞</span>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Verified Rx</div>
+            </div>
+          </div>
+
+          <div style="background:#F8FAF9; padding:10px 14px; border-radius:4px; font-size:0.84rem; margin-bottom:16px; border:1px solid #E2E8F0;">
+            <div><strong>Patient Name:</strong> <span id="adminInspectPatient">Eleanor Vance</span></div>
+            <div><strong>Verified Medication:</strong> <span id="adminInspectMed">Atorvastatin Calcium 20mg</span></div>
+          </div>
+
+          <div style="padding:10px 0; font-size:0.92rem; line-height:1.6; color:var(--dark-forest);">
+            <strong>Dosage &amp; Sig:</strong> Take 1 tablet daily at bedtime. 3 refills authorized.<br>
+            <strong>Drug-Allergy Screen:</strong> Checked against patient chart. No contraindications.
+          </div>
+
+          <div style="margin-top:20px; padding-top:12px; border-top:1px dashed #CBD5E1; display:flex; justify-content:space-between; align-items:center;">
+            <span class="badge badge-approved"><i class="fa-solid fa-certificate"></i> Verified Doctor Signature Present</span>
+            <span style="font-size:0.75rem; color:var(--text-muted);">Audit ID: #AUD-RX-94021</span>
+          </div>
+        </div>
+
+        <div style="margin-top:20px; display:flex; justify-content:flex-end; gap:10px;">
+          <button type="button" class="btn btn-outline btn-sm" onclick="window.PharmaApp.closeModal('adminRxInspectModal')">Close</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="approveFromModal()">
+            <i class="fa-solid fa-check"></i> Authorize &amp; Approve
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. REJECT REASON MODAL -->
+  <div class="modal-backdrop" id="rejectReasonModal">
+    <div class="modal-card" style="max-width:480px;">
+      <div class="modal-header">
+        <h3 style="color:#DC2626;"><i class="fa-solid fa-triangle-exclamation"></i> Prescription Clarification / Rejection</h3>
+        <button type="button" class="modal-close-btn" onclick="window.PharmaApp.closeModal('rejectReasonModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="submitRejectReasonDemo(event)">
+          <div class="form-group">
+            <label>Clinical Reason for Rejection</label>
+            <select class="form-control" id="rejectReasonSelect" required>
+              <option value="expired">Prescription document is past statutory validity date</option>
+              <option value="dea_illegible">Physician DEA or NPI number is illegible</option>
+              <option value="dosage_unclear">Dosage or administration instructions unclear</option>
+              <option value="allergy_contraindicated">Contraindicated with patient allergy profile</option>
+              <option value="refills_exhausted">Authorized refills on script are exhausted</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Pharmacist Advisory Note to Patient</label>
+            <textarea class="form-control" id="rejectReasonNotes" placeholder="Provide note for prescribing physician or patient..." style="min-height:75px;"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm" style="background:#DC2626; border-color:#DC2626; width:100%;">
+            Confirm Rejection &amp; Notify Patient
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ADD MEDICINE MODAL -->
+  <div class="modal-backdrop" id="addMedicineModal">
+    <div class="modal-card" style="max-width:540px;">
+      <div class="modal-header">
+        <h3>+ Add New Medicine Product</h3>
+        <button type="button" class="modal-close-btn" onclick="window.PharmaApp.closeModal('addMedicineModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="saveNewMedicineDemo(event)">
+          <div class="form-group">
+            <label>Medicine / Product Name</label>
+            <input type="text" class="form-control" id="newMedName" placeholder="e.g., Amoxicillin 500mg" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>SKU Code</label>
+              <input type="text" class="form-control" id="newMedSku" placeholder="e.g., #RX-AMX-500" required>
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <select class="form-control" id="newMedCat">
+                <option value="Prescription Rx">Prescription Rx</option>
+                <option value="OTC">Over-the-Counter</option>
+                <option value="Vitamins">Vitamins &amp; Supplements</option>
+                <option value="Devices">Medical Devices</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Price ($)</label>
+              <input type="number" step="0.01" class="form-control" id="newMedPrice" placeholder="24.99" required>
+            </div>
+            <div class="form-group">
+              <label>Initial Stock Qty</label>
+              <input type="number" class="form-control" id="newMedStock" placeholder="100" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+              <input type="checkbox" id="newMedRxReq" checked style="accent-color:var(--primary-green); width:18px; height:18px;">
+              <span>Requires Doctor Prescription Verification at Checkout</span>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm" style="width:100%; margin-top:10px;">
+            <i class="fa-solid fa-plus"></i> Add Product to Dispensary
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. PATIENT PROFILE MODAL -->
+  <div class="modal-backdrop" id="adminPatientModal">
+    <div class="modal-card" style="max-width:540px;">
+      <div class="modal-header">
+        <h3 id="adminPatientModalTitle">Patient Clinical Profile</h3>
+        <button type="button" class="modal-close-btn" onclick="window.PharmaApp.closeModal('adminPatientModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="background:var(--subtle-gray); padding:16px; border-radius:var(--radius-md); font-size:0.86rem; margin-bottom:16px;">
+          <div><strong>Patient Account:</strong> <span id="patModalId">#PT-90412</span></div>
+          <div><strong>Full Name:</strong> <span id="patModalName">Eleanor Vance</span></div>
+          <div style="margin-top:8px; color:#DC2626; font-weight:700;"><i class="fa-solid fa-triangle-exclamation"></i> Known Allergies: <span id="patModalAllergies">Penicillin</span></div>
+          <div style="margin-top:4px;"><strong>Chronic Conditions:</strong> <span id="patModalConditions">Type 2 Diabetes, Hyperlipidemia</span></div>
+        </div>
+        <div style="display:flex; justify-content:flex-end;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="window.PharmaApp.closeModal('adminPatientModal')">Close Chart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Dispensary Staff Authentication</h3>
+        <button type="button" class="modal-close-btn" onclick="window.PharmaApp.closeModal('authModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="loginForm" onsubmit="event.preventDefault(); window.PharmaApp.showToast('Pharmacist session authenticated', 'success'); window.PharmaApp.closeModal('authModal');">
+          <div class="form-group">
+            <label>Clinical Email / Staff ID</label>
+            <input type="text" class="form-control" value="sarah.jenkins@mediora-rx.com" required>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" value="••••••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; margin-top:8px;">Sign In to Staff Console</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT LIBRARIES -->
+  <script src="js/products-data.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- ADMIN DASHBOARD CONTROLLER SCRIPT -->
+  <script>
+    let activeInspectingRxId = null;
+
+    // Tab Switching Controller
+    function switchAdminTab(tabKey) {
+      document.querySelectorAll('.dash-tab-pane').forEach(pane => pane.classList.remove('active'));
+      document.querySelectorAll('.dash-nav-btn').forEach(btn => btn.classList.remove('active'));
+
+      const targetPane = document.getElementById(`pane-admin-${tabKey}`);
+      if (targetPane) targetPane.classList.add('active');
+
+      const targetNav = document.getElementById(`nav-${tabKey}`);
+      if (targetNav) targetNav.classList.add('active');
+
+      const breadcrumb = document.getElementById('adminBreadcrumbCurrent');
+      if (breadcrumb) {
+        const titleMap = {
+          'overview': 'Dispensary Overview',
+          'orders': 'Orders Management',
+          'prescriptions': 'Prescription Verification',
+          'products': 'Products & Categories',
+          'customers': 'Patient Directory',
+          'deliveries': 'Fleet & Deliveries',
+          'reminders': 'Refill Reminders',
+          'reports': 'Reports & Analytics',
+          'settings': 'Dispensary Settings'
+        };
+        breadcrumb.textContent = titleMap[tabKey] || 'Admin Console';
+      }
+
+      const sidebar = document.getElementById('dashboardSidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      if (window.innerWidth <= 1024 && sidebar) {
+        sidebar.classList.remove('mobile-open');
+        if (overlay) overlay.classList.remove('active');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Sidebar Collapsible & Mobile Toggle
+    function toggleSidebar() {
+      const sidebar = document.getElementById('dashboardSidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      if (!sidebar) return;
+
+      if (window.innerWidth <= 1024) {
+        sidebar.classList.toggle('mobile-open');
+        if (overlay) overlay.classList.toggle('active');
+      } else {
+        sidebar.classList.toggle('is-collapsed');
+      }
+    }
+
+    // Notifications Popover Toggle
+    function toggleNotifications() {
+      const popover = document.getElementById('dashNotifPopover');
+      if (popover) popover.classList.toggle('active');
+    }
+
+    function clearAdminNotifications() {
+      const badge = document.querySelector('.dash-notification-badge');
+      if (badge) badge.style.display = 'none';
+      const popover = document.getElementById('dashNotifPopover');
+      if (popover) popover.classList.remove('active');
+      window.PharmaApp.showToast('All administrative alerts marked as read', 'info');
+    }
+
+    // Order Fulfillment Status Update
+    function handleOrderStatusChange(orderId, newStatus) {
+      window.PharmaApp.showToast(`Order #${orderId} fulfillment status updated to "${newStatus}"!`, 'success');
+    }
+
+    function viewAdminOrderModal(orderId, patient, total, items) {
+      window.PharmaApp.showToast(`Order details for #${orderId} (${patient} - ${items}): Total ${total}`, 'info');
+    }
+
+    function cancelOrderPrompt(orderId) {
+      if (confirm(`Are you sure you want to cancel Order #${orderId}? Customer will receive a notification and refund.`)) {
+        window.PharmaApp.showToast(`Order #${orderId} cancelled & refund initiated.`, 'info');
+      }
+    }
+
+    // Prescription Verification Workflow
+    function adminApproveRx(rowId, rxId) {
+      const row = document.getElementById(rowId);
+      if (row) {
+        const badge = row.querySelector('.badge');
+        if (badge) {
+          badge.className = 'badge badge-approved';
+          badge.innerHTML = '<i class="fa-solid fa-check"></i> Approved by PharmD';
+        }
+      }
+      window.PharmaApp.showToast(`Prescription #${rxId} verified & approved! Sent to fulfillment stage.`, 'success');
+    }
+
+    function inspectAdminRx(rxId, patient, med, doctor) {
+      activeInspectingRxId = rxId;
+      document.getElementById('adminRxModalTitle').textContent = `Prescription Inspection #${rxId}`;
+      document.getElementById('adminInspectPatient').textContent = patient;
+      document.getElementById('adminInspectMed').textContent = med;
+      document.getElementById('adminInspectDoctor').textContent = doctor;
+      const modal = document.getElementById('adminRxInspectModal');
+      if (modal) modal.classList.add('active');
+    }
+
+    function approveFromModal() {
+      window.PharmaApp.closeModal('adminRxInspectModal');
+      if (activeInspectingRxId) {
+        adminApproveRx(`rxRow-${activeInspectingRxId.replace('RX-', '')}`, activeInspectingRxId);
+      }
+    }
+
+    function openRejectReasonModal(rxId) {
+      activeInspectingRxId = rxId;
+      const modal = document.getElementById('rejectReasonModal');
+      if (modal) modal.classList.add('active');
+    }
+
+    function submitRejectReasonDemo(e) {
+      e.preventDefault();
+      const reason = document.getElementById('rejectReasonSelect').value;
+      window.PharmaApp.closeModal('rejectReasonModal');
+      
+      if (activeInspectingRxId) {
+        const row = document.getElementById(`rxRow-${activeInspectingRxId.replace('RX-', '')}`);
+        if (row) {
+          const badge = row.querySelector('.badge');
+          if (badge) {
+            badge.className = 'badge badge-rejected';
+            badge.innerHTML = '<i class="fa-solid fa-xmark"></i> Rejected';
+          }
+        }
+      }
+      window.PharmaApp.showToast(`Prescription rejected: "${reason}". Patient advised.`, 'warning');
+    }
+
+    function filterRxStatus(status, btn) {
+      const buttons = btn.parentElement.querySelectorAll('button');
+      buttons.forEach(b => {
+        b.classList.remove('active', 'btn-primary');
+        b.classList.add('btn-outline');
+      });
+      btn.classList.add('active', 'btn-primary');
+      btn.classList.remove('btn-outline');
+
+      const rows = document.querySelectorAll('#adminRxTable tbody tr');
+      rows.forEach(r => {
+        const s = r.getAttribute('data-rx-status');
+        if (status === 'all' || s === status) {
+          r.style.display = '';
+        } else {
+          r.style.display = 'none';
+        }
+      });
+    }
+
+    // Add Medicine Modal
+    function openAddMedicineModal() {
+      document.getElementById('newMedName').value = '';
+      document.getElementById('newMedSku').value = '';
+      document.getElementById('newMedPrice').value = '';
+      document.getElementById('newMedStock').value = '';
+      const modal = document.getElementById('addMedicineModal');
+      if (modal) modal.classList.add('active');
+    }
+
+    function saveNewMedicineDemo(e) {
+      e.preventDefault();
+      const name = document.getElementById('newMedName').value;
+      const sku = document.getElementById('newMedSku').value;
+      const cat = document.getElementById('newMedCat').value;
+      const price = parseFloat(document.getElementById('newMedPrice').value).toFixed(2);
+      const stock = document.getElementById('newMedStock').value;
+      const isRx = document.getElementById('newMedRxReq').checked;
+
+      const table = document.getElementById('adminProductsTable');
+      if (table) {
+        const tbody = table.querySelector('tbody');
+        const newRow = document.createElement('tr');
+        newRow.setAttribute('data-category', cat);
+        newRow.innerHTML = `
+          <td>
+            <strong>${name}</strong>
+            <div style="font-size:0.75rem; color:var(--text-muted);">SKU: ${sku}</div>
+          </td>
+          <td>${cat}</td>
+          <td><strong>$${price}</strong></td>
+          <td><span class="badge badge-approved">In Stock (${stock} units)</span></td>
+          <td>${isRx ? '<span class="badge badge-rx"><i class="fa-solid fa-prescription"></i> Rx Required</span>' : '<span class="badge badge-otc"><i class="fa-solid fa-circle-check"></i> OTC Direct</span>'}</td>
+          <td><span>Ambient (15°C–25°C)</span></td>
+          <td>
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-secondary btn-xs" onclick="window.PharmaApp.showToast('Edit medicine dialog opened', 'info')"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-outline btn-xs" onclick="toggleStockDemo(this)">Stock</button>
+            </div>
+          </td>
+        `;
+        tbody.insertBefore(newRow, tbody.firstChild);
+      }
+
+      window.PharmaApp.closeModal('addMedicineModal');
+      window.PharmaApp.showToast(`Medicine "${name}" added to catalog inventory!`, 'success');
+    }
+
+    function toggleStockDemo(btn) {
+      const row = btn.closest('tr');
+      const badge = row.querySelector('.badge');
+      if (badge.textContent.includes('In Stock')) {
+        badge.className = 'badge badge-rejected';
+        badge.textContent = 'Out of Stock (0)';
+        window.PharmaApp.showToast('Stock toggled to: Out of Stock', 'warning');
+      } else {
+        badge.className = 'badge badge-approved';
+        badge.textContent = 'In Stock (100 units)';
+        window.PharmaApp.showToast('Stock toggled to: In Stock', 'success');
+      }
+    }
+
+    // View Patient Profile Modal
+    function viewPatientProfileModal(patId, name, allergies, conditions) {
+      document.getElementById('patModalId').textContent = patId;
+      document.getElementById('patModalName').textContent = name;
+      document.getElementById('patModalAllergies').textContent = allergies;
+      document.getElementById('patModalConditions').textContent = conditions;
+      const modal = document.getElementById('adminPatientModal');
+      if (modal) modal.classList.add('active');
+    }
+
+    // Table Filter Handlers
+    function filterAdminOrdersTable() {
+      const search = document.getElementById('adminOrderSearch').value.toLowerCase();
+      const status = document.getElementById('adminOrderStatusFilter').value;
+      const rows = document.querySelectorAll('#adminOrdersTable tbody tr');
+
+      rows.forEach(r => {
+        const text = r.textContent.toLowerCase();
+        const rowStatus = r.getAttribute('data-status');
+        const matchesSearch = text.includes(search);
+        const matchesStatus = status === 'all' || rowStatus === status;
+
+        r.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
+      });
+    }
+
+    function resetAdminOrderFilters() {
+      document.getElementById('adminOrderSearch').value = '';
+      document.getElementById('adminOrderStatusFilter').value = 'all';
+      filterAdminOrdersTable();
+    }
+
+    function filterAdminProductsTable() {
+      const search = document.getElementById('adminProductSearch').value.toLowerCase();
+      const cat = document.getElementById('adminCategoryFilter').value;
+      const rows = document.querySelectorAll('#adminProductsTable tbody tr');
+
+      rows.forEach(r => {
+        const text = r.textContent.toLowerCase();
+        const rowCat = r.getAttribute('data-category');
+        const matchesSearch = text.includes(search);
+        const matchesCat = cat === 'all' || rowCat === cat;
+
+        r.style.display = (matchesSearch && matchesCat) ? '' : 'none';
+      });
+    }
+
+    function triggerBatchRefillAlertsDemo() {
+      window.PharmaApp.showToast('18 automated SMS refill alerts transmitted to active patients!', 'success');
+    }
+
+    function exportCsvDemo(filename) {
+      window.PharmaApp.showToast(`Export generated: ${filename}.csv downloaded.`, 'success');
+    }
+
+    function saveAdminSettingsDemo(e) {
+      e.preventDefault();
+      window.PharmaApp.showToast('Dispensary regulatory settings and thresholds saved!', 'success');
+    }
+
+    // Close notifications popover on click outside
+    document.addEventListener('click', (e) => {
+      const wrapper = document.querySelector('.dash-notification-wrapper');
+      const popover = document.getElementById('dashNotifPopover');
+      if (wrapper && popover && !wrapper.contains(e.target)) {
+        popover.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>
