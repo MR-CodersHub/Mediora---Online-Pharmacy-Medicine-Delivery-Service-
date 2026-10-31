@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 52" width="230" height="52">
+  <defs>
+    <linearGradient id="medioraBgWhite" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="60%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="medioraMintWhite" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6EE7B7"/>
+      <stop offset="100%" stop-color="#34D399"/>
+    </linearGradient>
+    <linearGradient id="medioraGlowWhite" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.05"/>
+    </linearGradient>
+    <filter id="softGlowWhite" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Emblem Icon -->
+  <g transform="translate(3, 4)" filter="url(#softGlowWhite)">
+    <!-- Base Squircle -->
+    <rect width="44" height="44" rx="12" fill="url(#medioraBgWhite)"/>
+    <!-- Glass Highlight -->
+    <rect x="2" y="2" width="40" height="20" rx="10" fill="url(#medioraGlowWhite)"/>
+    <!-- Inner Border Ring -->
+    <rect x="1" y="1" width="42" height="42" rx="11" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.2"/>
+
+    <!-- Medical Plus Cross -->
+    <rect x="10" y="18.5" width="24" height="7" rx="3.5" fill="#FFFFFF"/>
+    <rect x="18.5" y="10" width="7" height="24" rx="3.5" fill="#FFFFFF"/>
+
+    <!-- Central Mint Jewel -->
+    <circle cx="22" cy="22" r="3" fill="url(#medioraMintWhite)"/>
+
+    <!-- Vitality Leaf Curve (Top Right Accent) -->
+    <path d="M33 9 C36 5, 41 6, 41 10 C41 14, 36 14, 33 9 Z" fill="url(#medioraMintWhite)"/>
+  </g>
+
+  <!-- Wordmark & Tagline (White Theme for Dark Backgrounds) -->
+  <g transform="translate(56, 4)">
+    <!-- Mediora Brand Name -->
+    <text x="0" y="25" font-family="'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="24.5" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">Medi<tspan fill="#34D399">ora</tspan></text>
+    
+    <!-- Accent Vitality Spark / Dot -->
+    <circle cx="94" cy="11.5" r="3" fill="url(#medioraMintWhite)"/>
+    
+    <!-- Subtitle / Tagline -->
+    <text x="0.5" y="38.5" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="8.8" font-weight="700" fill="#A7F3D0" letter-spacing="1.6">HEALTHCARE &amp; PHARMACY</text>
+  </g>
+</svg>
