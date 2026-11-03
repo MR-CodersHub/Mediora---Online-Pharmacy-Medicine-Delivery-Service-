@@ -59,6 +59,7 @@
           <span>24/7 Pharmacist Hotline: <strong>(800) 555-0199</strong></span>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -85,10 +86,13 @@
             <li><a href="blog.html" class="nav-link">Blog</a></li>
             <li><a href="contact.html" class="nav-link">Contact</a></li>
             <li class="nav-item-dropdown">
-              <a href="user-dashboard.html" class="nav-link">Dashboard <i class="fa-solid fa-chevron-down nav-caret"></i></a>
+              <a href="user-dashboard.html" class="nav-link">Dashboard <i
+                  class="fa-solid fa-chevron-down nav-caret"></i></a>
               <div class="nav-dropdown-menu">
-                <a href="user-dashboard.html" class="nav-dropdown-item"><i class="fa-solid fa-id-card-clip"></i> Patient Dashboard</a>
-                <a href="admin-dashboard.html" class="nav-dropdown-item"><i class="fa-solid fa-shield-halved"></i> Admin Workbench</a>
+                <a href="user-dashboard.html" class="nav-dropdown-item"><i class="fa-solid fa-id-card-clip"></i> Patient
+                  Dashboard</a>
+                <a href="admin-dashboard.html" class="nav-dropdown-item"><i class="fa-solid fa-shield-halved"></i> Admin
+                  Workbench</a>
               </div>
             </li>
           </ul>
@@ -833,10 +837,10 @@
               cleanroom packaging records in our public ledger.</p>
           </div>
         </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
           <input type="text" id="batchVerifyInput" placeholder="Enter Batch Lot # (e.g. LOT-88204-NY)"
-            class="form-control" style="width:260px; background:var(--subtle-gray);">
-          <button type="button" class="btn btn-primary" onclick="verifyMedicineBatch()">
+            class="form-control" style="width:260px; height:46px; background:var(--subtle-gray);">
+          <button type="button" class="btn btn-primary" style="height:46px;" onclick="verifyMedicineBatch()">
             <i class="fa-solid fa-shield-halved"></i> Verify Batch
           </button>
         </div>
@@ -983,11 +987,12 @@
       <h3 style="font-size:1.8rem; margin-bottom:10px;">Stay Informed on Healthcare Updates &amp; Seasonal Offers</h3>
       <p style="max-width:560px; margin:0 auto 24px auto;">Subscribe to get pharmacist
         wellness tips, medication recall alerts, and exclusive 15% discount vouchers for your first OTC order.</p>
-      <form style="display:flex; justify-content:center; gap:10px; max-width:500px; margin:0 auto; flex-wrap:wrap;"
+      <form
+        style="display:flex; justify-content:center; align-items:center; gap:10px; max-width:500px; margin:0 auto; flex-wrap:wrap;"
         onsubmit="event.preventDefault(); window.PharmaApp.showToast('Subscribed to Mediora Wellness Digest!', 'success'); this.reset();">
         <input type="email" placeholder="Enter your email address" required class="form-control"
-          style="flex:1; min-width:240px; padding:12px 18px; border-radius:var(--radius-md); font-size:0.92rem;">
-        <button type="submit" class="btn btn-primary">Subscribe</button>
+          style="flex:1; min-width:240px; height:46px; padding:11px 18px; border-radius:var(--radius-md); font-size:0.92rem;">
+        <button type="submit" class="btn btn-primary" style="height:46px;">Subscribe</button>
       </form>
     </div>
   </section>
